@@ -1,0 +1,123 @@
+$date
+  Wed Oct 18 14:04:24 2023
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$var reg 1 ! shift_lsl $end
+$var reg 1 " shift_lsr $end
+$var reg 1 # shift_asr $end
+$var reg 1 $ shift_ror $end
+$var reg 1 % shift_rrx $end
+$var reg 1 & cin $end
+$var reg 1 ' cout $end
+$var reg 5 ( shift_val[4:0] $end
+$var reg 32 ) din[31:0] $end
+$var reg 32 * dout[31:0] $end
+$var reg 1 + vdd $end
+$var reg 1 , vss $end
+$scope module shift $end
+$var reg 1 - shift_lsl $end
+$var reg 1 . shift_lsr $end
+$var reg 1 / shift_asr $end
+$var reg 1 0 shift_ror $end
+$var reg 1 1 shift_rrx $end
+$var reg 5 2 shift_val[4:0] $end
+$var reg 32 3 din[31:0] $end
+$var reg 1 4 cin $end
+$var reg 32 5 dout[31:0] $end
+$var reg 1 6 cout $end
+$var reg 1 7 vdd $end
+$var reg 1 8 vss $end
+$var reg 32 9 zero[31:0] $end
+$var reg 32 : msb_asr[31:0] $end
+$var reg 1 ; cond_lsl $end
+$var reg 1 < cond_lsr $end
+$var reg 1 = cond_asr $end
+$var reg 1 > cond_ror $end
+$var reg 1 ? cond_rrx $end
+$var reg 32 @ one[31:0] $end
+$var reg 1 A cout_lsl $end
+$var reg 1 B cout_alrsr $end
+$var integer 32 C shift_i $end
+$upscope $end
+$enddefinitions $end
+#0
+1!
+0"
+0#
+0$
+0%
+0&
+1'
+b00100 (
+b10110100111101001011000011010011 )
+b01001111010010110000110100110000 *
+0+
+0,
+1-
+0.
+0/
+00
+01
+b00100 2
+b10110100111101001011000011010011 3
+04
+b01001111010010110000110100110000 5
+16
+07
+08
+b00000000000000000000000000000000 9
+b11111111111111111111111111111111 :
+1;
+0<
+0=
+0>
+0?
+b11111111111111111111111111111111 @
+1A
+0B
+b100 C
+#10000000
+0!
+1"
+0'
+b00001011010011110100101100001101 *
+0-
+1.
+b00001011010011110100101100001101 5
+06
+0;
+1<
+#20000000
+0"
+1#
+b11111011010011110100101100001101 *
+0.
+1/
+b11111011010011110100101100001101 5
+0<
+1=
+#30000000
+0#
+1$
+b00111011010011110100101100001101 *
+0/
+10
+b00111011010011110100101100001101 5
+0=
+1>
+#40000000
+0$
+1%
+b10110100111101001011000011010011 *
+00
+11
+b10110100111101001011000011010011 5
+0>
+#50000000
+0%
+01
