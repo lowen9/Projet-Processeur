@@ -13,7 +13,7 @@ entity Alu is
             n   : out Std_Logic;
             v   : out Std_Logic;
             vdd : in  bit;
-            vss : in  bit); --ololllllllooooo
+            vss : in  bit);
 end Alu;
 
 architecture equ of Alu is
