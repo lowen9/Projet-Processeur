@@ -35,8 +35,6 @@ begin
   cond_ror <= (shift_ror and not(shift_lsl) and not(shift_lsr) and not(shift_asr) and not(shift_rrx)) = '1';
   cond_rrx <= ((shift_rrx and not(shift_lsl) and not(shift_lsr) and not(shift_asr) and not(shift_ror)) = '1' and shift_val = "00000");
 
-
-
   msb_asr <= zero when din(31) = '0' else one;
 
   dout <= din(31-shift_i downto 0)    & zero(shift_i-1 downto 0) when cond_lsl else
@@ -55,7 +53,6 @@ begin
           (cout_alrsr) when cond_ror else
           din(0)       when cond_rrx else
           cin;
-
 
 end behavior;
     
