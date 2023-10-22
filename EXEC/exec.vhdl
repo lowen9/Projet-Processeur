@@ -77,7 +77,12 @@ end EXEC;
 ----------------------------------------------------------------------
 
 architecture struct of EXEC is
+--signaux interne pour l'ALU
 signal mux_op1,mux_op2,res_alu : std_logic_vector(31 downto 0);
+signal cout_alu : std_logic;
+--signaux interne pour le SHIFTER
+signal dout_shift : std_logic_vector(31 downto 0);
+signal cout_shift : std_logic;
 
 signal mem_adr : std_logic_vector(31 downto 0); --sortie du mux entre alu et dec_op1
 
@@ -104,17 +109,30 @@ end component;
 begin
 --  Component instantiation.
 
-	ALU : entity work.ALU(equ) PORT MAP(op1 =>mux_op1    ,
-									    op2 =>mux_op2    , 
-										cin =>dec_alu_cy ,
-										cmd =>dec_alu_cmd,
-										res =>res_alu    ,
-										--cout=>,
-										--z   =>,
-										--n   =>, 
-										--v   =>, 
-										vdd => vdd,
-										vss => vss);
+	ALU : entity work.ALU(equ) PORT MAP(op1 => mux_op1    ,
+									    op2 => mux_op2    , 
+										cin => dec_alu_cy ,
+										cmd => dec_alu_cmd,
+										res => res_alu    ,
+										cout=> cout_alu   ,
+										z   => exe_z      ,
+										n   => exe_n      , 
+										v   => exe_v      , 
+										vdd => vdd        ,
+										vss => vss        );
+
+	SHIFTER : entity work.shifter(behavior) PORT MAP(shift_lsl => dec_shift_lsl,
+													 shift_lsr => dec_shift_lsr,
+													 shift_asr => dec_shift_lsl,
+													 shift_ror => dec_shift_ror,
+													 shift_rrx => dec_shift_rrx,
+													 shift_val => dec_shift_val,
+													 din       => dec_op2      ,
+													 cin       => dec_cy       ,
+													 dout      => dout_shift   ,
+													 cout      => cout_shift   ,
+													 vdd       => vdd          ,
+													 vss       => vss          );
 
 	exec2mem : fifo_72b
 	port map (	din(71)	 => dec_mem_lw,
@@ -135,15 +153,21 @@ begin
 				dout(63 downto 32) => exe_mem_data,
 				dout(31 downto 0)  => exe_mem_adr,
 
-				push => exe_push,
+				--push => exe_push,
 				pop	 => mem_pop,
 
 				empty => exe2mem_empty,
-				full  => exe2mem_full,
+				--full  => exe2mem_full,
 
 				reset_n	=> reset_n,
 				ck		=> ck,
 				vdd		=> vdd,
 				vss		=> vss);
+
+--Implementation des multiplexeurs 
+
+	mux_op1 <= dec_op1 when dec_comp_op1 = '0' else not(dec_op1);
+	mux_op2 <= dec_op2 when dec_comp_op2 = '0' else not(dec_op2);
+
 
 end struct;
