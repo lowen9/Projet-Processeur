@@ -187,6 +187,9 @@ begin
 --Implementation du multiplexeur de pre/post indexation
 	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;
 
+--Gestion interface synchro
+	exe_pop	<= '1' when dec2exe_empty = '0' else '0';
+
 --Gestion de la fifo
 	exe_push <= '1' when exe2mem_full ='0' else '0';
 
