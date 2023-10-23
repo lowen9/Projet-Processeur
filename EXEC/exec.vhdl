@@ -11,14 +11,14 @@ entity EXEC is
 	-- Decode interface operands
 			dec_op1			: in Std_Logic_Vector(31 downto 0); -- first alu input
 			dec_op2			: in Std_Logic_Vector(31 downto 0); -- shifter input
-			dec_exe_dest	: in Std_Logic_Vector(3 downto 0); -- Rd destination
-			dec_exe_wb		: in Std_Logic; -- Rd destination write back
-			dec_flag_wb		: in Std_Logic; -- CSPR modifiy
+			dec_exe_dest	: in Std_Logic_Vector(3 downto 0); -- Rd destination     ????????
+			dec_exe_wb		: in Std_Logic; -- Rd destination write back             Equivalent au ! (??????)
+			dec_flag_wb		: in Std_Logic; -- CSPR modifiy                          Equivalent au S (??????)
 
 	-- Decode to mem interface 
-			dec_mem_data	: in Std_Logic_Vector(31 downto 0); -- data to MEM W
+			dec_mem_data	: in Std_Logic_Vector(31 downto 0); -- data to MEM W     
 			dec_mem_dest	: in Std_Logic_Vector(3 downto 0); -- Destination MEM R
-			dec_pre_index 	: in Std_logic;
+			dec_pre_index 	: in Std_logic;                                        --Calcul de l'index (si dec_pre_index = 1) (????????)
 
 			dec_mem_lw		: in Std_Logic;
 			dec_mem_lb		: in Std_Logic;
@@ -79,12 +79,15 @@ end EXEC;
 architecture struct of EXEC is
 --signaux interne pour l'ALU
 signal mux_op1,mux_op2,res_alu : std_logic_vector(31 downto 0);
-signal cout_alu : std_logic;
+signal v_alu, z_alu, n_alu, cout_alu, cout_alu_wb : std_logic;
 --signaux interne pour le SHIFTER
 signal dout_shift : std_logic_vector(31 downto 0);
-signal cout_shift : std_logic;
-
+signal cout_shift, cout_shift_wb : std_logic;
+--signaux interne pour l'indexation
 signal mem_adr : std_logic_vector(31 downto 0); --sortie du mux entre alu et dec_op1
+--singaux de gestion de la fifo ??????
+signal exe_push, exe2mem_full : std_logic;
+
 
 component fifo_72b
 	port(
@@ -115,9 +118,9 @@ begin
 										cmd => dec_alu_cmd,
 										res => res_alu    ,
 										cout=> cout_alu   ,
-										z   => exe_z      ,
-										n   => exe_n      , 
-										v   => exe_v      , 
+										z   => z_alu      ,
+										n   => n_alu      , 
+										v   => v_alu      , 
 										vdd => vdd        ,
 										vss => vss        );
 
@@ -153,11 +156,11 @@ begin
 				dout(63 downto 32) => exe_mem_data,
 				dout(31 downto 0)  => exe_mem_adr,
 
-				--push => exe_push,
+				push => exe_push,
 				pop	 => mem_pop,
 
 				empty => exe2mem_empty,
-				--full  => exe2mem_full,
+				full  => exe2mem_full,
 
 				reset_n	=> reset_n,
 				ck		=> ck,
@@ -165,9 +168,23 @@ begin
 				vss		=> vss);
 
 --Implementation des multiplexeurs 
+	mux_op1 <= dec_op1    when dec_comp_op1 = '0' else not(dec_op1);
+	mux_op2 <= dout_shift when dec_comp_op2 = '0' else not(dout_shift);
 
-	mux_op1 <= dec_op1 when dec_comp_op1 = '0' else not(dec_op1);
-	mux_op2 <= dec_op2 when dec_comp_op2 = '0' else not(dec_op2);
+--Implementation du Writeback des flags C, V, Z, N
+	exe_v         <= v_alu      when dec_flag_wb = '1' else '0';
+	exe_z         <= z_alu      when dec_flag_wb = '1' else '0';
+	exe_n         <= n_alu      when dec_flag_wb = '1' else '0';
+	cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0';
+	cout_shift_wb <= cout_shift when dec_flag_wb = '1' else '0';
+	
+--Implementation du multiplexeur des cout (ALU ou shifter)
+	exe_c <= cout_alu_wb when dec_alu_cmd = "00" else cout_shift_wb;
 
+--Implementation du multiplexeur de pre/post indexation
+	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;
+
+--Gestion de la fifo
+	exe_push <= '1' when exe2mem_full ='0' else '0';
 
 end struct;
