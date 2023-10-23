@@ -11,7 +11,7 @@ entity EXEC is
 	-- Decode interface operands
 			dec_op1			: in Std_Logic_Vector(31 downto 0); -- first alu input
 			dec_op2			: in Std_Logic_Vector(31 downto 0); -- shifter input
-			dec_exe_dest	: in Std_Logic_Vector(3 downto 0); -- Rd destination     ????????
+			dec_exe_dest	: in Std_Logic_Vector(3 downto 0); -- Rd destination     Pour le !
 			dec_exe_wb		: in Std_Logic; -- Rd destination write back             Equivalent au ! (??????)
 			dec_flag_wb		: in Std_Logic; -- CSPR modifiy                          Equivalent au S (??????)
 
@@ -171,14 +171,17 @@ begin
 	mux_op1 <= dec_op1    when dec_comp_op1 = '0' else not(dec_op1);
 	mux_op2 <= dout_shift when dec_comp_op2 = '0' else not(dout_shift);
 
---Implementation du Writeback des flags C, V, Z, N
-	exe_v         <= v_alu      when dec_flag_wb = '1' else '0';
-	exe_z         <= z_alu      when dec_flag_wb = '1' else '0';
-	exe_n         <= n_alu      when dec_flag_wb = '1' else '0';
-	cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0';
+--Gestion du Writeback de res_alu
+	exe_res <= res_alu when dec_exe_wb = '1' else (others => '0'); --Attention quand exe_res = X"00000000";
+	exe_dest <= dec_exe_dest when dec_exe_wb = '1' else "0000"; --Attention quand exe_dest : R0;
+
+--Gestion du Writeback des flags C, V, Z, N
+	exe_v         <= v_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_v = '0';
+	exe_z         <= z_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_z = '0';
+	exe_n         <= n_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_n = '0';
+	cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0'; --Attention quand exe_c = '0';
 	cout_shift_wb <= cout_shift when dec_flag_wb = '1' else '0';
-	
---Implementation du multiplexeur des cout (ALU ou shifter)
+	--Implementation du multiplexeur du choix des cout (ALU ou shifter)
 	exe_c <= cout_alu_wb when dec_alu_cmd = "00" else cout_shift_wb;
 
 --Implementation du multiplexeur de pre/post indexation
