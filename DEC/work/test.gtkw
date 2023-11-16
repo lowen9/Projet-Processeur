@@ -1,0 +1,53 @@
+[*]
+[*] GTKWave Analyzer v3.3.61 (w)1999-2014 BSI
+[*] Wed Nov 15 19:08:20 2023
+[*]
+[dumpfile] "/users/enseig/owliu/M1SESI/VLSI/PROJET/DEC/work/REG_tb.vcd"
+[dumpfile_mtime] "Wed Nov 15 19:00:03 2023"
+[dumpfile_size] 6062
+[savefile] "/users/enseig/owliu/M1SESI/VLSI/PROJET/DEC/work/test.gtkw"
+[timestart] 2876000
+[size] 1280 987
+[pos] -1 -1
+*-20.375059 2916000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 229
+[signals_width] 154
+[sst_expanded] 1
+[sst_vpaned_height] 274
+@28
+ck
+reset_n
+inval1
+@22
+inval_adr1[3:0]
+@28
+reg.inval2
+@22
+reg.inval_adr2[3:0]
+@28
+wen1
+@22
+wdata1[31:0]
+reg.wadr1[3:0]
+@28
+reg.wen2
+@22
+reg.wdata2[31:0]
+reg.wadr2[3:0]
+radr1[3:0]
+reg_rd1[31:0]
+@28
+reg_v1
+@22
+reg.radr2[3:0]
+reg.reg_rd2[31:0]
+@28
+reg.reg_v2
+@22
+reg.radr3[3:0]
+reg.reg_rd3[31:0]
+@28
+reg.reg_v3
+reg.r_v[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

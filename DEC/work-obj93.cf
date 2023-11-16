@@ -1,0 +1,4 @@
+v 4
+file . "REG.vhdl" "4651039f02c6b99d79584081e9e836ec2b8e732a" "20231115103654.559":
+  entity reg at 1( 0) + 0 on 11;
+  architecture behavior of reg at 69( 1727) + 0 on 12;
