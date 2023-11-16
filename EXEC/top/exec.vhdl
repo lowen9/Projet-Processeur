@@ -79,65 +79,46 @@ end EXEC;
 architecture struct of EXEC is
 --signaux interne pour l'ALU
 signal mux_op1,mux_op2,res_alu : std_logic_vector(31 downto 0);
-signal v_alu, z_alu, n_alu, cout_alu, cout_alu_wb : std_logic;
+signal cout_alu, cout_alu_wb : std_logic;
 --signaux interne pour le SHIFTER
 signal dout_shift : std_logic_vector(31 downto 0);
-signal cout_shift, cout_shift_wb : std_logic;
+signal cout_shift : std_logic;
 --signaux interne pour l'indexation
 signal mem_adr : std_logic_vector(31 downto 0); --sortie du mux entre alu et dec_op1
 --singaux de gestion de la fifo ??????
 signal exe_push, exe2mem_full : std_logic;
 
-
-component fifo_72b
-	port(
-		din		: in std_logic_vector(71 downto 0);
-		dout	: out std_logic_vector(71 downto 0);
-
-		-- commands
-		push	: in std_logic;
-		pop		: in std_logic;
-
-		-- flags
-		full	: out std_logic;
-		empty	: out std_logic;
-
-		reset_n	: in std_logic;
-		ck		: in std_logic;
-		vdd		: in bit;
-		vss		: in bit
-	);
-end component;
-
 begin
 --  Component instantiation.
 
-	ALU : entity work.ALU(equ) PORT MAP(op1 => mux_op1    ,
-									    op2 => mux_op2    , 
-										cin => dec_alu_cy ,
-										cmd => dec_alu_cmd,
-										res => res_alu    ,
-										cout=> cout_alu   ,
-										z   => z_alu      ,
-										n   => n_alu      , 
-										v   => v_alu      , 
-										vdd => vdd        ,
-										vss => vss        );
+	ALU : entity work.ALU(equ) 
+	PORT MAP(op1 => mux_op1    ,
+			 op2 => mux_op2    , 
+			 cin => dec_alu_cy ,
+			 cmd => dec_alu_cmd,
+			 res => res_alu    ,
+			 cout=> cout_alu   ,
+			 z   => exe_z      ,
+			 n   => exe_n      , 
+			 v   => exe_v      , 
+			 vdd => vdd        ,
+			 vss => vss        );
 
-	SHIFTER : entity work.shifter(behavior) PORT MAP(shift_lsl => dec_shift_lsl,
-													 shift_lsr => dec_shift_lsr,
-													 shift_asr => dec_shift_lsl,
-													 shift_ror => dec_shift_ror,
-													 shift_rrx => dec_shift_rrx,
-													 shift_val => dec_shift_val,
-													 din       => dec_op2      ,
-													 cin       => dec_cy       ,
-													 dout      => dout_shift   ,
-													 cout      => cout_shift   ,
-													 vdd       => vdd          ,
-													 vss       => vss          );
+	SHIFTER : entity work.shifter(behavior) 
+	PORT MAP(shift_lsl => dec_shift_lsl,
+			 shift_lsr => dec_shift_lsr,
+			 shift_asr => dec_shift_asr,
+			 shift_ror => dec_shift_ror,
+			 shift_rrx => dec_shift_rrx,
+			 shift_val => dec_shift_val,
+			 din       => dec_op2      ,
+			 cin       => dec_cy       ,
+			 dout      => dout_shift   ,
+			 cout      => cout_shift   ,
+			 vdd       => vdd          ,
+			 vss       => vss          );
 
-	exec2mem : fifo_72b
+	exec2mem : entity work.fifo(dataflow)
 	port map (	din(71)	 => dec_mem_lw,
 				din(70)	 => dec_mem_lb,
 				din(69)	 => dec_mem_sw,
@@ -167,30 +148,33 @@ begin
 				vdd		=> vdd,
 				vss		=> vss);
 
---Implementation des multiplexeurs 
+--Implementation des multiplexeurs de choix des opérandes 
 	mux_op1 <= dec_op1    when dec_comp_op1 = '0' else not(dec_op1);
 	mux_op2 <= dout_shift when dec_comp_op2 = '0' else not(dout_shift);
 
 --Gestion du Writeback de res_alu
-	exe_res <= res_alu when dec_exe_wb = '1' else (others => '0'); --Attention quand exe_res = X"00000000";
-	exe_dest <= dec_exe_dest when dec_exe_wb = '1' else "0000"; --Attention quand exe_dest : R0;
+	exe_wb   <= dec_exe_wb  ;
+	exe_res  <= res_alu     ; --Attention quand exe_res = X"00000000";
+	exe_dest <= dec_exe_dest; --Attention quand exe_dest : R0;
 
 --Gestion du Writeback des flags C, V, Z, N
-	exe_v         <= v_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_v = '0';
-	exe_z         <= z_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_z = '0';
-	exe_n         <= n_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_n = '0';
-	cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0'; --Attention quand exe_c = '0';
-	cout_shift_wb <= cout_shift when dec_flag_wb = '1' else '0';
+    --LE signal dec_flag_wb 
+	exe_flag_wb <= dec_flag_wb;
+	-- exe_v         <= v_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_v = '0';
+	-- exe_z         <= z_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_z = '0';
+	-- exe_n         <= n_alu      when dec_flag_wb = '1' else '0'; --Attention quand exe_n = '0';
+	-- cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0'; --Attention quand exe_c = '0';
+	-- cout_shift_wb <= cout_shift when dec_flag_wb = '1' else '0';
 	--Implementation du multiplexeur du choix des cout (ALU ou shifter)
-	exe_c <= cout_alu_wb when dec_alu_cmd = "00" else cout_shift_wb;
+	exe_c <= cout_alu when dec_alu_cmd = "00" else cout_shift;
 
 --Implementation du multiplexeur de pre/post indexation
 	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;
 
 --Gestion interface synchro
-	exe_pop	<= '1' when dec2exe_empty = '0' else '0';
+	exe_pop	<= '1' when (dec2exe_empty = '0') else '0'; 
 
 --Gestion de la fifo
-	exe_push <= '1' when exe2mem_full ='0' else '0';
+	exe_push <= '1' when (not(exe2mem_full) and (dec_mem_sb or dec_mem_sw or dec_mem_lb or dec_mem_lw)) ='1' else '0'; --ajout de condition
 
 end struct;
