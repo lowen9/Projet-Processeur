@@ -6,7 +6,7 @@ entity test_tb is
 end test_tb;
 
 architecture struct of test_tb is
-    constant clk_period : time := 1 ns;
+    constant clk_period : time := 2 ns;
     -- Decode interface synchro
     signal dec2exe_empty, exe_pop : std_logic;
     -- Decode interface operands
@@ -107,34 +107,38 @@ begin
                                                 reset_n			=> reset_n,
                                                 vdd				=> vdd    ,
                                                 vss				=> vss);
+    -- Decode interface synchro
+    dec2exe_empty <= '1', '0' after 5  ns, '1' after 7  ns,
+                          '0' after 9 ns, '1' after 11 ns;
 
-    dec2exe_empty <= '1', '0' after 5 ns, '1' after 6 ns,
-                          '0' after 10 ns, '1' after 11 ns;
+    --gestion fifo mem interface
+    mem_pop <= '0', '1' after 6  ns, '0' after 8  ns,
+                    '1' after 8.5 ns, '0' after 11 ns;
 
     -- Decode interface operands
-    dec_op1      <= X"00000000", X"F0F0F0F0" after 5 ns;
-    dec_op2      <= X"00000000", X"11111111" after 5 ns;   
-    dec_exe_dest <= X"0", X"5" after 5 ns;
+    dec_op1      <= X"00000000", X"F0F0F0F0" after 5 ns, X"ABCD1234" after 9 ns;
+    dec_op2      <= X"00000000", X"00001111" after 5 ns, X"00000100" after 9 ns;   
+    dec_exe_dest <= X"0", X"5" after 5 ns, X"A" after 9 ns;
     dec_exe_wb   <= '0', '1' after 5 ns;
     dec_flag_wb  <= '0', '1' after 5 ns;
 
     -- Decode to mem interface
-    dec_mem_data <= X"00000000";
+    dec_mem_data <= X"01000000";
     dec_mem_dest <= "0000";
-    dec_pre_index<= '0';
+    dec_pre_index<= '1';
 
-    dec_mem_lw   <= '0';
+    dec_mem_lw   <= '0', '1' after 5 ns, '0' after 7 ns;
     dec_mem_lb   <= '0';
-    dec_mem_sw   <= '0';
+    dec_mem_sw   <= '0', '1' after 9 ns, '0' after 11 ns;
     dec_mem_sb   <= '0';
 
     -- Shifter command
-    dec_shift_lsl <= '1';
+    dec_shift_lsl <= '0', '1' after 5 ns, '0' after 7 ns;
     dec_shift_lsr <= '0';
-    dec_shift_asr <= '0';
+    dec_shift_asr <= '0', '1' after 9 ns, '0' after 11 ns;
     dec_shift_ror <= '0';
     dec_shift_rrx <= '0';
-    dec_shift_val <= "00101";
+    dec_shift_val <= "00000", "00101" after 5 ns, "00011" after 9 ns;
     dec_cy        <= '0';
 
     -- Alu operand selection
@@ -143,12 +147,9 @@ begin
     dec_alu_cy   <= '0';
 
     -- Alu command
-    dec_alu_cmd <= "00";
+    dec_alu_cmd <= "00", "01" after 9 ns;
 
-    --gestion fifo
-    mem_pop <= '0', '1' after 6 ns, '0' after 7 ns;
-
-    reset_n <= '0' , '1' after 1 ns;
+    reset_n <= '0' , '1' after 2 ns;
 
     clk_gen:process
     begin

@@ -172,7 +172,7 @@ begin
 	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;
 
 --Gestion interface synchro
-	exe_pop	<= '1' when (dec2exe_empty = '0') else '0'; 
+	exe_pop	<= '1' when ((not(dec2exe_empty) and not(exe2mem_full)) = '1') else '0'; 
 
 --Gestion de la fifo
 	exe_push <= '1' when (not(exe2mem_full) and (dec_mem_sb or dec_mem_sw or dec_mem_lb or dec_mem_lw)) ='1' else '0'; --ajout de condition
