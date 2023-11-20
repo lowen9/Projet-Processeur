@@ -1,5 +1,5 @@
 $date
-  Wed Nov 15 20:00:03 2023
+  Sun Nov 19 22:09:12 2023
 $end
 $version
   GHDL v0
@@ -7,6 +7,13 @@ $end
 $timescale
   1 fs
 $end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module reg_tb $end
 $var reg 32 ! wdata1[31:0] $end
 $var reg 4 " wadr1[3:0] $end
 $var reg 1 # wen1 $end
@@ -90,6 +97,7 @@ $comment r is not handled $end
 $var reg 4 o cspr[3:0] $end
 $var reg 2 p cspr_v[1:0] $end
 $var reg 16 q r_v[15:0] $end
+$upscope $end
 $upscope $end
 $enddefinitions $end
 #0
@@ -597,3 +605,6 @@ b00010001000100010001000100010001 V
 #49500000
 1D
 1k
+#50000000
+0D
+0k

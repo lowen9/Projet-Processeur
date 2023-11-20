@@ -18,9 +18,9 @@ STOP_TIME = 50ns
 GHDL_SIM_OPT = --stop-time=$(STOP_TIME)
 WAVEFORM_VIEWER = gtkwave
 
-.PHONY: clean
+all : make run view
 
-all : clean make run view
+all_top : make make_top run view
 
 make :
 # strip removes whitespace from TB argument
@@ -34,10 +34,19 @@ endif
 	@mkdir -p $(WORKDIR)
 # Analyze the files
 	@$(GHDL_CMD) -a $(GHDL_FLAGS) $(FILES)
-# @$(GHDL_CMD) -a $(GHDL_FLAGS) $(TOP_F)
+#@$(GHDL_CMD) -a $(GHDL_FLAGS) $(TOP_F)
 	@$(GHDL_CMD) -a $(GHDL_FLAGS) $(TB_PATH)
 # Elaborate (create executable)
-	@$(GHDL_CMD) -e $(GHDL_FLAGS) $(TB_FILE) 
+	@$(GHDL_CMD) -e $(GHDL_FLAGS) $(TB_FILE)
+
+make_top :
+
+ifeq ($(strip $(TB)),)
+	@echo "TB not set. Use TB=<value> to set it."
+	@echo "Example: make TB=adder"
+	@exit 1
+endif
+	@$(GHDL_CMD) -a $(GHDL_FLAGS) $(TOP_F)
 
 run :
 # Run the simulation

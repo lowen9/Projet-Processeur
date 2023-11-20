@@ -14,7 +14,7 @@ GHDL_CMD = ghdl
 GHDL_FLAGS = -v --workdir=$(WORKDIR)
 
 # Simulation options
-STOP_TIME = 500ns
+STOP_TIME = 40ns
 GHDL_SIM_OPT = --stop-time=$(STOP_TIME)
 WAVEFORM_VIEWER = gtkwave
 
