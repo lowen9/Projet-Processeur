@@ -39,22 +39,23 @@ Component IFetch
 			if_adr_valid	: out Std_Logic;
 
 			ic_inst			: in Std_Logic_Vector(31 downto 0) ;
-			ic_stall			: in Std_Logic;
+			ic_stall		: in Std_Logic;
 
 	-- Decode interface
 			dec2if_empty	: in Std_Logic;
 			if_pop			: out Std_Logic;
 			dec_pc			: in Std_Logic_Vector(31 downto 0) ;
 
-			if_ir				: out Std_Logic_Vector(31 downto 0) ;
+			if_ir			: out Std_Logic_Vector(31 downto 0) ;
 			if2dec_empty	: out Std_Logic;
 			dec_pop			: in Std_Logic;
 
 	-- global interface
-			ck					: in Std_Logic;
+			ck				: in Std_Logic;
 			reset_n			: in Std_Logic;
 			vdd				: in bit;
-			vss				: in bit);
+			vss				: in bit
+			);
 end Component;
 
 Component Decod
