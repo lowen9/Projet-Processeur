@@ -224,81 +224,97 @@ begin
                 vdd			    : in bit;
                 vss			    : in bit);
         end component; 
-    
+        if (reg_cznv='1' and reg_vv= '1') then
+            condv <= '1';
+        end if; 
         when (if_ir(31 downto 28)) = "0000" => --cond EQ 
             if reg_zero='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "0001" => --cond ne
             if reg_zero='0' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "0010" => --cond C=1
             if  reg_cry='1' then 
                 cond= '1'; 
             else 
                 cond='0';
+            end if; 
         when (if_ir(31 downto 28)) = "0011" => --cond C=0 
             if reg_cry ='0' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "0100" => -- cond N=1
             if reg_neg ='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if ; 
         when (if_ir(31 downto 28)) = "0101" =>--cond N=0 
             if reg_neg= '0 ' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "0110" => --cond ovr=1
             if reg_ovr='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "0111" => --cond ovr=0 
             if reg_ovr='0' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "1000" => -- cond c=1 et Z=0 
             if (reg_cry='1' and reg_zero='0') then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "1001" => -- cond c=0 ou Z=1 
             if (reg_cry='0' or reg_zero='1') then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "1010" => --conf sup ou egal 
             if reg_zero='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if; 
         when (if_ir(31 downto 28)) = "1011" => --cond strictement inf 
             if reg_zero='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if;
         when (if_ir(31 downto 28)) = "1100" => ---cond stric sup 
             if reg_zero='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if;
         when (if_ir(31 downto 28)) = "1101" => --inf ou egal 
             if reg_zero='1' then 
                 cond<= '1'; 
             else 
                 cond<='0';
+            end if;
         when (if_ir(31 downto 28)) = "1110" => --toujours
                 cond <= '1'; 
         when (if_ir(31 downto 28)) = "1111" => --reserve 
-            cond<= '0'; 
+                cond <= '0'; 
         
                 
 
