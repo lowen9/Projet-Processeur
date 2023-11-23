@@ -13,10 +13,17 @@ entity DEC is
 
 	    -- Decod to mem via exec
 			dec_mem_data	: out Std_Logic_Vector(31 downto 0); -- data to MEM
+<<<<<<< Updated upstream
 			dec_mem_dest	: out Std_Logic_Vector(3 downto 0);
 			dec_pre_index 	: out Std_logic;
 
 			dec_mem_lw		: out Std_Logic;
+=======
+			dec_mem_dest	: out Std_Logic_Vector(3 downto 0);  -- Registre d'écriture de Mem
+			dec_pre_index 	: out Std_logic;                     -- P = 1 calcul de l'adresse par exec sinon non
+
+			dec_mem_lw		: out Std_Logic; 
+>>>>>>> Stashed changes
 			dec_mem_lb		: out Std_Logic;
 			dec_mem_sw		: out Std_Logic;
 			dec_mem_sb		: out Std_Logic;
@@ -80,6 +87,7 @@ entity DEC is
     
 end entity;
 
+<<<<<<< Updated upstream
 architecture ARCHI of DEC is 
 signal cond : std_logic;
 signal condv : std_logic;
@@ -91,6 +99,25 @@ signal swap_t : std_logic;
 signal trans_t : std_logic;
 signal mtrans_t : std_logic;
 signal branch_t : std_logic;
+=======
+architecture ARCHI of DEC is
+--Précidat 
+signal cond : std_logic;  --fait 
+signal condv : std_logic; --fait
+
+--Opérande valide
+signal operv : std_logic; --on sait pas ?
+
+--Machine à état
+signal regop_t : std_logic; --????
+signal mult_t : std_logic;
+signal swap_t : std_logic;  --????
+signal trans_t : std_logic;
+signal mtrans_t : std_logic;
+signal branch_t : std_logic;
+
+--Traitement de données
+>>>>>>> Stashed changes
 signal and_i: std_logic;
 signal eor_i : std_logic;
 signal sub_i : std_logic;
@@ -160,6 +187,7 @@ signal dec2if_push : std_logic;
 signal dec2exe_push : std_logic;
 signal if2dec_pop : std_logic;
 
+<<<<<<< Updated upstream
 begin 
         component REG 
         port(
@@ -320,5 +348,106 @@ begin
 
 
  
+=======
+--Signaux interne de REG
+signal radr1, radr2, radr3 : std_logic_vector(3 downto 0);
+signal shift_val_nt : std_logic_vector(31 downto 0);
+signal opv1, opv2, opv3 : std_logic;
+signal reg_cry, reg_zero, reg_neg, reg_cznv, reg_ovr, reg_vv : std_logic;
+signal dec_inv_rwb  : std_logic_vector(3 downto 0);
+signal alu_dest_v   : std_logic;
+signal inval_czn, inval_ovr : std_logic;
+signal reg_pc : std_logic_vector(31 downto 0); 
+signal reg_pcv,inc_pc : std_logic;	
+
+begin
+     REG : entity work.REG(Behavior)
+     PORT MAP(
+        -- Write Port 1 prioritaire
+            wdata1     => exe_res    ,
+            wadr1	   => exe_dest   ,
+            wen1	   => exe_wb     ,
+        -- Write Port 2 non prioritaire
+            wdata2     => mem_res    ,	   	    
+            wadr2      => mem_dest   ,   			
+            wen2       => mem_wb     ,			
+
+        -- Write CSPR Port
+            wcry	   => exe_c      ,   	
+            wzero	   => exe_z      ,	
+            wneg	   => exe_n      ,		
+            wovr	   => exe_v      ,		
+            cspr_wb	   => exe_flag_wb,	    
+            
+        -- Read Port 1 32 bits pour lire Rn
+            reg_rd1	   => op1  ,--Vers fifo	    
+            radr1	   => radr1,--num R décodé par DEC
+            reg_v1	   => opv1 ,	    
+
+        -- Read Port 2 32 bits pour lire Rm
+            reg_rd2	   => op2  ,--Vers fifo  
+            radr2	   => radr2,--num R décodé par DEC		
+            reg_v2	   => opv2 ,  
+
+        -- Read Port 3 32 bits pour lire Rs
+            reg_rd3	   => shift_val_nt,--Valeur de shift val non tronqué   
+            radr3	   => radr3       ,--num R décodé par DEC		
+            reg_v3	   => opv3        ,  
+
+        -- read CSPR Port
+            reg_cry	   => reg_cry	,	    
+            reg_zero   => reg_zero	,
+            reg_neg	   => reg_neg	,   
+            reg_cznv   => reg_cznv	,
+            reg_ovr	   => reg_ovr	,   
+            reg_vv	   => reg_vv	,     
+            
+        -- Invalidate Port 
+            inval_adr1 => alu_dest  , --registre Rd décodé par DEC 
+            inval1	   => alu_dest_v, --validité du décodage   
+
+            inval_adr2 => dec_inv_rwb, --registre R pour WB décodé par DEC
+            inval2	   => alu_wb     , --validité du décodage   
+
+            inval_czn  => inval_czn, --????	flag_wb déterminer 
+            inval_ovr  => inval_ovr, --???? si c'est arithémique ou logique   	    
+
+        -- PC
+            reg_pc	   => reg_pc , 	    
+            reg_pcv	   => reg_pcv, 	    
+            inc_pc	   => inc_pc ,--quand on veut prendre 	    
+                                  --l'instruction suivante
+        -- global interface
+            ck		   => ck,      
+            reset_n	   => reset_n,    
+            vdd		   => vdd,	    
+            vss		   => vss);
+
+        --Test des prédicats
+
+        EQ <= '1' when (reg_zero                & if_ir(31 downto 28)) = "10000"  else '0';
+        NE <= '1' when (reg_zero                & if_ir(31 downto 28)) = "00001"  else '0';
+        CS <= '1' when (reg_cry                 & if_ir(31 downto 28)) = "10010"  else '0';
+        CC <= '1' when (reg_cry                 & if_ir(31 downto 28)) = "00011"  else '0';
+        MI <= '1' when (reg_neg                 & if_ir(31 downto 28)) = "10100"  else '0';
+        PL <= '1' when (reg_neg                 & if_ir(31 downto 28)) = "00101"  else '0';
+        VS <= '1' when (reg_ovr                 & if_ir(31 downto 28)) = "10110"  else '0';
+        VC <= '1' when (reg_ovr                 & if_ir(31 downto 28)) = "00111"  else '0';
+        HI <= '1' when (reg_cry  & reg_zero     & if_ir(31 downto 28)) = "101000" else '0';
+        LS <= '1' when (reg_cry  & reg_zero     & if_ir(31 downto 28)) = "011001" else '0';
+        GE <= '1' when ((reg_cry xnor reg_zero) & if_ir(31 downto 28)) = "11010"  else '0';
+        LT <= '1' when ((reg_cry xor  reg_zero) & if_ir(31 downto 28)) = "11010"  else '0';
+        GT <= '1' when ((reg_zero)&(reg_neg xnor reg_ovr) & if_ir(31 downto 28)) = "011100"  else '0';
+        LE <= '1' when ((reg_zero)&(reg_neg xor  reg_ovr) & if_ir(31 downto 28)) = "111100"  else '0';
+        AL <= '1' when (if_ir(31 downto 28) = "1110") else '0';
+        NV <= '1' when (if_ir(31 downto 28) = "1111") else '0';
+       
+        cond <= '1' when (EQ or NE or CS or CC or MI or PL or VS or VC or HI or LS or GE or LT or GT or LE or AL or not(AL)) else '0'; 
+        --Validité des Test sur les prédicats
+        condv <= '1' when reg_cznv & reg_vv = "11" else '0';
+
+        if_ir(27 downto )
+
+>>>>>>> Stashed changes
 
 end ARCHI
