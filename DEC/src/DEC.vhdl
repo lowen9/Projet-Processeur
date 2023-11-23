@@ -80,24 +80,24 @@ entity DEC is
     
 end entity;
 
-architecture ARCHI of DEC is
+architecture behavior of DEC is
 --Précidat 
-signal cond : std_logic;  --fait 
+signal cond  : std_logic;  --fait 
 signal condv : std_logic; --fait
 
 --Opérande valide
 signal operv : std_logic; --on sait pas ?
 
 --Machine à état
-signal regop_t : std_logic; --????
-signal mult_t : std_logic;
-signal swap_t : std_logic;  --????
-signal trans_t : std_logic;
+signal regop_t  : std_logic; --????
+signal mult_t   : std_logic;
+signal swap_t   : std_logic;  --????
+signal trans_t  : std_logic;
 signal mtrans_t : std_logic;
 signal branch_t : std_logic;
 
 --Traitement de données
-signal and_i: std_logic;
+signal and_i : std_logic;
 signal eor_i : std_logic;
 signal sub_i : std_logic;
 signal rsb_i : std_logic;
@@ -115,8 +115,8 @@ signal bic_i : std_logic;
 signal mvn_i : std_logic;
 
 --trans instructions
-signal ldr_i : std_logic;
-signal str_i : std_logic;
+signal ldr_i  : std_logic;
+signal str_i  : std_logic;
 signal ldrb_i : std_logic;
 signal strb_i : std_logic;
 
@@ -125,12 +125,12 @@ signal ldm_i : std_logic;
 signal stm_i : std_logic;
 
 --branch instructions
-signal b_i : std_logic;
+signal b_i  : std_logic;
 signal bl_i : std_logic;
 
 --exec operands
-signal op1 : std_logic_vector(31 downto 0);
-signal op2 : std_logic_vector(31 downto 0);
+signal op1      : std_logic_vector(31 downto 0);
+signal op2      : std_logic_vector(31 downto 0);
 signal alu_dest : std_logic_vector(3 downto 0);
 signal alu_wb   : std_logic;
 signal flag_wb  : std_logic;
@@ -162,9 +162,9 @@ signal mem_lb : std_logic;
 signal mem_sw : std_logic;
 signal mem_sb : std_logic;
 
-signal dec2if_push : std_logic;
+signal dec2if_push  : std_logic;
 signal dec2exe_push : std_logic;
-signal if2dec_pop : std_logic;
+signal if2dec_pop   : std_logic;
 
 --Signaux interne de REG
 signal radr1, radr2, radr3 : std_logic_vector(3 downto 0);
@@ -175,40 +175,43 @@ signal dec_inv_rwb  : std_logic_vector(3 downto 0);
 signal alu_dest_v   : std_logic;
 signal inval_czn, inval_ovr : std_logic;
 signal reg_pc : std_logic_vector(31 downto 0); 
-signal reg_pcv,inc_pc : std_logic;	
+signal reg_pcv,inc_pc : std_logic;
+signal EQ, NE, CS, CC, MI, PL, VS, VC, HI, LS, GE, LT, GT, LE, AL, NV : std_logic;
+signal trdd, br, ams, amm : std_logic;
+signal op2i : std_logic; --op2i = 1 immédiat;
 
 begin
      REG : entity work.REG(Behavior)
      PORT MAP(
         -- Write Port 1 prioritaire
             wdata1     => exe_res    ,
-            wadr1	   => exe_dest   ,
-            wen1	   => exe_wb     ,
+            wadr1	     => exe_dest   ,
+            wen1	     => exe_wb     ,
         -- Write Port 2 non prioritaire
             wdata2     => mem_res    ,	   	    
             wadr2      => mem_dest   ,   			
             wen2       => mem_wb     ,			
 
         -- Write CSPR Port
-            wcry	   => exe_c      ,   	
-            wzero	   => exe_z      ,	
-            wneg	   => exe_n      ,		
-            wovr	   => exe_v      ,		
+            wcry	     => exe_c      ,   	
+            wzero	     => exe_z      ,	
+            wneg	     => exe_n      ,		
+            wovr	     => exe_v      ,		
             cspr_wb	   => exe_flag_wb,	    
             
         -- Read Port 1 32 bits pour lire Rn
             reg_rd1	   => op1  ,--Vers fifo	    
-            radr1	   => radr1,--num R décodé par DEC
+            radr1	     => radr1,--num R décodé par DEC
             reg_v1	   => opv1 ,	    
 
         -- Read Port 2 32 bits pour lire Rm
             reg_rd2	   => op2  ,--Vers fifo  
-            radr2	   => radr2,--num R décodé par DEC		
+            radr2	     => radr2,--num R décodé par DEC		
             reg_v2	   => opv2 ,  
 
         -- Read Port 3 32 bits pour lire Rs
             reg_rd3	   => shift_val_nt,--Valeur de shift val non tronqué   
-            radr3	   => radr3       ,--num R décodé par DEC		
+            radr3	     => radr3       ,--num R décodé par DEC		
             reg_v3	   => opv3        ,  
 
         -- read CSPR Port
@@ -235,10 +238,10 @@ begin
             inc_pc	   => inc_pc ,--quand on veut prendre 	    
                                   --l'instruction suivante
         -- global interface
-            ck		   => ck,      
+            ck		     => ck,      
             reset_n	   => reset_n,    
-            vdd		   => vdd,	    
-            vss		   => vss);
+            vdd		     => vdd,	    
+            vss		     => vss);
 
         --Test des prédicats
 
@@ -259,11 +262,48 @@ begin
         AL <= '1' when (if_ir(31 downto 28) = "1110") else '0';
         NV <= '1' when (if_ir(31 downto 28) = "1111") else '0';
        
-        cond <= '1' when (EQ or NE or CS or CC or MI or PL or VS or VC or HI or LS or GE or LT or GT or LE or AL or not(AL)) else '0'; 
+        cond <= '1'  when ((EQ or NE or CS or CC or MI or PL or VS or VC or HI or LS or GE or LT or GT or LE or AL or not(AL)) = '1') else '0'; 
         --Validité des Test sur les prédicats
-        condv <= '1' when reg_cznv & reg_vv = "11" else '0';
+        condv <= '1' when ((reg_cznv and reg_vv) = '1') else '0';
 
-        if_ir(27 downto )
+        trdd <= '1' when (if_ir(27 downto 26) =  "00") else '0';
+        br   <= '1' when (if_ir(27 downto 25) = "101") else '0';
+        ams  <= '1' when (if_ir(27 downto 26) =  "01") else '0';
+        amm  <= '1' when (if_ir(27 downto 25) = "100") else '0';
+
+        op2i <=    if_ir(25)  when (trdd = '1') else 
+               not(if_ir(25)) when (ams  = '1') else
+               '-'; -- don't care
+
+        and_i <= '1' when (trdd & if_ir(25 downto 21) = "10000") else '0'; 
+        eor_i <= '1' when (trdd & if_ir(25 downto 21) = "10001") else '0';
+        sub_i <= '1' when (trdd & if_ir(25 downto 21) = "10010") else '0';
+        rsb_i <= '1' when (trdd & if_ir(25 downto 21) = "10011") else '0';
+        add_i <= '1' when (trdd & if_ir(25 downto 21) = "10100") else '0';
+        adc_i <= '1' when (trdd & if_ir(25 downto 21) = "10101") else '0';
+        sbc_i <= '1' when (trdd & if_ir(25 downto 21) = "10110") else '0';
+        rsc_i <= '1' when (trdd & if_ir(25 downto 21) = "10111") else '0';
+        tst_i <= '1' when (trdd & if_ir(25 downto 21) = "11000") else '0';
+        teq_i <= '1' when (trdd & if_ir(25 downto 21) = "11001") else '0';
+        cmp_i <= '1' when (trdd & if_ir(25 downto 21) = "11010") else '0';
+        cmn_i <= '1' when (trdd & if_ir(25 downto 21) = "11011") else '0';
+        orr_i <= '1' when (trdd & if_ir(25 downto 21) = "11100") else '0';
+        mov_i <= '1' when (trdd & if_ir(25 downto 21) = "11101") else '0';
+        bic_i <= '1' when (trdd & if_ir(25 downto 21) = "11110") else '0';
+        mvn_i <= '1' when (trdd & if_ir(25 downto 21) = "11111") else '0';
+
+        flag_wb <= if_ir(20) when (trdd = '1') else '-';
+
+        inval_czn <= '1' when ((if_ir(20) or   tst_i or teq_i or cmp_i or cmn_i) = '1') else '0';
+        inval_ovr <= '1' when ((if_ir(20) and (sub_i or rsb_i or sbc_i or rsc_i)) = '1') else '0';
+
+        radr1 <= if_ir(19 downto 16) when ((trdd or ams or amm) = '1') else "XXXX";
+        
+        alu_dest   <= if_ir(15 downto 12); 
+        alu_dest_v <= '1' when ((trdd or ams) ='1') else '0';
 
 
-end ARCHI
+
+
+
+end behavior;
