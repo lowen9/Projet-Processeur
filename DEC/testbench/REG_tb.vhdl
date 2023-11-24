@@ -140,6 +140,8 @@ begin
     radr1 <= x"3", x"A" after 7 ns;
     radr2 <= x"A";
     radr3 <= x"3";
+
+    inc_pc <= '0', '1' after 5 ns, '0' after 7 ns, '1' after 11 ns, '0' after 13 ns;
     
     reset_n <= '1', '0' after 1 ns, '1' after 2 ns;
 
