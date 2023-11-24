@@ -1,0 +1,626 @@
+$date
+  Fri Nov 24 02:27:29 2023
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module reg_tb $end
+$var reg 32 ! wdata1[31:0] $end
+$var reg 4 " wadr1[3:0] $end
+$var reg 1 # wen1 $end
+$var reg 32 $ wdata2[31:0] $end
+$var reg 4 % wadr2[3:0] $end
+$var reg 1 & wen2 $end
+$var reg 1 ' wcry $end
+$var reg 1 ( wzero $end
+$var reg 1 ) wneg $end
+$var reg 1 * wovr $end
+$var reg 1 + cspr_wb $end
+$var reg 32 , reg_rd1[31:0] $end
+$var reg 4 - radr1[3:0] $end
+$var reg 1 . reg_v1 $end
+$var reg 32 / reg_rd2[31:0] $end
+$var reg 4 0 radr2[3:0] $end
+$var reg 1 1 reg_v2 $end
+$var reg 32 2 reg_rd3[31:0] $end
+$var reg 4 3 radr3[3:0] $end
+$var reg 1 4 reg_v3 $end
+$var reg 1 5 reg_cry $end
+$var reg 1 6 reg_zero $end
+$var reg 1 7 reg_neg $end
+$var reg 1 8 reg_cznv $end
+$var reg 1 9 reg_ovr $end
+$var reg 1 : reg_vv $end
+$var reg 4 ; inval_adr1[3:0] $end
+$var reg 1 < inval1 $end
+$var reg 4 = inval_adr2[3:0] $end
+$var reg 1 > inval2 $end
+$var reg 1 ? inval_czn $end
+$var reg 1 @ inval_ovr $end
+$var reg 32 A reg_pc[31:0] $end
+$var reg 1 B reg_pcv $end
+$var reg 1 C inc_pc $end
+$var reg 1 D ck $end
+$var reg 1 E reset_n $end
+$var reg 1 F vdd $end
+$var reg 1 G vss $end
+$scope module reg $end
+$var reg 32 H wdata1[31:0] $end
+$var reg 4 I wadr1[3:0] $end
+$var reg 1 J wen1 $end
+$var reg 32 K wdata2[31:0] $end
+$var reg 4 L wadr2[3:0] $end
+$var reg 1 M wen2 $end
+$var reg 1 N wcry $end
+$var reg 1 O wzero $end
+$var reg 1 P wneg $end
+$var reg 1 Q wovr $end
+$var reg 1 R cspr_wb $end
+$var reg 32 S reg_rd1[31:0] $end
+$var reg 4 T radr1[3:0] $end
+$var reg 1 U reg_v1 $end
+$var reg 32 V reg_rd2[31:0] $end
+$var reg 4 W radr2[3:0] $end
+$var reg 1 X reg_v2 $end
+$var reg 32 Y reg_rd3[31:0] $end
+$var reg 4 Z radr3[3:0] $end
+$var reg 1 [ reg_v3 $end
+$var reg 1 \ reg_cry $end
+$var reg 1 ] reg_zero $end
+$var reg 1 ^ reg_neg $end
+$var reg 1 _ reg_cznv $end
+$var reg 1 ` reg_ovr $end
+$var reg 1 a reg_vv $end
+$var reg 4 b inval_adr1[3:0] $end
+$var reg 1 c inval1 $end
+$var reg 4 d inval_adr2[3:0] $end
+$var reg 1 e inval2 $end
+$var reg 1 f inval_czn $end
+$var reg 1 g inval_ovr $end
+$var reg 32 h reg_pc[31:0] $end
+$var reg 1 i reg_pcv $end
+$var reg 1 j inc_pc $end
+$var reg 1 k ck $end
+$var reg 1 l reset_n $end
+$var reg 1 m vdd $end
+$var reg 1 n vss $end
+$comment r is not handled $end
+$var reg 4 o cspr[3:0] $end
+$var reg 2 p cspr_v[1:0] $end
+$var reg 16 q r_v[15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU !
+bUUUU "
+0#
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU $
+bUUUU %
+0&
+U'
+U(
+U)
+U*
+U+
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ,
+b0011 -
+U.
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU /
+b1010 0
+U1
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 2
+b0011 3
+U4
+U5
+U6
+U7
+U8
+U9
+U:
+b0011 ;
+1<
+b0011 =
+1>
+U?
+U@
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU A
+UB
+0C
+0D
+1E
+0F
+0G
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU H
+bUUUU I
+0J
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU K
+bUUUU L
+0M
+UN
+UO
+UP
+UQ
+UR
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU S
+b0011 T
+UU
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU V
+b1010 W
+UX
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU Y
+b0011 Z
+U[
+U\
+U]
+U^
+U_
+U`
+Ua
+b0011 b
+1c
+b0011 d
+1e
+Uf
+Ug
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU h
+Ui
+0j
+0k
+1l
+0m
+0n
+bUUUU o
+bUU p
+bUUUUUUUUUUUUUUUU q
+#500000
+1D
+1k
+#1000000
+b00000000000000000000000000000000 ,
+1.
+b00000000000000000000000000000000 /
+11
+b00000000000000000000000000000000 2
+14
+05
+06
+07
+18
+09
+1:
+0D
+0E
+b00000000000000000000000000000000 S
+1U
+b00000000000000000000000000000000 V
+1X
+b00000000000000000000000000000000 Y
+1[
+0\
+0]
+0^
+1_
+0`
+1a
+0k
+0l
+b11 p
+b1111111111111111 q
+#1500000
+1D
+1k
+#2000000
+0<
+0D
+1E
+0c
+0k
+1l
+#2500000
+U5
+U6
+U7
+U9
+b00000000000000000000000000000000 A
+1B
+1D
+U\
+U]
+U^
+U`
+b00000000000000000000000000000000 h
+1i
+1k
+b1111111111110111 q
+#3000000
+1<
+0>
+0D
+1c
+0e
+0k
+#3500000
+0.
+04
+1D
+0U
+0[
+1k
+#4000000
+1>
+0D
+1e
+0k
+#4500000
+1D
+1k
+#5000000
+b00010010001101001010101111001101 !
+b0011 "
+1#
+b00001010101100010010011001000111 $
+b0011 %
+1&
+1C
+0D
+b00010010001101001010101111001101 H
+b0011 I
+1J
+b00001010101100010010011001000111 K
+b0011 L
+1M
+1j
+0k
+#5500000
+1D
+1k
+b1111111111111111 q
+#6000000
+0#
+0&
+b1010 =
+0>
+0D
+0J
+0M
+b1010 d
+0e
+0k
+#6500000
+b00010010001101001010101111001101 ,
+1.
+b00010010001101001010101111001101 2
+14
+b00000000000000000000000000000100 A
+1D
+b00010010001101001010101111001101 S
+1U
+b00010010001101001010101111001101 Y
+1[
+b00000000000000000000000000000100 h
+1k
+b1111101111111111 q
+#7000000
+b1010 -
+1>
+0C
+0D
+b1010 T
+1e
+0j
+0k
+#7500000
+b00000000000000000000000000000000 ,
+0.
+01
+b00000000000000000000000000001000 A
+1D
+b00000000000000000000000000000000 S
+0U
+0X
+b00000000000000000000000000001000 h
+1k
+#8000000
+b00010000000100000001000000010000 $
+b1010 %
+1&
+0D
+b00010000000100000001000000010000 K
+b1010 L
+1M
+0k
+#8500000
+1D
+1k
+#9000000
+0&
+0D
+0M
+0k
+#9500000
+1D
+1k
+#10000000
+b1010 ;
+0<
+0D
+b1010 b
+0c
+0k
+#10500000
+1D
+1k
+#11000000
+1<
+1C
+0D
+1c
+1j
+0k
+#11500000
+1D
+1k
+#12000000
+0D
+0k
+#12500000
+b00000000000000000000000000001100 A
+1D
+b00000000000000000000000000001100 h
+1k
+#13000000
+0C
+0D
+0j
+0k
+#13500000
+b00000000000000000000000000010000 A
+1D
+b00000000000000000000000000010000 h
+1k
+#14000000
+0D
+0k
+#14500000
+1D
+1k
+#15000000
+b00010001000100010001000100010001 !
+b1010 "
+1#
+0D
+b00010001000100010001000100010001 H
+b1010 I
+1J
+0k
+#15500000
+1D
+1k
+b1111111111111111 q
+#16000000
+0#
+0D
+0J
+0k
+#16500000
+b00010001000100010001000100010001 ,
+1.
+b00010001000100010001000100010001 /
+11
+1D
+b00010001000100010001000100010001 S
+1U
+b00010001000100010001000100010001 V
+1X
+1k
+#17000000
+0D
+0k
+#17500000
+1D
+1k
+#18000000
+0D
+0k
+#18500000
+1D
+1k
+#19000000
+0D
+0k
+#19500000
+1D
+1k
+#20000000
+0D
+0k
+#20500000
+1D
+1k
+#21000000
+0D
+0k
+#21500000
+1D
+1k
+#22000000
+0D
+0k
+#22500000
+1D
+1k
+#23000000
+0D
+0k
+#23500000
+1D
+1k
+#24000000
+0D
+0k
+#24500000
+1D
+1k
+#25000000
+0D
+0k
+#25500000
+1D
+1k
+#26000000
+0D
+0k
+#26500000
+1D
+1k
+#27000000
+0D
+0k
+#27500000
+1D
+1k
+#28000000
+0D
+0k
+#28500000
+1D
+1k
+#29000000
+0D
+0k
+#29500000
+1D
+1k
+#30000000
+0D
+0k
+#30500000
+1D
+1k
+#31000000
+0D
+0k
+#31500000
+1D
+1k
+#32000000
+0D
+0k
+#32500000
+1D
+1k
+#33000000
+0D
+0k
+#33500000
+1D
+1k
+#34000000
+0D
+0k
+#34500000
+1D
+1k
+#35000000
+0D
+0k
+#35500000
+1D
+1k
+#36000000
+0D
+0k
+#36500000
+1D
+1k
+#37000000
+0D
+0k
+#37500000
+1D
+1k
+#38000000
+0D
+0k
+#38500000
+1D
+1k
+#39000000
+0D
+0k
+#39500000
+1D
+1k
+#40000000
+0D
+0k
+#40500000
+1D
+1k
+#41000000
+0D
+0k
+#41500000
+1D
+1k
+#42000000
+0D
+0k
+#42500000
+1D
+1k
+#43000000
+0D
+0k
+#43500000
+1D
+1k
+#44000000
+0D
+0k
+#44500000
+1D
+1k
+#45000000
+0D
+0k
+#45500000
+1D
+1k
+#46000000
+0D
+0k
+#46500000
+1D
+1k
+#47000000
+0D
+0k
+#47500000
+1D
+1k
+#48000000
+0D
+0k
+#48500000
+1D
+1k
+#49000000
+0D
+0k
+#49500000
+1D
+1k
+#50000000
+0D
+0k
