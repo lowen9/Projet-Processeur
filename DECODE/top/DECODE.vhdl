@@ -294,8 +294,8 @@ begin
 
         flag_wb <= if_ir(20) when (trdd = '1') else '-';
 
-        inval_czn <= '1' when ((if_ir(20) or   tst_i or teq_i or cmp_i or cmn_i) = '1') else '0';
-        inval_ovr <= '1' when ((if_ir(20) and (sub_i or rsb_i or sbc_i or rsc_i)) = '1') else '0';
+        inval_czn <= '1' when ((flag_wb or   tst_i or teq_i or cmp_i or cmn_i)                    = '1') else '0';
+        inval_ovr <= '1' when ((flag_wb and (add_i or adc_i or sub_i or rsb_i or sbc_i or rsc_i)) = '1') else '0';
 
         radr1 <= if_ir(19 downto 16) when ((trdd or ams or amm) = '1') else "XXXX";
         
