@@ -302,7 +302,7 @@ begin
         alu_dest   <= if_ir(15 downto 12); 
         alu_dest_v <= '1' when ((trdd or ams) ='1') else '0';
 
-
+        
 
 
 
