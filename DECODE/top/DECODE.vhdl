@@ -14,7 +14,7 @@ entity DEC is
 	    -- Decod to mem via exec
 			dec_mem_data	: out Std_Logic_Vector(31 downto 0); -- data to MEM
 			dec_mem_dest	: out Std_Logic_Vector(3 downto 0);  -- Registre d'écriture de Mem
-			dec_pre_index 	: out Std_logic;                     -- P = 1 calcul de l'adresse par exec sinon non
+			dec_pre_index 	: out Std_logic;                   -- P = 1 calcul de l'adresse par exec sinon non
 
 			dec_mem_lw		: out Std_Logic; 
 			dec_mem_lb		: out Std_Logic;

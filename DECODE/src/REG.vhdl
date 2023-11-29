@@ -95,6 +95,7 @@ begin
             reg_cznv <= '1';
             reg_vv   <= '1';
             CSPR_v   <= "11";
+            
         elsif rising_edge(ck) then
             if(inval1 = '0') then
                 for i in 0 to 15 loop
@@ -116,6 +117,7 @@ begin
             if(inval_ovr = '0') then
                 CSPR_v(0) <= '0';
             end if;
+
             --écriture dans le banc de registre
             if(wen1 = '1') then       --On regarde si port 1 d'écriture est enable
                 for j in 0 to 15 loop
@@ -140,6 +142,7 @@ begin
                     end if;
                 end loop;
             end if;
+
             --écriture des flags
             if(cspr_wb = '1') then
                 if(CSPR_v(1) = '0') then
@@ -169,8 +172,8 @@ begin
                     reg_v3  <= R_v(i);
                 end if;
             end loop;
-            --Lecture des flags
 
+            --Lecture des flags
             reg_ovr <= CSPR(0);
             reg_cry <= CSPR(1);
 		    reg_zero<= CSPR(2);		
@@ -185,4 +188,3 @@ begin
         end if;
     end process;
 end Behavior;
-
