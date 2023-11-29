@@ -179,6 +179,7 @@ signal reg_pcv,inc_pc : std_logic;
 signal EQ, NE, CS, CC, MI, PL, VS, VC, HI, LS, GE, LT, GT, LE, AL, NV : std_logic;
 signal trdd, br, ams, amm : std_logic;
 signal op2i : std_logic; --op2i = 1 immédiat;
+signal shift_I: std_logic; --bit qui indique si shift est un immediat 
 
 begin
      REG : entity work.REG(Behavior)
@@ -301,8 +302,22 @@ begin
         
         alu_dest   <= if_ir(15 downto 12); 
         alu_dest_v <= '1' when ((trdd or ams) ='1') else '0';
-
         
+      --pour OP2
+        radr2 <= if_ir(3 downto 0) when (((trdd = '1'or ams  = '1')  and op2i='0')); --OP2 est un registre
+        shift_I   <= '1' when (if_ir(4)= '0' ) else '0' ;
+        shift_lsl <= '1' when (if_ir(6 downto 5 )= "00" ) else '0' ;
+        shift_lsr <= '1' when (if_ir(6 downto 5 )= "01" ) else '0' ;
+        shift_asr <= '1' when (if_ir(6 downto 5 )= "10" ) else '0' ;
+        shift_ror <= '1' when (if_ir(6 downto 5 )= "11" ) else '0' ;
+        shift_rrx <= '1' when (if_ir(6 downto 5 )= "11" and shift_val="00000" ) else '0' ;
+        shift_val <= if_ir(11 downto 7) when shift_I='1' else 
+                     "00000"
+        
+       
+
+
+
 
 
 

@@ -16,12 +16,12 @@ entity IFetch is
 			if_pop			: out Std_Logic;
 			dec_pc			: in Std_Logic_Vector(31 downto 0) ;
 
-			if_ir				: out Std_Logic_Vector(31 downto 0) ;
+			if_ir			: out Std_Logic_Vector(31 downto 0) ;
 			if2dec_empty	: out Std_Logic;
 			dec_pop			: in Std_Logic;
 
 	-- global interface
-			ck					: in Std_Logic;
+			ck				: in Std_Logic;
 			reset_n			: in Std_Logic;
 			vdd				: in bit;
 			vss				: in bit);
