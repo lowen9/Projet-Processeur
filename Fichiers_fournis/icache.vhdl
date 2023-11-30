@@ -12,7 +12,7 @@ entity Icache is
 			if_adr_valid	: in Std_Logic;
 
 			ic_inst			: out Std_Logic_vector(31 downto 0) ;
-			ic_stall			: out Std_Logic);
+			ic_stall		: out Std_Logic);
 end Icache;
 
 ----------------------------------------------------------------------

@@ -87,19 +87,19 @@ Component Decod
 			dec_cy			: out Std_Logic;
 
 	-- Alu operand selection
-			dec_comp_op1	: out Std_Logic;
-			dec_comp_op2	: out Std_Logic;
-			dec_alu_cy 		: out Std_Logic;
+			dec_comp_op1		: out Std_Logic;
+			dec_comp_op2		: out Std_Logic;
+			dec_alu_cy 			: out Std_Logic;
 
 	-- Exec Synchro
-			dec2exe_empty	: out Std_Logic;
-			exe_pop			: in Std_logic;
+			dec2exe_empty		: out Std_Logic;
+			exe_pop				: in Std_logic;
 
 	-- Alu command
-			dec_alu_cmd		: out Std_Logic_Vector(1 downto 0);
+			dec_alu_cmd			: out Std_Logic_Vector(1 downto 0);
 
 	-- Exe Write Back to reg
-			exe_res			: in Std_Logic_Vector(31 downto 0);
+			exe_res				: in Std_Logic_Vector(31 downto 0);
 
 			exe_c				: in Std_Logic;
 			exe_v				: in Std_Logic;
@@ -107,24 +107,24 @@ Component Decod
 			exe_z				: in Std_Logic;
 
 			exe_dest			: in Std_Logic_Vector(3 downto 0); -- Rd destination
-			exe_wb			: in Std_Logic; -- Rd destination write back
-			exe_flag_wb		: in Std_Logic; -- CSPR modifiy
+			exe_wb				: in Std_Logic; -- Rd destination write back
+			exe_flag_wb			: in Std_Logic; -- CSPR modifiy
 
 	-- Ifetch interface
-			dec_pc			: out Std_Logic_Vector(31 downto 0) ;
+			dec_pc				: out Std_Logic_Vector(31 downto 0) ;
 			if_ir				: in Std_Logic_Vector(31 downto 0) ;
 
 	-- Ifetch synchro
-			dec2if_empty	: out Std_Logic;
-			if_pop			: in Std_Logic;
+			dec2if_empty		: out Std_Logic;
+			if_pop				: in Std_Logic;
 
-			if2dec_empty	: in Std_Logic;
-			dec_pop			: out Std_Logic;
+			if2dec_empty		: in Std_Logic;
+			dec_pop				: out Std_Logic;
 
 	-- Mem Write back to reg
-			mem_res			: in Std_Logic_Vector(31 downto 0);
+			mem_res				: in Std_Logic_Vector(31 downto 0);
 			mem_dest			: in Std_Logic_Vector(3 downto 0);
-			mem_wb			: in Std_Logic;
+			mem_wb				: in Std_Logic;
 			
 	-- global interface
 			ck					: in Std_Logic;

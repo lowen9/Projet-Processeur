@@ -11,13 +11,13 @@ entity Dcache is
 			mem_adr			: in Std_Logic_Vector(31 downto 0);
 			mem_stw			: in Std_Logic;
 			mem_stb			: in Std_Logic;
-			mem_load			: in Std_Logic;
+			mem_load		: in Std_Logic;
 
-			mem_data			: in Std_Logic_Vector(31 downto 0);
+			mem_data		: in Std_Logic_Vector(31 downto 0);
 			dc_data			: out Std_Logic_Vector(31 downto 0);
-			dc_stall			: out Std_Logic;
+			dc_stall		: out Std_Logic;
 
-			ck					: in Std_logic);
+			ck				: in Std_logic);
 
 end Dcache;
 

@@ -315,6 +315,7 @@ begin
         shift_I   <= '1' when (if_ir(4)= '0' ) else '0';
         shift_val <= if_ir(11 downto 7) when shift_I='1' else "00000";
         
+        
        
 
 
