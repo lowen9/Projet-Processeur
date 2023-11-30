@@ -1,10 +1,10 @@
 v 4
-file "/home/lowen9/VLSI/Projet/DECODE/" "top/DECODE.vhdl" "2d3d7ae5b33623e1bbe81fff851e573945830c03" "20231130010616.716":
-  entity dec at 1( 0) + 0 on 247;
-  architecture behavior of dec at 83( 2438) + 0 on 248;
-file "/home/lowen9/VLSI/Projet/DECODE/" "src/REG.vhdl" "52a6a7b2d7361010b70a8aada902020895cb36ea" "20231130010616.653":
-  entity reg at 1( 0) + 0 on 243;
-  architecture behavior of reg at 69( 1727) + 0 on 244;
-file "/home/lowen9/VLSI/Projet/DECODE/" "testbench/REG_tb.vhdl" "cfacb4d57d6dddf5a56c6f1c3777c8a1e0ec3325" "20231130010616.660":
-  entity reg_tb at 1( 0) + 0 on 245;
-  architecture struct of reg_tb at 8( 100) + 0 on 246;
+file "/home/lowen9/VLSI/Projet/DECODE/" "testbench/REG_tb.vhdl" "cfacb4d57d6dddf5a56c6f1c3777c8a1e0ec3325" "20231130192155.772":
+  entity reg_tb at 1( 0) + 0 on 263;
+  architecture struct of reg_tb at 8( 100) + 0 on 264;
+file "/home/lowen9/VLSI/Projet/DECODE/" "src/REG.vhdl" "52a6a7b2d7361010b70a8aada902020895cb36ea" "20231130192155.763":
+  entity reg at 1( 0) + 0 on 261;
+  architecture behavior of reg at 69( 1727) + 0 on 262;
+file "/home/lowen9/VLSI/Projet/DECODE/" "top/DECODE.vhdl" "2d3d7ae5b33623e1bbe81fff851e573945830c03" "20231130192155.827":
+  entity dec at 1( 0) + 0 on 265;
+  architecture behavior of dec at 83( 2438) + 0 on 266;
