@@ -95,21 +95,24 @@ begin
             reg_cznv <= '1';
             reg_vv   <= '1';
             CSPR_v   <= "11";
-            
         elsif rising_edge(ck) then
             if(inval1 = '0') then
-                for i in 0 to 15 loop
-                    if to_integer(unsigned(inval_adr1)) = i then
-                        R_v(i) <= '0';
-                    end if;
-                end loop;
+                -- for i in 0 to 15 loop
+                --     if to_integer(unsigned(inval_adr1)) = i then
+                --         R_v(i) <= '0';
+                --     end if;
+                -- end loop;
+            --version opti--
+                R_v(to_integer(unsigned(inval_adr1))) <= '0';
             end if;
             if(inval2 = '0') then
-                for i in 0 to 15 loop
-                    if to_integer(unsigned(inval_adr2)) = i then
-                        R_v(i) <= '0';
-                    end if;
-                end loop;
+                -- for i in 0 to 15 loop
+                --     if to_integer(unsigned(inval_adr2)) = i then
+                --         R_v(i) <= '0';
+                --     end if;
+                -- end loop;
+            --version opti--
+                R_v(to_integer(unsigned(inval_adr2))) <= '0';
             end if;
             if(inval_czn = '0') then
                 CSPR_v(1) <= '0';
@@ -117,32 +120,44 @@ begin
             if(inval_ovr = '0') then
                 CSPR_v(0) <= '0';
             end if;
-
             --écriture dans le banc de registre
             if(wen1 = '1') then       --On regarde si port 1 d'écriture est enable
-                for j in 0 to 15 loop
-                    if(to_integer(unsigned(wadr1)) = j) then
-                        if(R_v(j) = '0') then
-                            R(j)   <= wdata1;
-                            R_v(j) <= '1';
-                        end if;
-                    end if;
-                end loop;
-            end if;
-            if(wen2 = '1') then --On regarde si port 2 d'écriture est enable
-                for j in 0 to 15 loop
-                    if(to_integer(unsigned(wadr2)) = j) then 
-                        --On regarde si le port2 écrit sur un registre que port1 est en train d'écrire 
-                        if(wen1 = '1' and to_integer(unsigned(wadr1)) /= j) then
-                            if(R_v(j) = '0') then
-                                R(j)   <= wdata2;
-                                R_v(j) <= '1';
-                            end if;
-                        end if;
-                    end if;
-                end loop;
+                -- for j in 0 to 15 loop
+                --     if(to_integer(unsigned(wadr1)) = j) then
+                --         if(R_v(j) = '0') then
+                --             R(j)   <= wdata1;
+                --             R_v(j) <= '1';
+                --         end if;
+                --     end if;
+                -- end loop;
+            --Version opti--
+                if(R_v(to_integer(unsigned(wadr1))) = '0') then
+                    R(to_integer(unsigned(wadr1)))   <= wdata1;
+                    R_v(to_integer(unsigned(wadr1))) <= '1';
+                end if;
             end if;
 
+            if(wen2 = '1') then --On regarde si port 2 d'écriture est enable
+                -- for j in 0 to 15 loop
+                --     if(to_integer(unsigned(wadr2)) = j) then 
+                --         --On regarde si le port2 écrit sur un registre que port1 est en train d'écrire 
+                --         if(wen1 = '1' and to_integer(unsigned(wadr1)) /= j) then
+                --             if(R_v(j) = '0') then
+                --                 R(j)   <= wdata2;
+                --                 R_v(j) <= '1';
+                --             end if;
+                --         end if;
+                --     end if;
+                -- end loop;
+            --version opti--
+                if(wen1 = '1' and to_integer(unsigned(wadr1)) /= to_interger(unsigned(wadr2))) then
+                    if(R_v(to_interger(unsigned(wadr2))) = '0') then
+                        R(to_interger(unsigned(wadr2)))   <= wdata2;
+                        R_v(to_interger(unsigned(wadr2))) <= '1';
+                    end if;
+                end if;
+
+            end if;
             --écriture des flags
             if(cspr_wb = '1') then
                 if(CSPR_v(1) = '0') then
@@ -172,8 +187,8 @@ begin
                     reg_v3  <= R_v(i);
                 end if;
             end loop;
-
             --Lecture des flags
+
             reg_ovr <= CSPR(0);
             reg_cry <= CSPR(1);
 		    reg_zero<= CSPR(2);		
@@ -188,3 +203,4 @@ begin
         end if;
     end process;
 end Behavior;
+
