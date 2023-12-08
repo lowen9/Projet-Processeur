@@ -86,7 +86,7 @@ signal cond  : std_logic;  --fait
 signal condv : std_logic; --fait
 
 --Opérande valide
-signal operv : std_logic; --on sait pas ?
+signal operv : std_logic;
 
 --Machine à état
 signal regop_t  : std_logic; --????
@@ -168,8 +168,10 @@ signal if2dec_pop   : std_logic;
 
 --Signaux interne de REG
 signal radr1, radr2, radr3 : std_logic_vector(3 downto 0);
+--Signaux interne traitement de données
 signal shift_val_nt : std_logic_vector(31 downto 0);
-signal opv1, opv2, opv3 : std_logic;
+signal opv1, opv2r, opv2, opv3 : std_logic;
+signal op2r : std_logic_vector(31 downto 0);
 signal reg_cry, reg_zero, reg_neg, reg_cznv, reg_ovr, reg_vv : std_logic;
 signal dec_inv_rwb  : std_logic_vector(3 downto 0);
 signal alu_dest_v   : std_logic;
@@ -177,9 +179,12 @@ signal inval_czn, inval_ovr : std_logic;
 signal reg_pc : std_logic_vector(31 downto 0); 
 signal reg_pcv,inc_pc : std_logic;
 signal EQ, NE, CS, CC, MI, PL, VS, VC, HI, LS, GE, LT, GT, LE, AL, NV : std_logic;
-signal trdd, br, ams, amm : std_logic;
+signal trdd, ams, amm : std_logic;
 signal op2i : std_logic; --op2i = 1 immédiat;
-signal shift_I: std_logic; --bit qui indique si shift est un immediat 
+signal rot_val : std_logic_vector(3 downto 0); --rot val pour immediat
+signal shift_I: std_logic; --bit qui indique si shift est un immediat
+--Signaux interne Branchement
+signal offset : std_logic_vector(23 downto 0); --valeur de l'offeset
 
 begin
      REG : entity work.REG(Behavior)
@@ -206,9 +211,9 @@ begin
             reg_v1	   => opv1 ,	    
 
         -- Read Port 2 32 bits pour lire Rm
-            reg_rd2	   => op2  ,--Vers fifo  
+            reg_rd2	   => op2r  ,--Vers fifo  
             radr2	     => radr2,--num R décodé par DEC		
-            reg_v2	   => opv2 ,  
+            reg_v2	   => opv2r ,  
 
         -- Read Port 3 32 bits pour lire Rs
             reg_rd3	   => shift_val_nt,--Valeur de shift val non tronqué   
@@ -268,30 +273,31 @@ begin
         condv <= '1' when ((reg_cznv and reg_vv) = '1') else '0';
 
         trdd <= '1' when (if_ir(27 downto 26) =  "00") else '0';
-        br   <= '1' when (if_ir(27 downto 25) = "101") else '0';
+        b_i  <= '1' when (if_ir(27 downto 25) = "101") else '0';
         ams  <= '1' when (if_ir(27 downto 26) =  "01") else '0';
         amm  <= '1' when (if_ir(27 downto 25) = "100") else '0';
 
         op2i <=    if_ir(25)  when (trdd = '1') else 
                not(if_ir(25)) when (ams  = '1') else
-               '-'; -- don't care
+               '0'; --valeur non utilisé pour les autres
 
-        and_i <= '1' when (trdd & if_ir(25 downto 21) = "10000") else '0'; 
-        eor_i <= '1' when (trdd & if_ir(25 downto 21) = "10001") else '0';
-        sub_i <= '1' when (trdd & if_ir(25 downto 21) = "10010") else '0';
-        rsb_i <= '1' when (trdd & if_ir(25 downto 21) = "10011") else '0';
-        add_i <= '1' when (trdd & if_ir(25 downto 21) = "10100") else '0';
-        adc_i <= '1' when (trdd & if_ir(25 downto 21) = "10101") else '0';
-        sbc_i <= '1' when (trdd & if_ir(25 downto 21) = "10110") else '0';
-        rsc_i <= '1' when (trdd & if_ir(25 downto 21) = "10111") else '0';
-        tst_i <= '1' when (trdd & if_ir(25 downto 21) = "11000") else '0';
-        teq_i <= '1' when (trdd & if_ir(25 downto 21) = "11001") else '0';
-        cmp_i <= '1' when (trdd & if_ir(25 downto 21) = "11010") else '0';
-        cmn_i <= '1' when (trdd & if_ir(25 downto 21) = "11011") else '0';
-        orr_i <= '1' when (trdd & if_ir(25 downto 21) = "11100") else '0';
-        mov_i <= '1' when (trdd & if_ir(25 downto 21) = "11101") else '0';
-        bic_i <= '1' when (trdd & if_ir(25 downto 21) = "11110") else '0';
-        mvn_i <= '1' when (trdd & if_ir(25 downto 21) = "11111") else '0';
+      --Traitement de données--
+        and_i <= '1' when (trdd & if_ir(24 downto 21) = "10000") else '0'; 
+        eor_i <= '1' when (trdd & if_ir(24 downto 21) = "10001") else '0';
+        sub_i <= '1' when (trdd & if_ir(24 downto 21) = "10010") else '0';
+        rsb_i <= '1' when (trdd & if_ir(24 downto 21) = "10011") else '0';
+        add_i <= '1' when (trdd & if_ir(24 downto 21) = "10100") else '0';
+        adc_i <= '1' when (trdd & if_ir(24 downto 21) = "10101") else '0';
+        sbc_i <= '1' when (trdd & if_ir(24 downto 21) = "10110") else '0';
+        rsc_i <= '1' when (trdd & if_ir(24 downto 21) = "10111") else '0';
+        tst_i <= '1' when (trdd & if_ir(24 downto 21) = "11000") else '0';
+        teq_i <= '1' when (trdd & if_ir(24 downto 21) = "11001") else '0';
+        cmp_i <= '1' when (trdd & if_ir(24 downto 21) = "11010") else '0';
+        cmn_i <= '1' when (trdd & if_ir(24 downto 21) = "11011") else '0';
+        orr_i <= '1' when (trdd & if_ir(24 downto 21) = "11100") else '0';
+        mov_i <= '1' when (trdd & if_ir(24 downto 21) = "11101") else '0';
+        bic_i <= '1' when (trdd & if_ir(24 downto 21) = "11110") else '0';
+        mvn_i <= '1' when (trdd & if_ir(24 downto 21) = "11111") else '0';
 
         flag_wb <= if_ir(20) when (trdd = '1') else '-';
 
@@ -305,15 +311,34 @@ begin
         
         --pour OP2
         radr2 <= if_ir(3 downto 0) when (((trdd or ams) and not(op2i)) = '1') else "XXXX"; --OP2 est un registre
+        op2 <= op2r                        when op2i = '0' else
+               x"000000"&if_ir(7 downto 0) when op2i = '1' else 
+               (others => 'X');
 
-        shift_lsl <= '1' when (if_ir(6 downto 5) = "00")                       else '0';
-        shift_lsr <= '1' when (if_ir(6 downto 5) = "01")                       else '0';
-        shift_asr <= '1' when (if_ir(6 downto 5) = "10")                       else '0';
-        shift_ror <= '1' when (if_ir(6 downto 5) = "11")                       else '0';
-        shift_rrx <= '1' when (if_ir(6 downto 5) = "11" and shift_val="00000") else '0';
+        shift_lsl <= '1' when (op2i & if_ir(6 downto 5) = "000")                       else '0';
+        shift_lsr <= '1' when (op2i & if_ir(6 downto 5) = "001")                       else '0';
+        shift_asr <= '1' when (op2i & if_ir(6 downto 5) = "010")                       else '0';
+        shift_ror <= '1' when (op2i & if_ir(6 downto 5) = "011" or  op2i = '1')        else '0';
+        shift_rrx <= '1' when (op2i & if_ir(6 downto 5) = "011" and shift_val="00000") else '0';
 
-        shift_I   <= '1' when (if_ir(4)= '0' ) else '0';
-        shift_val <= if_ir(11 downto 7) when shift_I='1' else "00000";
+        shift_I   <= '1' when (if_ir(4)='0') else '0';
+
+        --lecture de Rs--
+        radr3 <= if_ir(11 downto 8) when shift_I ='0' else "XXXX";
+        --Valeur de shift
+        rot_val <= if_ir(11 downto 8);
+        shift_val <= if_ir(11 downto 7)       when ((not(op2i) and not(shift_I)) = '1') else 
+                     shift_val_nt(4 downto 0) when ((not(op2i) and     shift_I)  = '1') else
+                     rot_val & '0'            when ((op2i = '1'))                       else
+                     "00000";
+
+      --Branchement b_i = '1'
+
+        bl_i <= if_ir(24);
+        offset <= if_ir(23 downto 0);
+
+
+
         
         
        
