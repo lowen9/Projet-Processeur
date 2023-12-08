@@ -150,10 +150,10 @@ begin
                 --     end if;
                 -- end loop;
             --version opti--
-                if(wen1 = '1' and to_integer(unsigned(wadr1)) /= to_interger(unsigned(wadr2))) then
-                    if(R_v(to_interger(unsigned(wadr2))) = '0') then
-                        R(to_interger(unsigned(wadr2)))   <= wdata2;
-                        R_v(to_interger(unsigned(wadr2))) <= '1';
+                if(wen1 = '1' and to_integer(unsigned(wadr1)) /= to_integer(unsigned(wadr2))) then
+                    if(R_v(to_integer(unsigned(wadr2))) = '0') then
+                        R(to_integer(unsigned(wadr2)))   <= wdata2;
+                        R_v(to_integer(unsigned(wadr2))) <= '1';
                     end if;
                 end if;
 
