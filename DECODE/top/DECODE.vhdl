@@ -740,27 +740,30 @@ begin
 		mtrans_loop_adr <= '0';
 
 		if dec2if_full = '0' and reg_pcv = '1' then
-			dec2if_push = '1';
-			if_pop = '1'; -- on doit vider le registre dec2if
+			dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
 			next_state <= RUN;
 		elsif dec2if_full = '1' then
 			next_state <= FETCH;
 		end if;
 
 	when RUN =>
-		if (if2dec_empty = '1' and (dec2exe_full = '1' or condv = '1')) then
-			dec2if_push = '1';
-			next_state <= RUN;
+		if (if2dec_empty = '1' and (dec2exe_full = '1' or condv = '0')) then --T1
+			dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
+			next_state  <= RUN;
+		elsif cond = '1' then --T3
+			dec2exe_push <= '1'; --On push les valeur vers EXE
+			if2dec_pop 	 <= '1'; --On vide le registre FETCH
+			next_state 	 <= RUN;
 		end if;
  	
 	when BRANCH =>
+			next_state <= FETCH;
 	
 	when LINK =>
+			next_state <= FETCH;
 	
 	when MTRANS =>
-			
-
-	
+			next_state <= FETCH;
 	end case;
 end process;
 
