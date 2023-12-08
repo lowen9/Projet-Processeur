@@ -492,22 +492,22 @@ begin
 						(if_ir(31 downto 28) = X"D" and (neg xor  ovr ) = '1' and zero = '1') or					
 						(if_ir(31 downto 28) = X"E") else '0';
 
-	condv <= '1'	              when (if_ir(31 downto 28) = X"E") else
-		     reg_cznv             when (if_ir(31 downto 28) = X"0" or
-							            					if_ir(31 downto 28) = X"1" or							
-							            					if_ir(31 downto 28) = X"2" or
-							            					if_ir(31 downto 28) = X"3" or
-							            					if_ir(31 downto 28) = X"4" or
-							            					if_ir(31 downto 28) = X"5" or
-							            					if_ir(31 downto 28) = X"8" or			 
-							            					if_ir(31 downto 28) = X"9" or
-							            					if_ir(31 downto 28) = X"A" or
-							            					if_ir(31 downto 28) = X"B") else 
-			reg_vv                	when (if_ir(31 downto 28) = X"6" or
-			                		    			if_ir(31 downto 28) = X"7") else 
-			(reg_cznv and reg_vv) 	when (if_ir(31 downto 28) = X"C" or
-			                            	if_ir(31 downto 28) = X"D") else
-			'0';
+	condv <= '1'	              	when (if_ir(31 downto 28) = X"E") else
+		     	 reg_cznv           	when (if_ir(31 downto 28) = X"0" or
+							            						if_ir(31 downto 28) = X"1" or							
+							            						if_ir(31 downto 28) = X"2" or
+							            						if_ir(31 downto 28) = X"3" or
+							            						if_ir(31 downto 28) = X"4" or
+							            						if_ir(31 downto 28) = X"5" or
+							            						if_ir(31 downto 28) = X"8" or			 
+							            						if_ir(31 downto 28) = X"9" or
+							            						if_ir(31 downto 28) = X"A" or
+							            						if_ir(31 downto 28) = X"B") else 
+					 reg_vv             	when (if_ir(31 downto 28) = X"6" or
+			                		    				if_ir(31 downto 28) = X"7") else 
+					(reg_cznv and reg_vv)	when (if_ir(31 downto 28) = X"C" or
+			                            		if_ir(31 downto 28) = X"D") else
+					 '0';
 
 -- decod instruction type
 
@@ -666,21 +666,21 @@ begin
 	end process;
 
 	mtrans_mask_shift <= X"FFFE" when if_ir(0) = '1' and mtrans_mask(0) = '1' else
-						 X"FFFC" when if_ir(1) = '1' and mtrans_mask(1) = '1' else
-						 X"FFF8" when if_ir(2) = '1' and mtrans_mask(2) = '1' else
-						 X"FFF0" when if_ir(3) = '1' and mtrans_mask(3) = '1' else
-						 X"FFE0" when if_ir(4) = '1' and mtrans_mask(4) = '1' else
-						 X"FFC0" when if_ir(5) = '1' and mtrans_mask(5) = '1' else
-						 X"FF80" when if_ir(6) = '1' and mtrans_mask(6) = '1' else
-						 X"FF00" when if_ir(7) = '1' and mtrans_mask(7) = '1' else
-						 X"FE00" when if_ir(8) = '1' and mtrans_mask(8) = '1' else
-						 X"FC00" when if_ir(9) = '1' and mtrans_mask(9) = '1' else
-						 X"F800" when if_ir(10) = '1' and mtrans_mask(10) = '1' else
-						 X"F000" when if_ir(11) = '1' and mtrans_mask(11) = '1' else
-						 X"E000" when if_ir(12) = '1' and mtrans_mask(12) = '1' else
-						 X"C000" when if_ir(13) = '1' and mtrans_mask(13) = '1' else
-						 X"8000" when if_ir(14) = '1' and mtrans_mask(14) = '1' else
-						 X"0000";
+											 X"FFFC" when if_ir(1) = '1' and mtrans_mask(1) = '1' else
+											 X"FFF8" when if_ir(2) = '1' and mtrans_mask(2) = '1' else
+											 X"FFF0" when if_ir(3) = '1' and mtrans_mask(3) = '1' else
+											 X"FFE0" when if_ir(4) = '1' and mtrans_mask(4) = '1' else
+											 X"FFC0" when if_ir(5) = '1' and mtrans_mask(5) = '1' else
+											 X"FF80" when if_ir(6) = '1' and mtrans_mask(6) = '1' else
+											 X"FF00" when if_ir(7) = '1' and mtrans_mask(7) = '1' else
+											 X"FE00" when if_ir(8) = '1' and mtrans_mask(8) = '1' else
+											 X"FC00" when if_ir(9) = '1' and mtrans_mask(9) = '1' else
+											 X"F800" when if_ir(10) = '1' and mtrans_mask(10) = '1' else
+											 X"F000" when if_ir(11) = '1' and mtrans_mask(11) = '1' else
+											 X"E000" when if_ir(12) = '1' and mtrans_mask(12) = '1' else
+											 X"C000" when if_ir(13) = '1' and mtrans_mask(13) = '1' else
+											 X"8000" when if_ir(14) = '1' and mtrans_mask(14) = '1' else
+											 X"0000";
 
 	mtrans_list <= if_ir(15 downto 0) and mtrans_mask;
 
@@ -691,21 +691,21 @@ begin
 	mtrans_1un <= '1' when mtrans_nbr = "00001" else '0';
 
 	mtrans_rd <=	X"0" when mtrans_list( 0) = '1' else
-					X"1" when mtrans_list( 1) = '1' else
-					X"2" when mtrans_list( 2) = '1' else
-					X"3" when mtrans_list( 3) = '1' else
-					X"4" when mtrans_list( 4) = '1' else
-					X"5" when mtrans_list( 5) = '1' else
-					X"6" when mtrans_list( 6) = '1' else
-					X"7" when mtrans_list( 7) = '1' else
-					X"8" when mtrans_list( 8) = '1' else
-					X"9" when mtrans_list( 9) = '1' else
-					X"A" when mtrans_list(10) = '1' else
-					X"B" when mtrans_list(11) = '1' else
-					X"C" when mtrans_list(12) = '1' else
-					X"D" when mtrans_list(13) = '1' else
-					X"E" when mtrans_list(14) = '1' else
-					X"F";
+								X"1" when mtrans_list( 1) = '1' else
+								X"2" when mtrans_list( 2) = '1' else
+								X"3" when mtrans_list( 3) = '1' else
+								X"4" when mtrans_list( 4) = '1' else
+								X"5" when mtrans_list( 5) = '1' else
+								X"6" when mtrans_list( 6) = '1' else
+								X"7" when mtrans_list( 7) = '1' else
+								X"8" when mtrans_list( 8) = '1' else
+								X"9" when mtrans_list( 9) = '1' else
+								X"A" when mtrans_list(10) = '1' else
+								X"B" when mtrans_list(11) = '1' else
+								X"C" when mtrans_list(12) = '1' else
+								X"D" when mtrans_list(13) = '1' else
+								X"E" when mtrans_list(14) = '1' else
+								X"F";
 
 -- FSM
 
@@ -740,10 +740,18 @@ begin
 		mtrans_loop_adr <= '0';
 
 		if dec2if_full = '0' and reg_pcv = '1' then
-		--....
+			dec2if_push = '1';
+			if_pop = '1'; -- on doit vider le registre dec2if
+			next_state <= RUN;
+		elsif dec2if_full = '1' then
+			next_state <= FETCH;
 		end if;
 
 	when RUN =>
+		if (if2dec_empty = '1' and (dec2exe_full = '1' or condv = '1')) then
+			dec2if_push = '1';
+			next_state <= RUN;
+		end if;
  	
 	when BRANCH =>
 	
