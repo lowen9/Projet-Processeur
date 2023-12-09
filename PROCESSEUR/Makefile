@@ -1,4 +1,4 @@
-GHDL= ghdl
+GHDL= ghdl-gcc
 
 WORKDIR = work
 
