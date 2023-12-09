@@ -1,0 +1,1609 @@
+$date
+  Sat Dec  9 23:20:56 2023
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$scope module standard $end
+$upscope $end
+$scope module std_logic_1164 $end
+$upscope $end
+$scope module numeric_std $end
+$upscope $end
+$scope module ram $end
+$upscope $end
+$scope module main_tb $end
+$var reg 32 ! if_adr[31:0] $end
+$var reg 1 " if_adr_valid $end
+$var reg 32 # ic_inst[31:0] $end
+$var reg 1 $ ic_stall $end
+$var reg 32 % mem_adr[31:0] $end
+$var reg 1 & mem_stw $end
+$var reg 1 ' mem_stb $end
+$var reg 1 ( mem_load $end
+$var reg 32 ) mem_data[31:0] $end
+$var reg 32 * dc_data[31:0] $end
+$var reg 1 + dc_stall $end
+$var reg 1 , ck $end
+$var reg 1 - reset_n $end
+$var reg 1 . vdd $end
+$var reg 1 / vss $end
+$var reg 32 0 goodadr[31:0] $end
+$var reg 32 1 badadr[31:0] $end
+$scope module icache_i $end
+$var reg 32 2 if_adr[31:0] $end
+$var reg 1 3 if_adr_valid $end
+$var reg 32 4 ic_inst[31:0] $end
+$var reg 1 5 ic_stall $end
+$upscope $end
+$scope module dcache_i $end
+$var reg 32 6 mem_adr[31:0] $end
+$var reg 1 7 mem_stw $end
+$var reg 1 8 mem_stb $end
+$var reg 1 9 mem_load $end
+$var reg 32 : mem_data[31:0] $end
+$var reg 32 ; dc_data[31:0] $end
+$var reg 1 < dc_stall $end
+$var reg 1 = ck $end
+$upscope $end
+$scope module arm_core_i $end
+$var reg 32 > if_adr[31:0] $end
+$var reg 1 ? if_adr_valid $end
+$var reg 32 @ ic_inst[31:0] $end
+$var reg 1 A ic_stall $end
+$var reg 32 B mem_adr[31:0] $end
+$var reg 1 C mem_stw $end
+$var reg 1 D mem_stb $end
+$var reg 1 E mem_load $end
+$var reg 32 F mem_data[31:0] $end
+$var reg 32 G dc_data[31:0] $end
+$var reg 1 H dc_stall $end
+$var reg 1 I ck $end
+$var reg 1 J reset_n $end
+$var reg 1 K vdd $end
+$var reg 1 L vss $end
+$var reg 1 M if_pop $end
+$var reg 32 N if_ir[31:0] $end
+$var reg 1 O if2dec_empty $end
+$var reg 32 P dec_op1[31:0] $end
+$var reg 32 Q dec_op2[31:0] $end
+$var reg 4 R dec_exe_dest[3:0] $end
+$var reg 1 S dec_exe_wb $end
+$var reg 1 T dec_flag_wb $end
+$var reg 32 U dec_mem_data[31:0] $end
+$var reg 4 V dec_mem_dest[3:0] $end
+$var reg 1 W dec_pre_index $end
+$var reg 1 X dec_mem_lw $end
+$var reg 1 Y dec_mem_lb $end
+$var reg 1 Z dec_mem_sw $end
+$var reg 1 [ dec_mem_sb $end
+$var reg 1 \ dec_shift_lsl $end
+$var reg 1 ] dec_shift_lsr $end
+$var reg 1 ^ dec_shift_asr $end
+$var reg 1 _ dec_shift_ror $end
+$var reg 1 ` dec_shift_rrx $end
+$var reg 5 a dec_shift_val[4:0] $end
+$var reg 1 b dec_cy $end
+$var reg 1 c dec_comp_op1 $end
+$var reg 1 d dec_comp_op2 $end
+$var reg 1 e dec_alu_cy $end
+$var reg 1 f dec2exe_empty $end
+$var reg 2 g dec_alu_cmd[1:0] $end
+$var reg 32 h dec_pc[31:0] $end
+$var reg 1 i dec2if_empty $end
+$var reg 1 j dec_pop $end
+$var reg 1 k exe_pop $end
+$var reg 32 l exe_res[31:0] $end
+$var reg 1 m exe_c $end
+$var reg 1 n exe_v $end
+$var reg 1 o exe_n $end
+$var reg 1 p exe_z $end
+$var reg 4 q exe_dest[3:0] $end
+$var reg 1 r exe_wb $end
+$var reg 1 s exe_flag_wb $end
+$var reg 32 t exe_mem_adr[31:0] $end
+$var reg 32 u exe_mem_data[31:0] $end
+$var reg 4 v exe_mem_dest[3:0] $end
+$var reg 1 w exe_mem_lw $end
+$var reg 1 x exe_mem_lb $end
+$var reg 1 y exe_mem_sw $end
+$var reg 1 z exe_mem_sb $end
+$var reg 1 { exe2mem_empty $end
+$var reg 1 | mem_pop $end
+$var reg 32 } mem_res[31:0] $end
+$var reg 4 !" mem_dest[3:0] $end
+$var reg 1 "" mem_wb $end
+$scope module ifetch_i $end
+$var reg 32 #" if_adr[31:0] $end
+$var reg 1 $" if_adr_valid $end
+$var reg 32 %" ic_inst[31:0] $end
+$var reg 1 &" ic_stall $end
+$var reg 1 '" dec2if_empty $end
+$var reg 1 (" if_pop $end
+$var reg 32 )" dec_pc[31:0] $end
+$var reg 32 *" if_ir[31:0] $end
+$var reg 1 +" if2dec_empty $end
+$var reg 1 ," dec_pop $end
+$var reg 1 -" ck $end
+$var reg 1 ." reset_n $end
+$var reg 1 /" vdd $end
+$var reg 1 0" vss $end
+$var reg 1 1" if2dec_push $end
+$var reg 1 2" if2dec_full $end
+$scope module if2dec $end
+$var reg 32 3" din[31:0] $end
+$var reg 32 4" dout[31:0] $end
+$var reg 1 5" push $end
+$var reg 1 6" pop $end
+$var reg 1 7" full $end
+$var reg 1 8" empty $end
+$var reg 1 9" reset_n $end
+$var reg 1 :" ck $end
+$var reg 1 ;" vdd $end
+$var reg 1 <" vss $end
+$var reg 32 =" fifo_d[31:0] $end
+$var reg 1 >" fifo_v $end
+$upscope $end
+$upscope $end
+$scope module decod_i $end
+$var reg 32 ?" dec_op1[31:0] $end
+$var reg 32 @" dec_op2[31:0] $end
+$var reg 4 A" dec_exe_dest[3:0] $end
+$var reg 1 B" dec_exe_wb $end
+$var reg 1 C" dec_flag_wb $end
+$var reg 32 D" dec_mem_data[31:0] $end
+$var reg 4 E" dec_mem_dest[3:0] $end
+$var reg 1 F" dec_pre_index $end
+$var reg 1 G" dec_mem_lw $end
+$var reg 1 H" dec_mem_lb $end
+$var reg 1 I" dec_mem_sw $end
+$var reg 1 J" dec_mem_sb $end
+$var reg 1 K" dec_shift_lsl $end
+$var reg 1 L" dec_shift_lsr $end
+$var reg 1 M" dec_shift_asr $end
+$var reg 1 N" dec_shift_ror $end
+$var reg 1 O" dec_shift_rrx $end
+$var reg 5 P" dec_shift_val[4:0] $end
+$var reg 1 Q" dec_cy $end
+$var reg 1 R" dec_comp_op1 $end
+$var reg 1 S" dec_comp_op2 $end
+$var reg 1 T" dec_alu_cy $end
+$var reg 1 U" dec2exe_empty $end
+$var reg 1 V" exe_pop $end
+$var reg 2 W" dec_alu_cmd[1:0] $end
+$var reg 32 X" exe_res[31:0] $end
+$var reg 1 Y" exe_c $end
+$var reg 1 Z" exe_v $end
+$var reg 1 [" exe_n $end
+$var reg 1 \" exe_z $end
+$var reg 4 ]" exe_dest[3:0] $end
+$var reg 1 ^" exe_wb $end
+$var reg 1 _" exe_flag_wb $end
+$var reg 32 `" dec_pc[31:0] $end
+$var reg 32 a" if_ir[31:0] $end
+$var reg 1 b" dec2if_empty $end
+$var reg 1 c" if_pop $end
+$var reg 1 d" if2dec_empty $end
+$var reg 1 e" dec_pop $end
+$var reg 32 f" mem_res[31:0] $end
+$var reg 4 g" mem_dest[3:0] $end
+$var reg 1 h" mem_wb $end
+$var reg 1 i" ck $end
+$var reg 1 j" reset_n $end
+$var reg 1 k" vdd $end
+$var reg 1 l" vss $end
+$var reg 1 m" cond $end
+$var reg 1 n" condv $end
+$var reg 1 o" operv $end
+$var reg 1 p" regop_t $end
+$var reg 1 q" mult_t $end
+$var reg 1 r" swap_t $end
+$var reg 1 s" trans_t $end
+$var reg 1 t" mtrans_t $end
+$var reg 1 u" branch_t $end
+$var reg 1 v" and_i $end
+$var reg 1 w" eor_i $end
+$var reg 1 x" sub_i $end
+$var reg 1 y" rsb_i $end
+$var reg 1 z" add_i $end
+$var reg 1 {" adc_i $end
+$var reg 1 |" sbc_i $end
+$var reg 1 }" rsc_i $end
+$var reg 1 !# tst_i $end
+$var reg 1 "# teq_i $end
+$var reg 1 ## cmp_i $end
+$var reg 1 $# cmn_i $end
+$var reg 1 %# orr_i $end
+$var reg 1 &# mov_i $end
+$var reg 1 '# bic_i $end
+$var reg 1 (# mvn_i $end
+$var reg 1 )# mul_i $end
+$var reg 1 *# mla_i $end
+$var reg 1 +# ldr_i $end
+$var reg 1 ,# str_i $end
+$var reg 1 -# ldrb_i $end
+$var reg 1 .# strb_i $end
+$var reg 1 /# ldm_i $end
+$var reg 1 0# stm_i $end
+$var reg 1 1# b_i $end
+$var reg 1 2# bl_i $end
+$var reg 1 3# blink $end
+$var reg 1 4# mtrans_shift $end
+$var reg 16 5# mtrans_mask_shift[15:0] $end
+$var reg 16 6# mtrans_mask[15:0] $end
+$var reg 16 7# mtrans_list[15:0] $end
+$var reg 1 8# mtrans_1un $end
+$var reg 1 9# mtrans_loop_adr $end
+$var reg 5 :# mtrans_nbr[4:0] $end
+$var reg 4 ;# mtrans_rd[3:0] $end
+$var reg 4 <# radr1[3:0] $end
+$var reg 32 =# rdata1[31:0] $end
+$var reg 1 ># rvalid1 $end
+$var reg 4 ?# radr2[3:0] $end
+$var reg 32 @# rdata2[31:0] $end
+$var reg 1 A# rvalid2 $end
+$var reg 4 B# radr3[3:0] $end
+$var reg 32 C# rdata3[31:0] $end
+$var reg 1 D# rvalid3 $end
+$var reg 4 E# inval_exe_adr[3:0] $end
+$var reg 1 F# inval_exe $end
+$var reg 4 G# inval_mem_adr[3:0] $end
+$var reg 1 H# inval_mem $end
+$var reg 1 I# cry $end
+$var reg 1 J# zero $end
+$var reg 1 K# neg $end
+$var reg 1 L# ovr $end
+$var reg 1 M# reg_cznv $end
+$var reg 1 N# reg_vv $end
+$var reg 1 O# inval_czn $end
+$var reg 1 P# inval_ovr $end
+$var reg 32 Q# reg_pc[31:0] $end
+$var reg 1 R# reg_pcv $end
+$var reg 1 S# inc_pc $end
+$var reg 1 T# dec2if_full $end
+$var reg 1 U# dec2if_push $end
+$var reg 1 V# dec2exe_full $end
+$var reg 1 W# dec2exe_push $end
+$var reg 1 X# if2dec_pop $end
+$var reg 32 Y# op1[31:0] $end
+$var reg 1 Z# op2i $end
+$var reg 32 [# op2[31:0] $end
+$var reg 4 \# alu_dest[3:0] $end
+$var reg 1 ]# alu_wb $end
+$var reg 1 ^# flag_wb $end
+$var reg 32 _# offset32[31:0] $end
+$var reg 32 `# mem_data[31:0] $end
+$var reg 4 a# ld_dest[3:0] $end
+$var reg 1 b# pre_index $end
+$var reg 1 c# mem_lw $end
+$var reg 1 d# mem_lb $end
+$var reg 1 e# mem_sw $end
+$var reg 1 f# mem_sb $end
+$var reg 1 g# shift_lsl $end
+$var reg 1 h# shift_lsr $end
+$var reg 1 i# shift_asr $end
+$var reg 1 j# shift_ror $end
+$var reg 1 k# shift_rrx $end
+$var reg 5 l# shift_val[4:0] $end
+$var reg 1 m# cy $end
+$var reg 1 n# comp_op1 $end
+$var reg 1 o# comp_op2 $end
+$var reg 1 p# alu_cy $end
+$var reg 2 q# alu_cmd[1:0] $end
+$comment cur_state is not handled $end
+$comment next_state is not handled $end
+$var reg 4 r# debug_state[3:0] $end
+$scope module dec2exec $end
+$var reg 127 s# din[126:0] $end
+$var reg 127 t# dout[126:0] $end
+$var reg 1 u# push $end
+$var reg 1 v# pop $end
+$var reg 1 w# full $end
+$var reg 1 x# empty $end
+$var reg 1 y# reset_n $end
+$var reg 1 z# ck $end
+$var reg 1 {# vdd $end
+$var reg 1 |# vss $end
+$var reg 127 }# fifo_d[126:0] $end
+$var reg 1 !$ fifo_v $end
+$upscope $end
+$scope module dec2if $end
+$var reg 32 "$ din[31:0] $end
+$var reg 32 #$ dout[31:0] $end
+$var reg 1 $$ push $end
+$var reg 1 %$ pop $end
+$var reg 1 &$ full $end
+$var reg 1 '$ empty $end
+$var reg 1 ($ reset_n $end
+$var reg 1 )$ ck $end
+$var reg 1 *$ vdd $end
+$var reg 1 +$ vss $end
+$var reg 32 ,$ fifo_d[31:0] $end
+$var reg 1 -$ fifo_v $end
+$upscope $end
+$scope module reg_inst $end
+$var reg 32 .$ wdata1[31:0] $end
+$var reg 4 /$ wadr1[3:0] $end
+$var reg 1 0$ wen1 $end
+$var reg 32 1$ wdata2[31:0] $end
+$var reg 4 2$ wadr2[3:0] $end
+$var reg 1 3$ wen2 $end
+$var reg 1 4$ wcry $end
+$var reg 1 5$ wzero $end
+$var reg 1 6$ wneg $end
+$var reg 1 7$ wovr $end
+$var reg 1 8$ cspr_wb $end
+$var reg 32 9$ reg_rd1[31:0] $end
+$var reg 4 :$ radr1[3:0] $end
+$var reg 1 ;$ reg_v1 $end
+$var reg 32 <$ reg_rd2[31:0] $end
+$var reg 4 =$ radr2[3:0] $end
+$var reg 1 >$ reg_v2 $end
+$var reg 32 ?$ reg_rd3[31:0] $end
+$var reg 4 @$ radr3[3:0] $end
+$var reg 1 A$ reg_v3 $end
+$var reg 1 B$ reg_cry $end
+$var reg 1 C$ reg_zero $end
+$var reg 1 D$ reg_neg $end
+$var reg 1 E$ reg_cznv $end
+$var reg 1 F$ reg_ovr $end
+$var reg 1 G$ reg_vv $end
+$var reg 4 H$ inval_adr1[3:0] $end
+$var reg 1 I$ inval1 $end
+$var reg 4 J$ inval_adr2[3:0] $end
+$var reg 1 K$ inval2 $end
+$var reg 1 L$ inval_czn $end
+$var reg 1 M$ inval_ovr $end
+$var reg 32 N$ reg_pc[31:0] $end
+$var reg 1 O$ reg_pcv $end
+$var reg 1 P$ inc_pc $end
+$var reg 1 Q$ ck $end
+$var reg 1 R$ reset_n $end
+$var reg 1 S$ vdd $end
+$var reg 1 T$ vss $end
+$comment r is not handled $end
+$var reg 4 U$ cspr[3:0] $end
+$var reg 2 V$ cspr_v[1:0] $end
+$var reg 16 W$ r_v[15:0] $end
+$upscope $end
+$upscope $end
+$scope module exec_i $end
+$var reg 1 X$ dec2exe_empty $end
+$var reg 1 Y$ exe_pop $end
+$var reg 32 Z$ dec_op1[31:0] $end
+$var reg 32 [$ dec_op2[31:0] $end
+$var reg 4 \$ dec_exe_dest[3:0] $end
+$var reg 1 ]$ dec_exe_wb $end
+$var reg 1 ^$ dec_flag_wb $end
+$var reg 32 _$ dec_mem_data[31:0] $end
+$var reg 4 `$ dec_mem_dest[3:0] $end
+$var reg 1 a$ dec_pre_index $end
+$var reg 1 b$ dec_mem_lw $end
+$var reg 1 c$ dec_mem_lb $end
+$var reg 1 d$ dec_mem_sw $end
+$var reg 1 e$ dec_mem_sb $end
+$var reg 1 f$ dec_shift_lsl $end
+$var reg 1 g$ dec_shift_lsr $end
+$var reg 1 h$ dec_shift_asr $end
+$var reg 1 i$ dec_shift_ror $end
+$var reg 1 j$ dec_shift_rrx $end
+$var reg 5 k$ dec_shift_val[4:0] $end
+$var reg 1 l$ dec_cy $end
+$var reg 1 m$ dec_comp_op1 $end
+$var reg 1 n$ dec_comp_op2 $end
+$var reg 1 o$ dec_alu_cy $end
+$var reg 2 p$ dec_alu_cmd[1:0] $end
+$var reg 32 q$ exe_res[31:0] $end
+$var reg 1 r$ exe_c $end
+$var reg 1 s$ exe_v $end
+$var reg 1 t$ exe_n $end
+$var reg 1 u$ exe_z $end
+$var reg 4 v$ exe_dest[3:0] $end
+$var reg 1 w$ exe_wb $end
+$var reg 1 x$ exe_flag_wb $end
+$var reg 32 y$ exe_mem_adr[31:0] $end
+$var reg 32 z$ exe_mem_data[31:0] $end
+$var reg 4 {$ exe_mem_dest[3:0] $end
+$var reg 1 |$ exe_mem_lw $end
+$var reg 1 }$ exe_mem_lb $end
+$var reg 1 !% exe_mem_sw $end
+$var reg 1 "% exe_mem_sb $end
+$var reg 1 #% exe2mem_empty $end
+$var reg 1 $% mem_pop $end
+$var reg 1 %% ck $end
+$var reg 1 &% reset_n $end
+$var reg 1 '% vdd $end
+$var reg 1 (% vss $end
+$var reg 32 )% mux_op1[31:0] $end
+$var reg 32 *% mux_op2[31:0] $end
+$var reg 32 +% res_alu[31:0] $end
+$var reg 1 ,% cout_alu $end
+$var reg 1 -% cout_alu_wb $end
+$var reg 32 .% dout_shift[31:0] $end
+$var reg 1 /% cout_shift $end
+$var reg 32 0% mem_adr[31:0] $end
+$var reg 1 1% exe_push $end
+$var reg 1 2% exe2mem_full $end
+$scope module alu $end
+$var reg 32 3% op1[31:0] $end
+$var reg 32 4% op2[31:0] $end
+$var reg 1 5% cin $end
+$var reg 2 6% cmd[1:0] $end
+$var reg 32 7% res[31:0] $end
+$var reg 1 8% cout $end
+$var reg 1 9% z $end
+$var reg 1 :% n $end
+$var reg 1 ;% v $end
+$var reg 1 <% vdd $end
+$var reg 1 =% vss $end
+$var reg 33 >% temp[32:0] $end
+$var reg 1 ?% cond_v $end
+$upscope $end
+$scope module shifter $end
+$var reg 1 @% shift_lsl $end
+$var reg 1 A% shift_lsr $end
+$var reg 1 B% shift_asr $end
+$var reg 1 C% shift_ror $end
+$var reg 1 D% shift_rrx $end
+$var reg 5 E% shift_val[4:0] $end
+$var reg 32 F% din[31:0] $end
+$var reg 1 G% cin $end
+$var reg 32 H% dout[31:0] $end
+$var reg 1 I% cout $end
+$var reg 1 J% vdd $end
+$var reg 1 K% vss $end
+$var reg 32 L% zero[31:0] $end
+$var reg 32 M% msb_asr[31:0] $end
+$var reg 1 N% cond_lsl $end
+$var reg 1 O% cond_lsr $end
+$var reg 1 P% cond_asr $end
+$var reg 1 Q% cond_ror $end
+$var reg 1 R% cond_rrx $end
+$var reg 32 S% one[31:0] $end
+$var reg 1 T% cout_lsl $end
+$var reg 1 U% cout_alrsr $end
+$var integer 32 V% shift_i $end
+$upscope $end
+$scope module exec2mem $end
+$var reg 72 W% din[71:0] $end
+$var reg 72 X% dout[71:0] $end
+$var reg 1 Y% push $end
+$var reg 1 Z% pop $end
+$var reg 1 [% full $end
+$var reg 1 \% empty $end
+$var reg 1 ]% reset_n $end
+$var reg 1 ^% ck $end
+$var reg 1 _% vdd $end
+$var reg 1 `% vss $end
+$var reg 72 a% fifo_d[71:0] $end
+$var reg 1 b% fifo_v $end
+$upscope $end
+$upscope $end
+$scope module mem_i $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU !
+0"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU #
+0$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU %
+U&
+U'
+U(
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU )
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU *
+0+
+0,
+0-
+1.
+0/
+b00000000000000000000000000011000 0
+b00000000000000000000000000010000 1
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 2
+03
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 4
+05
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 6
+U7
+U8
+U9
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU :
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ;
+0<
+0=
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU >
+0?
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU @
+0A
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU B
+UC
+UD
+UE
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU F
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU G
+0H
+0I
+0J
+1K
+0L
+0M
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU N
+UO
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU P
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU Q
+bUUUU R
+US
+UT
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU U
+bUUUU V
+UW
+UX
+UY
+UZ
+U[
+U\
+U]
+U^
+U_
+U`
+bUUUUU a
+Ub
+Uc
+Ud
+Ue
+Uf
+bUU g
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU h
+Ui
+0j
+0k
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU l
+Um
+0n
+0o
+0p
+bUUUU q
+Ur
+Us
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU t
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU u
+bUUUU v
+Uw
+Ux
+Uy
+Uz
+U{
+U|
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU }
+bUUUU !"
+U""
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU #"
+0$"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU %"
+0&"
+U'"
+0("
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU )"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU *"
+U+"
+0,"
+0-"
+0."
+1/"
+00"
+01"
+02"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 3"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 4"
+05"
+06"
+07"
+U8"
+09"
+0:"
+1;"
+0<"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ="
+U>"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ?"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU @"
+bUUUU A"
+UB"
+UC"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU D"
+bUUUU E"
+UF"
+UG"
+UH"
+UI"
+UJ"
+UK"
+UL"
+UM"
+UN"
+UO"
+bUUUUU P"
+UQ"
+UR"
+US"
+UT"
+UU"
+0V"
+bUU W"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU X"
+UY"
+0Z"
+0["
+0\"
+bUUUU ]"
+U^"
+U_"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU `"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU a"
+Ub"
+0c"
+Ud"
+0e"
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU f"
+bUUUU g"
+Uh"
+0i"
+0j"
+1k"
+0l"
+0m"
+0n"
+1o"
+0p"
+0q"
+0r"
+0s"
+0t"
+0u"
+0v"
+0w"
+0x"
+0y"
+0z"
+0{"
+0|"
+0}"
+0!#
+0"#
+0##
+0$#
+0%#
+0&#
+0'#
+0(#
+U)#
+U*#
+0+#
+0,#
+0-#
+0.#
+U/#
+U0#
+U1#
+U2#
+03#
+04#
+b0000000000000000 5#
+bUUUUUUUUUUUUUUUU 6#
+bUUUUUUUUUUUUUUUU 7#
+08#
+09#
+bUUUUU :#
+b1111 ;#
+bUUUU <#
+b00000000000000000000000000000000 =#
+1>#
+bUUUU ?#
+b00000000000000000000000000000000 @#
+1A#
+bUUUU B#
+b00000000000000000000000000000000 C#
+1D#
+bUUUU E#
+1F#
+b1111 G#
+1H#
+0I#
+0J#
+0K#
+0L#
+1M#
+1N#
+0O#
+0P#
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU Q#
+UR#
+US#
+0T#
+UU#
+0V#
+0W#
+0X#
+b00000000000000000000000000000000 Y#
+0Z#
+b00000000000000000000000000000000 [#
+bUUUU \#
+0]#
+0^#
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU00 _#
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU `#
+bUUUU a#
+Ub#
+0c#
+0d#
+0e#
+0f#
+0g#
+0h#
+0i#
+0j#
+0k#
+b00000 l#
+Um#
+0n#
+0o#
+0p#
+b00 q#
+b0001 r#
+bU0000000000000000000000000000000000000000000000000000000000000000UUUU0000000000000000000000000000000000UUUU00000000000000000000 s#
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU t#
+0u#
+0v#
+0w#
+Ux#
+0y#
+0z#
+1{#
+0|#
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU }#
+U!$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU "$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU #$
+U$$
+0%$
+0&$
+U'$
+0($
+0)$
+1*$
+0+$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU ,$
+U-$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU .$
+bUUUU /$
+U0$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 1$
+bUUUU 2$
+U3$
+U4$
+05$
+06$
+07$
+U8$
+b00000000000000000000000000000000 9$
+bUUUU :$
+1;$
+b00000000000000000000000000000000 <$
+bUUUU =$
+1>$
+b00000000000000000000000000000000 ?$
+bUUUU @$
+1A$
+0B$
+0C$
+0D$
+1E$
+0F$
+1G$
+bUUUU H$
+1I$
+b1111 J$
+1K$
+0L$
+0M$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU N$
+UO$
+UP$
+0Q$
+0R$
+1S$
+0T$
+bUUUU U$
+b11 V$
+b1111111111111111 W$
+UX$
+0Y$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU Z$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU [$
+bUUUU \$
+U]$
+U^$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU _$
+bUUUU `$
+Ua$
+Ub$
+Uc$
+Ud$
+Ue$
+Uf$
+Ug$
+Uh$
+Ui$
+Uj$
+bUUUUU k$
+Ul$
+Um$
+Un$
+Uo$
+bUU p$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU q$
+Ur$
+0s$
+0t$
+0u$
+bUUUU v$
+Uw$
+Ux$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU y$
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU z$
+bUUUU {$
+U|$
+U}$
+U!%
+U"%
+U#%
+U$%
+0%%
+0&%
+1'%
+0(%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU )%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU *%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU +%
+X,%
+U-%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU .%
+U/%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 0%
+01%
+02%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 3%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 4%
+U5%
+bUU 6%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU 7%
+X8%
+09%
+0:%
+0;%
+1<%
+0=%
+bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX >%
+U?%
+U@%
+UA%
+UB%
+UC%
+UD%
+bUUUUU E%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU F%
+UG%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU H%
+UI%
+1J%
+0K%
+b00000000000000000000000000000000 L%
+b11111111111111111111111111111111 M%
+0N%
+0O%
+0P%
+0Q%
+0R%
+b11111111111111111111111111111111 S%
+0T%
+0U%
+b0 V%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU W%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU X%
+0Y%
+UZ%
+0[%
+U\%
+0]%
+0^%
+1_%
+0`%
+bUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU a%
+Ub%
+#1000000
+1,
+1=
+1I
+1O
+1f
+1i
+1{
+1'"
+1+"
+1-"
+18"
+1:"
+0>"
+1U"
+1b"
+1d"
+1i"
+1x#
+1z#
+0!$
+1'$
+1)$
+0-$
+1Q$
+1X$
+1#%
+1%%
+1\%
+1^%
+0b%
+#2000000
+0,
+1-
+0=
+0I
+1J
+0-"
+1."
+19"
+0:"
+0i"
+1j"
+1y#
+0z#
+1($
+0)$
+0Q$
+1R$
+0%%
+1&%
+1]%
+0^%
+#3000000
+1,
+1=
+1I
+1-"
+1:"
+1i"
+UI#
+UJ#
+UK#
+UL#
+b00000000000000000000000000000000 Q#
+1R#
+1S#
+1U#
+bU0000000000000000000000000000000000000000000000000000000000000000UUUU0000000000000000000000000000000000UUUU00000000000000U00000 s#
+1z#
+b00000000000000000000000000000000 "$
+1$$
+1)$
+UB$
+UC$
+UD$
+UF$
+b00000000000000000000000000000000 N$
+1O$
+1P$
+1Q$
+b00 V$
+1%%
+1^%
+#4000000
+0,
+0=
+0I
+0-"
+0:"
+0i"
+0z#
+0)$
+0Q$
+0%%
+0^%
+#5000000
+b00000000000000000000000000000000 !
+1"
+b11100011101000000001000000000011 #
+1,
+b00000000000000000000000000000000 2
+13
+b11100011101000000001000000000011 4
+1=
+b00000000000000000000000000000000 >
+1?
+b11100011101000000001000000000011 @
+1I
+1M
+b00000000000000000000000000000000 h
+0i
+b00000000000000000000000000000000 #"
+1$"
+b11100011101000000001000000000011 %"
+0'"
+1("
+b00000000000000000000000000000000 )"
+1-"
+11"
+b11100011101000000001000000000011 3"
+15"
+1:"
+b00000000000000000000000000000000 `"
+0b"
+1c"
+1i"
+0M#
+0N#
+0T#
+1z#
+b00000000000000000000000000000000 #$
+1%$
+0&$
+0'$
+1)$
+b00000000000000000000000000000000 ,$
+1-$
+0E$
+0G$
+1Q$
+1%%
+1^%
+#6000000
+0,
+0=
+0I
+0-"
+0:"
+0i"
+0z#
+0)$
+0Q$
+0%%
+0^%
+#7000000
+1,
+1=
+1I
+1M
+b11100011101000000001000000000011 N
+0O
+1j
+1("
+b11100011101000000001000000000011 *"
+0+"
+1,"
+1-"
+11"
+02"
+b11100011101000000001000000000011 4"
+15"
+16"
+07"
+08"
+1:"
+b11100011101000000001000000000011 ="
+1>"
+b11100011101000000001000000000011 a"
+1c"
+0d"
+1e"
+1i"
+1m"
+1n"
+1p"
+1&#
+1,#
+b000U0000000000UU 7#
+b0000 <#
+b0011 ?#
+b0000 B#
+b0000 E#
+0F#
+b00000000000000000000000000000100 Q#
+0T#
+1W#
+1X#
+1Z#
+b00000000000000000000000000000011 [#
+b0001 \#
+b11111110100000000100000000001100 _#
+b0001 a#
+1b#
+1e#
+0g#
+1j#
+b1000000000000000000000000000000000000000000000000000000000000001100010000000000000000000000000000000000000100100001000000U00000 s#
+1u#
+1z#
+b00000000000000000000000000000100 "$
+1%$
+0&$
+1)$
+b0000 :$
+b0011 =$
+b0000 @$
+b0000 H$
+0I$
+b00000000000000000000000000000100 N$
+1Q$
+1%%
+1^%
+#8000000
+0,
+0=
+0I
+0-"
+0:"
+0i"
+0z#
+0)$
+0Q$
+0%%
+0^%
+#9000000
+b00000000000000000000000000000100 !
+b11100001101000000000000000000000 #
+1,
+b00000000000000000000000000000100 2
+b11100001101000000000000000000000 4
+1=
+b00000000000000000000000000000100 >
+b11100001101000000000000000000000 @
+1I
+b00000000000000000000000000000000 P
+b00000000000000000000000000000011 Q
+b0001 R
+0S
+0T
+b00000000000000000000000000000000 U
+b0001 V
+1W
+0X
+0Y
+1Z
+0[
+0\
+0]
+0^
+1_
+0`
+b00000 a
+0c
+0d
+0e
+0f
+b00 g
+b00000000000000000000000000000100 h
+1k
+b00000000000000000000000000000011 l
+0m
+b0001 q
+0r
+0s
+b00000000000000000000000000000100 #"
+b11100001101000000000000000000000 %"
+b00000000000000000000000000000100 )"
+1-"
+b11100001101000000000000000000000 3"
+1:"
+b00000000000000000000000000000000 ?"
+b00000000000000000000000000000011 @"
+b0001 A"
+0B"
+0C"
+b00000000000000000000000000000000 D"
+b0001 E"
+1F"
+0G"
+0H"
+1I"
+0J"
+0K"
+0L"
+0M"
+1N"
+0O"
+b00000 P"
+0R"
+0S"
+0T"
+0U"
+1V"
+b00 W"
+b00000000000000000000000000000011 X"
+0Y"
+b0001 ]"
+0^"
+0_"
+b00000000000000000000000000000100 `"
+1i"
+b00000000000000000000000000001000 Q#
+0V#
+b1000000000000000000000000000000000000000000000000000000000000001100010000000000000000000000000000000000000100100001000000U00000 t#
+1v#
+0w#
+0x#
+1z#
+b1000000000000000000000000000000000000000000000000000000000000001100010000000000000000000000000000000000000100100001000000U00000 }#
+1!$
+b00000000000000000000000000001000 "$
+b00000000000000000000000000000100 #$
+1)$
+b00000000000000000000000000000100 ,$
+b00000000000000000000000000000011 .$
+b0001 /$
+00$
+04$
+08$
+b00000000000000000000000000001000 N$
+1Q$
+b1111111111111110 W$
+0X$
+1Y$
+b00000000000000000000000000000000 Z$
+b00000000000000000000000000000011 [$
+b0001 \$
+0]$
+0^$
+b00000000000000000000000000000000 _$
+b0001 `$
+1a$
+0b$
+0c$
+1d$
+0e$
+0f$
+0g$
+0h$
+1i$
+0j$
+b00000 k$
+0m$
+0n$
+0o$
+b00 p$
+b00000000000000000000000000000011 q$
+0r$
+b0001 v$
+0w$
+0x$
+1%%
+b00000000000000000000000000000000 )%
+b00000000000000000000000000000011 *%
+b00000000000000000000000000000011 +%
+0,%
+b00000000000000000000000000000011 .%
+0/%
+b00000000000000000000000000000011 0%
+11%
+b00000000000000000000000000000000 3%
+b00000000000000000000000000000011 4%
+05%
+b00 6%
+b00000000000000000000000000000011 7%
+08%
+b000000000000000000000000000000011 >%
+0?%
+0@%
+0A%
+0B%
+1C%
+0D%
+b00000 E%
+b00000000000000000000000000000011 F%
+b00000000000000000000000000000011 H%
+0I%
+b00000000000000000000000000000000 M%
+1Q%
+b001000010000000000000000000000000000000000000000000000000000000000000011 W%
+1Y%
+1^%
+#10000000
+0,
+0=
+0I
+0-"
+0:"
+0i"
+0z#
+0)$
+0Q$
+0%%
+0^%
+#11000000
+b00000000000000000000000000001000 !
+b11100010100000010000000000000010 #
+1,
+b00000000000000000000000000001000 2
+b11100010100000010000000000000010 4
+1=
+b00000000000000000000000000001000 >
+b11100010100000010000000000000010 @
+1I
+b11100001101000000000000000000000 N
+b00000000000000000000000000001000 h
+b00000000000000000000000000000011 t
+b00000000000000000000000000000000 u
+b0001 v
+0w
+0x
+1y
+0z
+0{
+b00000000000000000000000000001000 #"
+b11100010100000010000000000000010 %"
+b00000000000000000000000000001000 )"
+b11100001101000000000000000000000 *"
+1-"
+b11100010100000010000000000000010 3"
+b11100001101000000000000000000000 4"
+1:"
+b11100001101000000000000000000000 ="
+b00000000000000000000000000001000 `"
+b11100001101000000000000000000000 a"
+1i"
+0o"
+b0000000000000000 7#
+0>#
+b0000 ?#
+0D#
+b00000000000000000000000000001100 Q#
+0Z#
+b00000000000000000000000000000000 [#
+b0000 \#
+b11111110100000000000000000000000 _#
+b0000 a#
+1g#
+0j#
+b1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000U00000 s#
+1z#
+b00000000000000000000000000001100 "$
+b00000000000000000000000000001000 #$
+1)$
+b00000000000000000000000000001000 ,$
+0;$
+b0000 =$
+0A$
+b00000000000000000000000000001100 N$
+1Q$
+b00000000000000000000000000000011 y$
+b00000000000000000000000000000000 z$
+b0001 {$
+0|$
+0}$
+1!%
+0"%
+0#%
+1%%
+b001000010000000000000000000000000000000000000000000000000000000000000011 X%
+0\%
+1^%
+b001000010000000000000000000000000000000000000000000000000000000000000011 a%
+1b%
+#12000000
+0,
+0=
+0I
+0-"
+0:"
+0i"
+0z#
+0)$
+0Q$
+0%%
+0^%
+#13000000
+b00000000000000000000000000001100 !
+b11100001101000000000000000000000 #
+1,
+b00000000000000000000000000001100 2
+b11100001101000000000000000000000 4
+1=
+b00000000000000000000000000001100 >
+b11100001101000000000000000000000 @
+1I
+b11100010100000010000000000000010 N
+b00000000000000000000000000000000 Q
+b0000 R
+b0000 V
+1\
+0_
+b00000000000000000000000000001100 h
+b00000000000000000000000000000000 l
+1p
+b0000 q
+b00000000000000000000000000001100 #"
+b11100001101000000000000000000000 %"
+b00000000000000000000000000001100 )"
+b11100010100000010000000000000010 *"
+1-"
+b11100001101000000000000000000000 3"
+b11100010100000010000000000000010 4"
+1:"
+b11100010100000010000000000000010 ="
+b00000000000000000000000000000000 @"
+b0000 A"
+b0000 E"
+1K"
+0N"
+b00000000000000000000000000000000 X"
+1\"
+b0000 ]"
+b00000000000000000000000000001100 `"
+b11100010100000010000000000000010 a"
+1i"
+1z"
+0&#
+b00000000000000U0 7#
+b0001 <#
+b0010 ?#
+0A#
+b0001 E#
+b00000000000000000000000000010000 Q#
+1Z#
+b00000000000000000000000000000010 [#
+b11111110000001000000000000001000 _#
+0b#
+0g#
+1j#
+b0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000100001000000U00000 s#
+b1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000U00000 t#
+1z#
+b1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000U00000 }#
+b00000000000000000000000000010000 "$
+b00000000000000000000000000001100 #$
+1)$
+b00000000000000000000000000001100 ,$
+b00000000000000000000000000000000 .$
+b0000 /$
+15$
+b0001 :$
+b0010 =$
+0>$
+b0001 H$
+b00000000000000000000000000010000 N$
+1Q$
+b00000000000000000000000000000000 [$
+b0000 \$
+b0000 `$
+1f$
+0i$
+b00000000000000000000000000000000 q$
+1u$
+b0000 v$
+1%%
+b00000000000000000000000000000000 *%
+b00000000000000000000000000000000 +%
+b00000000000000000000000000000000 .%
+b00000000000000000000000000000000 0%
+b00000000000000000000000000000000 4%
+b00000000000000000000000000000000 7%
+19%
+b000000000000000000000000000000000 >%
+1@%
+0C%
+b00000000000000000000000000000000 F%
+b00000000000000000000000000000000 H%
+1N%
+0Q%
+b001000000000000000000000000000000000000000000000000000000000000000000000 W%
+1^%
+#14000000
+0,
+0=
+0I
+0-"
+0:"
+0i"
+0z#
+0)$
+0Q$
+0%%
+0^%
+#15000000
+b00000000000000000000000000010000 !
+1,
+b00000000000000000000000000010000 2
+1=
+b00000000000000000000000000010000 >
+1I
+b11100001101000000000000000000000 N
+b00000000000000000000000000000010 Q
+0W
+0\
+1_
+b00000000000000000000000000010000 h
+b00000000000000000000000000000010 l
+0p
+b00000000000000000000000000010000 #"
+b00000000000000000000000000010000 )"
+b11100001101000000000000000000000 *"
+1-"
+b11100001101000000000000000000000 4"
+1:"
+b11100001101000000000000000000000 ="
+b00000000000000000000000000000010 @"
+0F"
+0K"
+1N"
+b00000000000000000000000000000010 X"
+0\"
+b00000000000000000000000000010000 `"
+b11100001101000000000000000000000 a"
+1i"
+0z"
+1&#
+b0000000000000000 7#
+b0000 <#
+1>#
+b0000 ?#
+1A#
+b0000 E#
+b00000000000000000000000000010100 Q#
+0Z#
+b00000000000000000000000000000000 [#
+b11111110100000000000000000000000 _#
+1b#
+1g#
+0j#
+b1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000U00000 s#
+b0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000100001000000U00000 t#
+1z#
+b0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000100001000000U00000 }#
+b00000000000000000000000000010100 "$
+b00000000000000000000000000010000 #$
+1)$
+b00000000000000000000000000010000 ,$
+b00000000000000000000000000000010 .$
+05$
+b0000 :$
+1;$
+b0000 =$
+1>$
+b0000 H$
+b00000000000000000000000000010100 N$
+1Q$
+b1111111111111100 W$
+b00000000000000000000000000000010 [$
+0a$
+0f$
+1i$
+b00000000000000000000000000000010 q$
+0u$
+1%%
+b00000000000000000000000000000010 *%
+b00000000000000000000000000000010 +%
+b00000000000000000000000000000010 .%
+b00000000000000000000000000000010 4%
+b00000000000000000000000000000010 7%
+09%
+b000000000000000000000000000000010 >%
+0@%
+1C%
+b00000000000000000000000000000010 F%
+b00000000000000000000000000000010 H%
+0N%
+1Q%
+1^%
+#16000000

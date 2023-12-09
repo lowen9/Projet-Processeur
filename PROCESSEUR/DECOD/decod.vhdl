@@ -566,8 +566,8 @@ begin
 					X"00000"  & if_ir(11 downto 0) when (op2i and trans_t) = '1' else
 					rdata2;
 
-	alu_dest <=	if_ir(15 downto 12) when mult_t = '1' else
-							if_ir(19 downto 16);
+	alu_dest <=	if_ir(19 downto 16) when mult_t = '1' else
+							if_ir(15 downto 12);
 
 	alu_wb	<= '1' when if_ir(21) = '1' and (trans_t = '1' or mtrans_t = '1') else
 			  		 '0';

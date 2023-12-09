@@ -5,7 +5,9 @@
         .globl  _start
 _start:
         /* 0x00 Reset Interrupt vector address */
-        add r0, r1, r2
+        mov r1, #3
+        nop
+        add r0, r1, #2
 
         /* 0x04 Undefined Instruction Interrupt vector address */
 
