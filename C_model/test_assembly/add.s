@@ -6,7 +6,7 @@
 _start:
         /* 0x00 Reset Interrupt vector address */
         mov r1, #3
-        nop
+        nop        
         add r0, r1, #2
 
         /* 0x04 Undefined Instruction Interrupt vector address */
