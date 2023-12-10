@@ -59,5 +59,11 @@ fifo_generic.o : FIFO/fifo_generic.vhdl
 main_tb : main_tb.o ram.o icache.o dcache.o arm_core.o ${C_MOD_DIR}/lib/arm_ghdl.o
 	${GHDL} -e ${GHDL_OP} -Wl,${C_MOD_DIR}/lib/mem.o -Wl,${C_MOD_DIR}/lib/arm_ghdl.o -Wl,${C_MOD_DIR}/ReadElf/lib/ElfObj.o main_tb
 
+run :
+	./main_tb ../C_model/test_assembly/add --vcd=test.vcd
+
+view :
+	gtkwave test.vcd
+
 clean :
 	rm *.o main_tb work-obj93.cf *.vcd

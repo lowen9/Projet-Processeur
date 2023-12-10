@@ -594,7 +594,7 @@ begin
 										             									 = '1' or 
 						  					 mult_t                    = '1' or
 						  					 alu_wb                    = '1') else 
-				 '1';
+				 			 '1';
 
 	inval_mem_adr <= if_ir(19 downto 16) when (alu_wb = '1') else
 									 mtrans_rd;
@@ -602,9 +602,9 @@ begin
 	inval_mem <= '0' when (trans_t = '1' or mtrans_t = '1') else
 							 '1';
 
-	inval_czn <= '1' when ((flag_wb or   tst_i or teq_i or cmp_i or cmn_i)                              = '1') else '0';
+	inval_czn <= '0' when ((flag_wb or   tst_i or teq_i or cmp_i or cmn_i)                              = '1') else '1';
 
-	inval_ovr <= '1' when ((flag_wb and (add_i or adc_i or sub_i or rsb_i or sbc_i or rsc_i or mult_t)) = '1') else '0';
+	inval_ovr <= '0' when ((flag_wb and (add_i or adc_i or sub_i or rsb_i or sbc_i or rsc_i or mult_t)) = '1') else '1';
 
 -- operand validite
 
@@ -739,10 +739,10 @@ begin
 		mtrans_shift <= '0';
 		mtrans_loop_adr <= '0';
 
-		if dec2if_full = '0' and reg_pcv = '1' then
+		if dec2if_full = '0' and reg_pcv = '1' then --T2
 			dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
 			next_state <= RUN;
-		elsif dec2if_full = '1' then
+		elsif dec2if_full = '1' then --T1
 			next_state <= FETCH;
 		end if;
 
@@ -753,6 +753,7 @@ begin
 		elsif cond = '1' then --T3
 			dec2exe_push <= '1'; --On push les valeur vers EXE
 			if2dec_pop 	 <= '1'; --On vide le registre FETCH
+			dec2if_push  <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
 			next_state 	 <= RUN;
 		end if;
  	

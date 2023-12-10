@@ -32,7 +32,7 @@ entity EXEC is
 			dec_shift_ror	: in Std_Logic;
 			dec_shift_rrx	: in Std_Logic;
 			dec_shift_val	: in Std_Logic_Vector(4 downto 0);
-			dec_cy			: in Std_Logic;
+			dec_cy				: in Std_Logic;
 
 	-- Alu operand selection
 			dec_comp_op1	: in Std_Logic;
@@ -69,7 +69,7 @@ entity EXEC is
 
 	-- global interface
 			ck				: in Std_logic;
-			reset_n			: in Std_logic;
+			reset_n		: in Std_logic;
 			vdd				: in bit;
 			vss				: in bit);
 end EXEC;
@@ -93,16 +93,16 @@ begin
 
 	ALU : entity work.ALU(equ) 
 	PORT MAP(op1 => mux_op1    ,
-			 op2 => mux_op2    , 
-			 cin => dec_alu_cy ,
-			 cmd => dec_alu_cmd,
-			 res => res_alu    ,
-			 cout=> cout_alu   ,
-			 z   => exe_z      ,
-			 n   => exe_n      , 
-			 v   => exe_v      , 
-			 vdd => vdd        ,
-			 vss => vss        );
+					 op2 => mux_op2    , 
+					 cin => dec_alu_cy ,
+					 cmd => dec_alu_cmd,
+					 res => res_alu    ,
+					 cout=> cout_alu   ,
+					 z   => exe_z      ,
+					 n   => exe_n      , 
+					 v   => exe_v      , 
+					 vdd => vdd        ,
+					 vss => vss        );
 
 	SHIFTER : entity work.shifter(behavior) 
 	PORT MAP(shift_lsl => dec_shift_lsl,
@@ -166,7 +166,9 @@ begin
 	-- cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0'; --Attention quand exe_c = '0';
 	-- cout_shift_wb <= cout_shift when dec_flag_wb = '1' else '0';
 	--Implementation du multiplexeur du choix des cout (ALU ou shifter)
-	exe_c <= cout_alu when dec_alu_cmd = "00" else cout_shift;
+	exe_c <= '0'        when reset_n = '0'       else 
+	         cout_shift when dec_alu_cmd = "01" or dec_alu_cmd = "10" or dec_alu_cmd = "11" else
+					 cout_alu;
 
 --Implementation du multiplexeur de pre/post indexation
 	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;

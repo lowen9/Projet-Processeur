@@ -29,7 +29,7 @@ SIGNAL cond_v : std_logic;
     else op1 or  op2 when cmd="10"
     else op1 xor op2 when cmd="11";
 
-    cout <= temp(32);
+    cout <= '1' when temp(32) = '1' else '0';
     z <= '1' when temp(31 downto 0) = x"00000000" else '0';
     n <= '1' when temp(31) = '1' else '0';
     cond_v <= ( ((not(op1(31))) and (not(op2(31))) and (temp(31))) or (op1(31) and op2(31) and (not(temp(31)))) );

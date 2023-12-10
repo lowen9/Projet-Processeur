@@ -84,10 +84,11 @@ begin
             reg_rd1  <= (others => '0');
             reg_rd2  <= (others => '0');
             reg_rd3  <= (others => '0');
-            reg_cry	 <= '0';	  
-		    reg_zero <= '0';
-		    reg_neg	 <= '0';	  
-		    reg_ovr	 <= '0';
+            CSPR     <= (others => '0');
+            -- reg_cry	 <= '0';	  
+		    -- reg_zero <= '0';
+		    -- reg_neg	 <= '0';	  
+		    -- reg_ovr	 <= '0';
             --Registre tous valide au début
             reg_v1   <= '1';
             reg_v2   <= '1';
