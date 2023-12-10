@@ -166,9 +166,9 @@ begin
 	-- cout_alu_wb   <= cout_alu   when dec_flag_wb = '1' else '0'; --Attention quand exe_c = '0';
 	-- cout_shift_wb <= cout_shift when dec_flag_wb = '1' else '0';
 	--Implementation du multiplexeur du choix des cout (ALU ou shifter)
-	exe_c <= '0'        when reset_n = '0'       else 
-	         cout_shift when dec_alu_cmd = "01" or dec_alu_cmd = "10" or dec_alu_cmd = "11" else
-					 cout_alu;
+	exe_c <= '0'      when reset_n = '0'      else 
+	         cout_alu when dec_alu_cmd = "00" else
+					 cout_shift;
 
 --Implementation du multiplexeur de pre/post indexation
 	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;

@@ -552,24 +552,30 @@ begin
 
 -- Decode interface operands
 	op1 <=	reg_pc		  	when (branch_t = '1'	         	) else
-	        (others=>'0') when (mov_i = '1' or mvn_i = '1') else 
-					rdata1;
+	        (others=>'0') when (mov_i = '1' or mvn_i = '1') else
+					exe_res       when (exe_dest = radr1)           else --bypass d'odre 1 exe à exe sur RN
+					mem_res				when (mem_dest = radr1)						else --bypass d'odre 2 mem à exe sur RN
+					rdata1; --ajouter les bypass
 
 	offset32(31 downto 26)<= (others => if_ir(23)); 
 	offset32(25 downto 0) <= if_ir(23 downto 0) & "00";
 
 	op2i <= if_ir(25)      when regop_t = '1' else 
-					not(if_ir(25)) when trans_t = '1' else '0';
+					not(if_ir(25)) when trans_t = '1' else '0'; 
 
 	op2	<=  offset32                       when          branch_t  = '1' else
 		    	X"000000" & if_ir( 7 downto 0) when (op2i and regop_t) = '1' else
 					X"00000"  & if_ir(11 downto 0) when (op2i and trans_t) = '1' else
-					rdata2;
+					exe_res                        when (exe_dest = radr2)       else --bypass d'odre 1 exe à exe sur RM
+					mem_res												 when (mem_dest = radr2)			 else --bypass d'odre 2 mem à exe sur RM
+					rdata2; --ajouter les bypass
 
 	alu_dest <=	if_ir(19 downto 16) when mult_t = '1' else
 							if_ir(15 downto 12);
 
-	alu_wb	<= '1' when if_ir(21) = '1' and (trans_t = '1' or mtrans_t = '1') else
+	alu_wb	<= '1' when (regop_t = '1'                                           or
+											 mult_t  = '1' 																					 or
+	                     (if_ir(21) = '1' and (trans_t = '1' or mtrans_t = '1'))) else
 			  		 '0';
 
 	flag_wb	<= if_ir(20) when (regop_t = '1' or mult_t = '1') else '0'; --voir si S vaut '1' pour tst teq cmp cmn
@@ -585,8 +591,8 @@ begin
 -- Reg Invalid
 
 	inval_exe_adr <= X"F"                when (branch_t = '1') else
-		             	 if_ir(15 downto 12) when (mult_t   = '1') else
-									 if_ir(19 downto 16);
+		             	 if_ir(19 downto 16) when (mult_t   = '1') else
+									 if_ir(15 downto 12);
 
 	inval_exe <= '0' when (branch_t                  = '1' or 
 	                      (regop_t and (not(tst_i) or not(teq_i) or 
