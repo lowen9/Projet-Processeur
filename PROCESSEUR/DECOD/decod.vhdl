@@ -557,11 +557,14 @@ begin
 					mem_res				when (mem_dest = radr1)						else --bypass d'odre 2 mem à exe sur RN
 					rdata1; --ajouter les bypass
 
-	offset32(31 downto 26)<= (others => if_ir(23)); 
-	offset32(25 downto 0) <= if_ir(23 downto 0) & "00";
+	-- offset32(31 downto 26)<= (others => if_ir(23)); 
+	-- offset32(25 downto 0) <= if_ir(23 downto 0) & "00";
 
-	op2i <= if_ir(25)      when regop_t = '1' else 
-					not(if_ir(25)) when trans_t = '1' else '0'; 
+	offset32 <= X"00" & if_ir(23 downto 0);
+
+	op2i <= if_ir(25)      when regop_t  = '1' else
+					not(if_ir(25)) when trans_t  = '1' else 
+					'0'; 
 
 	op2	<=  offset32                       when          branch_t  = '1' else
 		    	X"000000" & if_ir( 7 downto 0) when (op2i and regop_t) = '1' else
@@ -570,11 +573,13 @@ begin
 					mem_res												 when (mem_dest = radr2)			 else --bypass d'odre 2 mem à exe sur RM
 					rdata2; --ajouter les bypass
 
-	alu_dest <=	if_ir(19 downto 16) when mult_t = '1' else
+	alu_dest <=	X"F"                when branch_t = '1' else 
+	            if_ir(19 downto 16) when mult_t = '1'   else
 							if_ir(15 downto 12);
 
-	alu_wb	<= '1' when (regop_t = '1'                                           or
-											 mult_t  = '1' 																					 or
+	alu_wb	<= '1' when (regop_t  = '1' or
+											 mult_t   = '1' or
+											 branch_t = '1' or
 	                     (if_ir(21) = '1' and (trans_t = '1' or mtrans_t = '1'))) else
 			  		 '0';
 
@@ -633,7 +638,7 @@ begin
 
 -- Shifter command
 
-	shift_lsl <= '1' when (op2i & if_ir(6 downto 5) = "000")                       else '0';
+	shift_lsl <= '1' when (op2i & if_ir(6 downto 5) = "000" or branch_t = '1')     else '0';
 	shift_lsr <= '1' when (op2i & if_ir(6 downto 5) = "001")                       else '0';
 	shift_asr <= '1' when (op2i & if_ir(6 downto 5) = "010")                       else '0';
 	shift_ror <= '1' when (op2i & if_ir(6 downto 5) = "011" or  op2i = '1')        else '0';
@@ -754,17 +759,32 @@ begin
 
 	when RUN =>
 		if (if2dec_empty = '1' and (dec2exe_full = '1' or condv = '0')) then --T1
-			dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
+			if(dec2if_full = '0') then
+				dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
+			end if;
 			next_state  <= RUN;
+		elsif cond = '0' then --T2
+			if2dec_pop <= '1'; --On vide le registre FETCH
+			dec2if_push <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
 		elsif cond = '1' then --T3
 			dec2exe_push <= '1'; --On push les valeur vers EXE
 			if2dec_pop 	 <= '1'; --On vide le registre FETCH
 			dec2if_push  <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
 			next_state 	 <= RUN;
+		elsif branch_t = '1' then --T5
+			dec2exe_push <= '1'; --On envoie le calcul à EXEC
+			if2dec_pop   <= '1'; --On vide le registre FETCH
+			dec2if_push  <= '0'; --On ne recharge pas de nouvelle valeur de PC
+			next_state <= BRANCH;
 		end if;
  	
 	when BRANCH =>
-			next_state <= FETCH;
+			if if2dec_empty = '1' then
+				--dec2if_push <= '1'; --On met une nouvelle valeur de Pc dans dec2if
+				next_state <= BRANCH;
+			elsif if2dec_empty = '0' then
+				next_state <= RUN;
+			end if;
 	
 	when LINK =>
 			next_state <= FETCH;
