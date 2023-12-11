@@ -752,9 +752,10 @@ begin
 
 		if dec2if_full = '0' and reg_pcv = '1' then --T2
 			dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
-			next_state <= RUN;
+			next_state  <= RUN;
 		elsif dec2if_full = '1' then --T1
-			next_state <= FETCH;
+			dec2if_push <= '0';
+			next_state  <= FETCH;
 		end if;
 
 	when RUN =>
@@ -779,8 +780,9 @@ begin
 		end if;
  	
 	when BRANCH =>
+		
 			if if2dec_empty = '1' then
-				--dec2if_push <= '1'; --On met une nouvelle valeur de Pc dans dec2if
+				dec2if_push <= '1'; --On met une nouvelle valeur de Pc dans dec2if
 				next_state <= BRANCH;
 			elsif if2dec_empty = '0' then
 				next_state <= RUN;

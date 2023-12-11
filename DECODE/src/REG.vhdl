@@ -81,37 +81,13 @@ begin
                 R(i)   <= (others => '0');
                 R_v(i) <= '1';
             end loop;
-            reg_rd1  <= (others => '0');
-            reg_rd2  <= (others => '0');
-            reg_rd3  <= (others => '0');
-            reg_cry	 <= '0';	  
-		    reg_zero <= '0';
-		    reg_neg	 <= '0';	  
-		    reg_ovr	 <= '0';
-            --Registre tous valide au début
-            reg_v1   <= '1';
-            reg_v2   <= '1';
-            reg_v3   <= '1';
-            reg_cznv <= '1';
-            reg_vv   <= '1';
+            CSPR     <= (others => '0');
             CSPR_v   <= "11";
         elsif rising_edge(ck) then
             if(inval1 = '0') then
-                -- for i in 0 to 15 loop
-                --     if to_integer(unsigned(inval_adr1)) = i then
-                --         R_v(i) <= '0';
-                --     end if;
-                -- end loop;
-            --version opti--
                 R_v(to_integer(unsigned(inval_adr1))) <= '0';
             end if;
             if(inval2 = '0') then
-                -- for i in 0 to 15 loop
-                --     if to_integer(unsigned(inval_adr2)) = i then
-                --         R_v(i) <= '0';
-                --     end if;
-                -- end loop;
-            --version opti--
                 R_v(to_integer(unsigned(inval_adr2))) <= '0';
             end if;
             if(inval_czn = '0') then
@@ -122,15 +98,6 @@ begin
             end if;
             --écriture dans le banc de registre
             if(wen1 = '1') then       --On regarde si port 1 d'écriture est enable
-                -- for j in 0 to 15 loop
-                --     if(to_integer(unsigned(wadr1)) = j) then
-                --         if(R_v(j) = '0') then
-                --             R(j)   <= wdata1;
-                --             R_v(j) <= '1';
-                --         end if;
-                --     end if;
-                -- end loop;
-            --Version opti--
                 if(R_v(to_integer(unsigned(wadr1))) = '0') then
                     R(to_integer(unsigned(wadr1)))   <= wdata1;
                     R_v(to_integer(unsigned(wadr1))) <= '1';
@@ -138,25 +105,12 @@ begin
             end if;
 
             if(wen2 = '1') then --On regarde si port 2 d'écriture est enable
-                -- for j in 0 to 15 loop
-                --     if(to_integer(unsigned(wadr2)) = j) then 
-                --         --On regarde si le port2 écrit sur un registre que port1 est en train d'écrire 
-                --         if(wen1 = '1' and to_integer(unsigned(wadr1)) /= j) then
-                --             if(R_v(j) = '0') then
-                --                 R(j)   <= wdata2;
-                --                 R_v(j) <= '1';
-                --             end if;
-                --         end if;
-                --     end if;
-                -- end loop;
-            --version opti--
                 if(wen1 = '1' and to_integer(unsigned(wadr1)) /= to_integer(unsigned(wadr2))) then
                     if(R_v(to_integer(unsigned(wadr2))) = '0') then
                         R(to_integer(unsigned(wadr2)))   <= wdata2;
                         R_v(to_integer(unsigned(wadr2))) <= '1';
                     end if;
                 end if;
-
             end if;
             --écriture des flags
             if(cspr_wb = '1') then
@@ -171,36 +125,46 @@ begin
                     CSPR_v(0) <= '1';
                 end if;
             end if;
-
-            --Lecture dans le banc de registre
-            for i in 0 to 15 loop
-                if (to_integer(unsigned(radr1)) = i) then
-                    reg_rd1 <= R(i);
-                    reg_v1  <= R_v(i);
-                end if;
-                if (to_integer(unsigned(radr2)) = i) then
-                    reg_rd2 <= R(i);
-                    reg_v2  <= R_v(i);
-                end if;
-                if (to_integer(unsigned(radr3)) = i) then
-                    reg_rd3 <= R(i);
-                    reg_v3  <= R_v(i);
-                end if;
-            end loop;
-            --Lecture des flags
-
-            reg_ovr <= CSPR(0);
-            reg_cry <= CSPR(1);
-		    reg_zero<= CSPR(2);		
-		    reg_neg	<= CSPR(3);	 
-            reg_vv  <= CSPR_v(0);    
-		    reg_cznv<= CSPR_v(1);
-            if (inc_pc ='1')then
+        --incrementation de PC--
+            if (inc_pc ='1') then
                 R(15)<= std_logic_vector(unsigned(R(15)) + 4);
             end if;
-            reg_pcv<= R_v(15);
-            reg_pc <= R(15);
         end if;
     end process;
+
+    reg_rd1 <= (others => '0') when reset_n = '0' else
+               R(to_integer(unsigned(radr1)));
+    reg_rd2 <= (others => '0') when reset_n = '0' else 
+               R(to_integer(unsigned(radr2)));
+    reg_rd3 <= (others => '0') when reset_n = '0' else 
+               R(to_integer(unsigned(radr3)));
+
+    --Registre tous valide au début
+    reg_v1  <= '1' when reset_n = '0' else 
+               R_v(to_integer(unsigned(radr1)));
+    reg_v2  <= '1' when reset_n = '0' else 
+               R_v(to_integer(unsigned(radr2)));
+    reg_v3  <= '1' when reset_n = '0' else 
+               R_v(to_integer(unsigned(radr3)));
+
+    --Lecture des flags
+    reg_ovr <= '0' when reset_n = '0' else 
+               CSPR(0);
+    reg_cry <= '0' when reset_n = '0' else 
+               CSPR(1);
+    reg_zero<= '0' when reset_n = '0' else 
+               CSPR(2);		
+    reg_neg	<= '0' when reset_n = '0' else 
+               CSPR(3);
+
+    --Registre tous valide au début
+    reg_vv  <= '1' when reset_n = '0' else 
+               CSPR_v(0);    
+    reg_cznv<= '1' when reset_n = '0' else 
+               CSPR_v(1);
+
+    --lecture de pc
+    reg_pcv<= R_v(15);
+    reg_pc <= R(15);
 end Behavior;
 

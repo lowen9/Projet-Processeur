@@ -5,15 +5,15 @@ file "/home/lowen9/VLSI/Projet/DECODE/" "top/NULL_DECODE.vhdl" "005a9c0a64ed6769
 file "/home/lowen9/VLSI/Projet/DECODE/" "top/DECODE.vhdl" "e951e787ffd1ae9c2b6639da8beec546c8e30cf9" "20231208235128.083":
   entity decod at 1( 0) + 0 on 27;
   architecture behavior of decod at 82( 2476) + 0 on 28;
-file "/home/lowen9/VLSI/Projet/DECODE/" "src/fifo_32b.vhdl" "60a2a3b14fd94b96481759ad9f3a00d0058f3851" "20231208235128.018":
-  entity fifo_32b at 1( 0) + 0 on 23;
-  architecture dataflow of fifo_32b at 24( 389) + 0 on 24;
-file "/home/lowen9/VLSI/Projet/DECODE/" "src/fifo_127b.vhdl" "04c30ccc0e64e6fc24a7facbefb7be0e777bfbcf" "20231208235128.017":
-  entity fifo_127b at 1( 0) + 0 on 21;
-  architecture dataflow of fifo_127b at 24( 389) + 0 on 22;
-file "/home/lowen9/VLSI/Projet/DECODE/" "src/REG.vhdl" "1893a573f07d0350c836a6a68426142cadd063ca" "20231208235128.017":
-  entity reg at 1( 0) + 0 on 19;
-  architecture behavior of reg at 69( 1795) + 0 on 20;
-file "/home/lowen9/VLSI/Projet/DECODE/" "testbench/REG_tb.vhdl" "cfacb4d57d6dddf5a56c6f1c3777c8a1e0ec3325" "20231208235128.026":
-  entity reg_tb at 1( 0) + 0 on 25;
-  architecture struct of reg_tb at 8( 100) + 0 on 26;
+file "/home/lowen9/VLSI/Projet/DECODE/" "src/fifo_32b.vhdl" "60a2a3b14fd94b96481759ad9f3a00d0058f3851" "20231211000351.791":
+  entity fifo_32b at 1( 0) + 0 on 183;
+  architecture dataflow of fifo_32b at 24( 389) + 0 on 184;
+file "/home/lowen9/VLSI/Projet/DECODE/" "src/fifo_127b.vhdl" "04c30ccc0e64e6fc24a7facbefb7be0e777bfbcf" "20231211000351.791":
+  entity fifo_127b at 1( 0) + 0 on 181;
+  architecture dataflow of fifo_127b at 24( 389) + 0 on 182;
+file "/home/lowen9/VLSI/Projet/DECODE/" "src/REG.vhdl" "3b99488fa237effacaed8742a47510b02bd556e1" "20231211000351.790":
+  entity reg at 1( 0) + 0 on 179;
+  architecture behavior of reg at 69( 1795) + 0 on 180;
+file "/home/lowen9/VLSI/Projet/DECODE/" "testbench/REG_tb.vhdl" "8b821acca1c791c0e40855267e81b1aa49bfbccc" "20231211000351.799":
+  entity reg_tb at 1( 0) + 0 on 185;
+  architecture struct of reg_tb at 8( 100) + 0 on 186;

@@ -1,0 +1,50 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Mon Dec 11 00:05:41 2023
+[*]
+[dumpfile] "/home/lowen9/VLSI/Projet/DECODE/work/REG_tb.vcd"
+[dumpfile_mtime] "Mon Dec 11 00:03:51 2023"
+[dumpfile_size] 5168
+[savefile] "/home/lowen9/VLSI/Projet/DECODE/test_reg.gtkw"
+[timestart] 0
+[size] 1908 994
+[pos] -1 -1
+*-21.608255 3220000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reg_tb.
+[sst_width] 214
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+reg_tb.ck
+reg_tb.inc_pc
+@22
+reg_tb.reg_pc[31:0]
+@28
+reg_tb.reg_pcv
+reg_tb.inval1
+@22
+reg_tb.inval_adr1[3:0]
+@28
+reg_tb.reg.inval2
+@23
+reg_tb.reg.inval_adr2[3:0]
+@28
+reg_tb.wen1
+@22
+reg_tb.wadr1[3:0]
+reg_tb.wdata1[31:0]
+@28
+reg_tb.reg.r_v[15:0]
+reg_tb.wen2
+@22
+reg_tb.wadr2[3:0]
+reg_tb.wdata2[31:0]
+reg_tb.radr1[3:0]
+reg_tb.reg_rd1[31:0]
+reg_tb.radr2[3:0]
+reg_tb.reg_rd2[31:0]
+reg_tb.radr3[3:0]
+reg_tb.reg_rd3[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

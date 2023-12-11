@@ -6,7 +6,7 @@ entity REG_tb is
 end REG_tb;
 
 architecture struct of REG_tb is
-    constant clk_period : time := 1 ns;
+    constant clk_period : time := 2 ns;
     -- Write Port 1 prioritaire
 	signal wdata1		    : Std_Logic_Vector(31 downto 0);
 	signal wadr1			: Std_Logic_Vector(3 downto 0);
@@ -125,23 +125,23 @@ begin
                                                 vdd			  => vdd    ,
                                                 vss			  => vss);
                                         
-    inval1 <= '1', '0' after 2 ns, '1' after 3 ns, '0' after 10 ns, '1' after 11 ns;
-    inval_adr1 <= x"3" , x"A" after 10 ns; 
+    inval1 <= '1', '0' after 3 ns, '1' after 4 ns, '0' after 10 ns, '1' after 11 ns;
+    inval_adr1 <= x"F" , x"A" after 10 ns; 
     inval2 <= '1', '0' after 3 ns, '1' after 4 ns, '0' after 6 ns, '1' after 7 ns;
-    inval_adr2 <= x"3", x"A" after 6 ns;
+    inval_adr2 <= x"4", x"A" after 6 ns;
 
     wen1   <= '0','1' after 5 ns, '0' after 6 ns, '1' after 15 ns, '0' after 16 ns;
     wdata1 <= x"1234ABCD" after 5 ns, x"11111111" after 15 ns;
-    wadr1  <= x"3" after 5 ns, x"A" after 15 ns;
+    wadr1  <= x"F" after 5 ns, x"A" after 15 ns;
     wen2   <= '0','1' after 5 ns, '0' after 6 ns, '1' after 8 ns, '0' after 9 ns;
     wdata2 <= x"0AB12647" after 5 ns, x"10101010" after 8 ns;
     wadr2  <= x"3" after 5 ns, x"A" after 8 ns;
 
     radr1 <= x"3", x"A" after 7 ns;
     radr2 <= x"A";
-    radr3 <= x"3";
+    radr3 <= x"F";
 
-    inc_pc <= '0', '1' after 5 ns, '0' after 7 ns, '1' after 11 ns, '0' after 13 ns;
+    inc_pc <= '0';--, '1' after 5 ns, '0' after 7 ns, '1' after 11 ns, '0' after 13 ns;
     
     reset_n <= '1', '0' after 1 ns, '1' after 2 ns;
 
