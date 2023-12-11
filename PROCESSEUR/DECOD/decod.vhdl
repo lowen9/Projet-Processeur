@@ -762,25 +762,27 @@ begin
 		if (if2dec_empty = '1' and (dec2exe_full = '1' or condv = '0')) then --T1
 			if(dec2if_full = '0') then
 				dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
+			else
+				dec2if_push <= '0';
 			end if;
 			next_state  <= RUN;
 		elsif cond = '0' then --T2
 			if2dec_pop <= '1'; --On vide le registre FETCH
 			dec2if_push <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
-		elsif cond = '1' then --T3
+			next_state  <= RUN;
+		elsif cond = '1' and branch_t = '0' then --T3
 			dec2exe_push <= '1'; --On push les valeur vers EXE
 			if2dec_pop 	 <= '1'; --On vide le registre FETCH
 			dec2if_push  <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
 			next_state 	 <= RUN;
-		elsif branch_t = '1' then --T5
+		end if;
+		if branch_t = '1' and cond = '1' then --T5
 			dec2exe_push <= '1'; --On envoie le calcul à EXEC
 			if2dec_pop   <= '1'; --On vide le registre FETCH
 			dec2if_push  <= '0'; --On ne recharge pas de nouvelle valeur de PC
 			next_state <= BRANCH;
 		end if;
- 	
 	when BRANCH =>
-		
 			if if2dec_empty = '1' then
 				dec2if_push <= '1'; --On met une nouvelle valeur de Pc dans dec2if
 				next_state <= BRANCH;
