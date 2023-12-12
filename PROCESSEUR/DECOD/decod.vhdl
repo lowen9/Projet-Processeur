@@ -557,9 +557,6 @@ begin
 					mem_res				when (mem_dest = radr1)						else --bypass d'odre 2 mem à exe sur RN
 					rdata1; --ajouter les bypass
 
-	-- offset32(31 downto 26)<= (others => if_ir(23)); 
-	-- offset32(25 downto 0) <= if_ir(23 downto 0) & "00";
-
 	offset32 <= X"00" & if_ir(23 downto 0);
 
 	op2i <= if_ir(25)      when regop_t  = '1' else
@@ -676,16 +673,16 @@ begin
 		end if;
 	end process;
 
-	mtrans_mask_shift <= X"FFFE" when if_ir(0) = '1' and mtrans_mask(0) = '1' else
-											 X"FFFC" when if_ir(1) = '1' and mtrans_mask(1) = '1' else
-											 X"FFF8" when if_ir(2) = '1' and mtrans_mask(2) = '1' else
-											 X"FFF0" when if_ir(3) = '1' and mtrans_mask(3) = '1' else
-											 X"FFE0" when if_ir(4) = '1' and mtrans_mask(4) = '1' else
-											 X"FFC0" when if_ir(5) = '1' and mtrans_mask(5) = '1' else
-											 X"FF80" when if_ir(6) = '1' and mtrans_mask(6) = '1' else
-											 X"FF00" when if_ir(7) = '1' and mtrans_mask(7) = '1' else
-											 X"FE00" when if_ir(8) = '1' and mtrans_mask(8) = '1' else
-											 X"FC00" when if_ir(9) = '1' and mtrans_mask(9) = '1' else
+	mtrans_mask_shift <= X"FFFE" when if_ir( 0) = '1' and mtrans_mask( 0) = '1' else
+											 X"FFFC" when if_ir( 1) = '1' and mtrans_mask( 1) = '1' else
+											 X"FFF8" when if_ir( 2) = '1' and mtrans_mask( 2) = '1' else
+											 X"FFF0" when if_ir( 3) = '1' and mtrans_mask( 3) = '1' else
+											 X"FFE0" when if_ir( 4) = '1' and mtrans_mask( 4) = '1' else
+											 X"FFC0" when if_ir( 5) = '1' and mtrans_mask( 5) = '1' else
+											 X"FF80" when if_ir( 6) = '1' and mtrans_mask( 6) = '1' else
+											 X"FF00" when if_ir( 7) = '1' and mtrans_mask( 7) = '1' else
+											 X"FE00" when if_ir( 8) = '1' and mtrans_mask( 8) = '1' else
+											 X"FC00" when if_ir( 9) = '1' and mtrans_mask( 9) = '1' else
 											 X"F800" when if_ir(10) = '1' and mtrans_mask(10) = '1' else
 											 X"F000" when if_ir(11) = '1' and mtrans_mask(11) = '1' else
 											 X"E000" when if_ir(12) = '1' and mtrans_mask(12) = '1' else
@@ -742,59 +739,60 @@ process (cur_state, dec2if_full, cond, condv, operv, dec2exe_full, if2dec_empty,
 begin
 	case cur_state is
 
-	when FETCH =>
-		debug_state <= X"1";
-		if2dec_pop <= '0';
-		dec2exe_push <= '0';
-		blink <= '0';
-		mtrans_shift <= '0';
-		mtrans_loop_adr <= '0';
+		when FETCH => debug_state <= X"1";
+									if2dec_pop <= '0';
+									dec2exe_push <= '0';
+									blink <= '0';
+									mtrans_shift <= '0';
+									mtrans_loop_adr <= '0';
 
-		if dec2if_full = '0' and reg_pcv = '1' then --T2
-			dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
-			next_state  <= RUN;
-		elsif dec2if_full = '1' then --T1
-			dec2if_push <= '0';
-			next_state  <= FETCH;
-		end if;
+									next_state <= FETCH;
+									if dec2if_full = '0' and reg_pcv = '1' then --T2
+										next_state <= RUN;
+										dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
+									elsif dec2if_full = '1' then --T1
+										dec2if_push <= '0';
+									end if;
 
-	when RUN =>
-		if (if2dec_empty = '1' and (dec2exe_full = '1' or condv = '0')) then --T1
-			if(dec2if_full = '0') then
-				dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
-			else
-				dec2if_push <= '0';
-			end if;
-			next_state  <= RUN;
-		elsif cond = '0' then --T2
-			if2dec_pop <= '1'; --On vide le registre FETCH
-			dec2if_push <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
-			next_state  <= RUN;
-		elsif cond = '1' and branch_t = '0' then --T3
-			dec2exe_push <= '1'; --On push les valeur vers EXE
-			if2dec_pop 	 <= '1'; --On vide le registre FETCH
-			dec2if_push  <= '1'; --On recharge une nouvelle valeur de PC dans dec2if
-			next_state 	 <= RUN;
-		end if;
-		if branch_t = '1' and cond = '1' then --T5
-			dec2exe_push <= '1'; --On envoie le calcul à EXEC
-			if2dec_pop   <= '1'; --On vide le registre FETCH
-			dec2if_push  <= '0'; --On ne recharge pas de nouvelle valeur de PC
-			next_state <= BRANCH;
-		end if;
-	when BRANCH =>
-			if if2dec_empty = '1' then
-				dec2if_push <= '1'; --On met une nouvelle valeur de Pc dans dec2if
-				next_state <= BRANCH;
-			elsif if2dec_empty = '0' then
-				next_state <= RUN;
-			end if;
-	
-	when LINK =>
-			next_state <= FETCH;
-	
-	when MTRANS =>
-			next_state <= FETCH;
+		when RUN => next_state <= RUN;
+								if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0') then --T1 ???
+									if(dec2if_full = '0') then
+										dec2exe_push <= '0'; --On push pas les valeur vers EXE
+										if2dec_pop   <= '0'; --On freeze
+										dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if
+									else
+										dec2exe_push <= '0'; --On push pas les valeur vers EXE
+										if2dec_pop   <= '0';
+										dec2if_push  <= '0';
+									end if;
+							  elsif cond = '0' then --T2 prédicat faux
+									dec2exe_push <= '0'; --On push pas les valeurs vers EXE
+									if2dec_pop   <= '1'; --On vide le registre FETCH
+									dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
+								elsif regop_t = '1' or trans_t = '1' then --T3 précidat vrai on excute l'instruction (regop_t ou trans_t)
+									dec2exe_push <= '1'; --On push les valeur vers EXE
+									if2dec_pop 	 <= '1'; --On vide le registre FETCH
+									dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
+								elsif branch_t = '1' then --T5 précidat vrai on excute le branchement
+									dec2exe_push <= '1'; --On envoie le calcul à EXEC
+									if2dec_pop   <= '1'; --On vide le registre FETCH
+									dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
+									next_state   <= BRANCH;
+								end if;
+
+		when BRANCH => next_state <= BRANCH;
+									 if if2dec_empty = '1' then
+									 	dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
+									 elsif if2dec_empty = '0' then
+										dec2exe_push <= '0'; 
+									 	if2dec_pop   <= '1';
+										dec2if_push  <= '1'; --On push une nouvelle valeur de PC
+									 	next_state   <= RUN;
+									 end if;
+
+		when LINK => next_state <= LINK;
+		
+		when MTRANS => next_state <= MTRANS;
 	end case;
 end process;
 

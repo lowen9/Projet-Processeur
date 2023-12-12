@@ -126,8 +126,12 @@ begin
                 end if;
             end if;
         --incrementation de PC--
-            if (inc_pc ='1') then
-                R(15)<= std_logic_vector(unsigned(R(15)) + 4);
+            if (inc_pc = '1') then
+                if(wadr1 = X"F") then
+                    R(15)<= std_logic_vector(unsigned(wdata1) + 4);
+                else
+                    R(15)<= std_logic_vector(unsigned(R(15)) + 4);
+                end if;
             end if;
         end if;
     end process;
@@ -147,24 +151,18 @@ begin
     reg_v3  <= '1' when reset_n = '0' else 
                R_v(to_integer(unsigned(radr3)));
 
-    --Lecture des flags
-    reg_ovr <= '0' when reset_n = '0' else 
-               CSPR(0);
-    reg_cry <= '0' when reset_n = '0' else 
-               CSPR(1);
-    reg_zero<= '0' when reset_n = '0' else 
-               CSPR(2);		
-    reg_neg	<= '0' when reset_n = '0' else 
-               CSPR(3);
+    --Lecture des flags (lecture rapide lors de l'utlisation des S à la suite)
+        reg_ovr <= wovr  when cspr_wb = '1' and CSPR_v(0) = '0' else CSPR(0);
+        reg_cry <= wcry  when cspr_wb = '1' and CSPR_v(1) = '0' else CSPR(1);
+        reg_zero<= wzero when cspr_wb = '1' and CSPR_v(1) = '0' else CSPR(2);		
+        reg_neg	<= wneg	 when cspr_wb = '1' and CSPR_v(1) = '0' else CSPR(3);
 
-    --Registre tous valide au début
-    reg_vv  <= '1' when reset_n = '0' else 
-               CSPR_v(0);    
-    reg_cznv<= '1' when reset_n = '0' else 
-               CSPR_v(1);
+    --Registre de validité (avec lecture rapide)
+        reg_vv  <= '1'   when cspr_wb = '1' and CSPR_v(0) = '0' else CSPR_v(0);    
+        reg_cznv<= '1'   when cspr_wb = '1' and CSPR_v(0) = '0' else CSPR_v(1);
 
-    --lecture de pc
-    reg_pcv<= R_v(15);
-    reg_pc <= R(15);
+    --lecture de pc (lecture rapide lors d'une d'écriture sur PC)
+    reg_pcv<= '1'    when wadr1 = X"F" and R_v(15) = '0' else R_v(15);
+    reg_pc <= wdata1 when wadr1 = X"F" and R_v(15) = '0' else R(15);
 end Behavior;
 
