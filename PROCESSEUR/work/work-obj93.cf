@@ -1,46 +1,46 @@
 v 4
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "CORE/arm_core.vhdl" "d8b4a108f09d3fce456406afa1f2ac37fd9664d0" "20231212230625.102":
-  entity arm_core at 1( 0) + 0 on 4305;
-  architecture struct of arm_core at 33( 717) + 0 on 4306;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "EXEC/exec.vhdl" "e9ec6aa2785bf43c19a96e17d9597c879b4e40d2" "20231212230625.038":
-  entity exec at 1( 0) + 0 on 4301;
-  architecture struct of exec at 79( 2466) + 0 on 4302;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "EXEC/alu.vhdl" "f24d1104d2eefdbee427d0042d41a7e68394dfce" "20231212230624.935":
-  entity alu at 1( 0) + 0 on 4297;
-  architecture equ of alu at 19( 525) + 0 on 4298;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "DECOD/decod.vhdl" "8a50d0fb368e0e2924fb74c3f25fccea5588f390" "20231212230624.614":
-  entity decod at 1( 0) + 0 on 4293;
-  architecture behavior of decod at 82( 2476) + 0 on 4294;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "FIFO/fifo_127b.vhdl" "04c30ccc0e64e6fc24a7facbefb7be0e777bfbcf" "20231212230624.506":
-  entity fifo_127b at 1( 0) + 0 on 4289;
-  architecture dataflow of fifo_127b at 24( 389) + 0 on 4290;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "IFETCH/ifetch.vhdl" "c356e1677cca9d93d66c8a7bca782783931059d0" "20231212230624.455":
-  entity ifetch at 1( 0) + 0 on 4285;
-  architecture behavior of ifetch at 32( 756) + 0 on 4286;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "main_tb.vhdl" "c616ea2d841e1249ce5264316814fa2c4a29d28f" "20231212230624.388":
-  entity main_tb at 1( 0) + 0 on 4281;
-  architecture behav of main_tb at 14( 180) + 0 on 4282;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "icache.vhdl" "53fc6e0b62350859ac7d19685dbe92be29c3536e" "20231212230624.336":
-  entity icache at 1( 0) + 0 on 4277;
-  architecture behavior of icache at 20( 416) + 0 on 4278;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "ram.vhdl" "590c7c18afda585ad1a0caf256cf688264c8e28d" "20231212230624.319":
-  package ram at 1( 0) + 0 on 4275 body;
-  package body ram at 26( 915) + 0 on 4276;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "dcache.vhdl" "a7ae5579a19a1a3d69009837d4b9e910085906dc" "20231212230624.360":
-  entity dcache at 1( 0) + 0 on 4279;
-  architecture behavior of dcache at 26( 553) + 0 on 4280;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "FIFO/fifo_32b.vhdl" "60a2a3b14fd94b96481759ad9f3a00d0058f3851" "20231212230624.481":
-  entity fifo_32b at 1( 0) + 0 on 4287;
-  architecture dataflow of fifo_32b at 24( 389) + 0 on 4288;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "DECOD/reg.vhdl" "286735647e2219f3366e5f51adfaae72211bd7f6" "20231212230624.533":
-  entity reg at 1( 0) + 0 on 4291;
-  architecture behavior of reg at 69( 1795) + 0 on 4292;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "EXEC/shifter.vhdl" "b015790bc0b28984d1efafbc2b8ace0a41333766" "20231212230624.977":
-  entity shifter at 1( 0) + 0 on 4299;
-  architecture behavior of shifter at 21( 528) + 0 on 4300;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "MEM/mem.vhdl" "c51fd6030c086839addd8e757a75c805e76a7ecd" "20231212230625.088":
-  package mem at 1( 0) + 0 on 4303 body;
-  package body mem at 20( 645) + 0 on 4304;
-file "/home/lowen9/VLSI/Projet/PROCESSEUR/" "FIFO/fifo_72b.vhdl" "3a724fd211e700526e3348bb49440a22d430da92" "20231212230624.905":
-  entity fifo at 1( 0) + 0 on 4295;
-  architecture dataflow of fifo at 24( 377) + 0 on 4296;
+file "/home/camelia/VLSI/PROCESSEUR/" "CORE/arm_core.vhdl" "d8b4a108f09d3fce456406afa1f2ac37fd9664d0" "20231213093214.154":
+  entity arm_core at 1( 0) + 0 on 4337;
+  architecture struct of arm_core at 33( 717) + 0 on 4338;
+file "/home/camelia/VLSI/PROCESSEUR/" "EXEC/exec.vhdl" "44a2cbfbf46b25a09ab0032195a7bc97a3ac2430" "20231213093213.976":
+  entity exec at 1( 0) + 0 on 4333;
+  architecture struct of exec at 79( 2544) + 0 on 4334;
+file "/home/camelia/VLSI/PROCESSEUR/" "EXEC/alu.vhdl" "26eca0d880311259419d1fb5db03dd656d9e0a50" "20231213093213.758":
+  entity alu at 1( 0) + 0 on 4329;
+  architecture equ of alu at 19( 543) + 0 on 4330;
+file "/home/camelia/VLSI/PROCESSEUR/" "DECOD/decod.vhdl" "e21780a0e293d7187f2cf835b39b653e5a78d96d" "20231213093213.357":
+  entity decod at 1( 0) + 0 on 4325;
+  architecture behavior of decod at 82( 2476) + 0 on 4326;
+file "/home/camelia/VLSI/PROCESSEUR/" "FIFO/fifo_127b.vhdl" "ead826b599f6d4fc3ead6b0c32af09aa6c03ffaf" "20231213093213.152":
+  entity fifo_127b at 1( 0) + 0 on 4321;
+  architecture dataflow of fifo_127b at 24( 412) + 0 on 4322;
+file "/home/camelia/VLSI/PROCESSEUR/" "IFETCH/ifetch.vhdl" "c356e1677cca9d93d66c8a7bca782783931059d0" "20231213093212.954":
+  entity ifetch at 1( 0) + 0 on 4317;
+  architecture behavior of ifetch at 32( 756) + 0 on 4318;
+file "/home/camelia/VLSI/PROCESSEUR/" "main_tb.vhdl" "4366eab955fe2df0baefa6ec91bcae0f87207bad" "20231213093212.748":
+  entity main_tb at 1( 0) + 0 on 4313;
+  architecture behav of main_tb at 14( 193) + 0 on 4314;
+file "/home/camelia/VLSI/PROCESSEUR/" "icache.vhdl" "53fc6e0b62350859ac7d19685dbe92be29c3536e" "20231213093212.573":
+  entity icache at 1( 0) + 0 on 4309;
+  architecture behavior of icache at 20( 416) + 0 on 4310;
+file "/home/camelia/VLSI/PROCESSEUR/" "ram.vhdl" "9cc153c3efeb3e2d93dc77f3ea51a126826bea9f" "20231213093212.408":
+  package ram at 1( 0) + 0 on 4307 body;
+  package body ram at 26( 940) + 0 on 4308;
+file "/home/camelia/VLSI/PROCESSEUR/" "dcache.vhdl" "a7ae5579a19a1a3d69009837d4b9e910085906dc" "20231213093212.655":
+  entity dcache at 1( 0) + 0 on 4311;
+  architecture behavior of dcache at 26( 553) + 0 on 4312;
+file "/home/camelia/VLSI/PROCESSEUR/" "FIFO/fifo_32b.vhdl" "0d1753dbc53e3087e454bf8774ce688d760a256c" "20231213093213.053":
+  entity fifo_32b at 1( 0) + 0 on 4319;
+  architecture dataflow of fifo_32b at 24( 412) + 0 on 4320;
+file "/home/camelia/VLSI/PROCESSEUR/" "DECOD/reg.vhdl" "286735647e2219f3366e5f51adfaae72211bd7f6" "20231213093213.233":
+  entity reg at 1( 0) + 0 on 4323;
+  architecture behavior of reg at 69( 1795) + 0 on 4324;
+file "/home/camelia/VLSI/PROCESSEUR/" "FIFO/fifo_72b.vhdl" "e2690dbcc84c2594c29cd0d1fe0dc0f30b9f1649" "20231213093213.667":
+  entity fifo at 1( 0) + 0 on 4327;
+  architecture dataflow of fifo at 24( 400) + 0 on 4328;
+file "/home/camelia/VLSI/PROCESSEUR/" "EXEC/shifter.vhdl" "e1bb6d9193af5caf0cc0f1e1c180680a8114a7f1" "20231213093213.859":
+  entity shifter at 1( 0) + 0 on 4331;
+  architecture behavior of shifter at 21( 548) + 0 on 4332;
+file "/home/camelia/VLSI/PROCESSEUR/" "MEM/mem.vhdl" "f64c4070a38f1d4dce7ae73f4e55459ea54706c3" "20231213093214.080":
+  package mem at 1( 0) + 0 on 4335 body;
+  package body mem at 20( 664) + 0 on 4336;
