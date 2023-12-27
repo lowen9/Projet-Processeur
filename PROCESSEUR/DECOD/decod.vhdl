@@ -552,8 +552,8 @@ begin
 -- Branch and link 
 bl_i <= '1' when (branch_t & if_ir(24)="11"); 
 
-
 --blink <= '1' when (bl_i & (ecriture finis dans R14))
+
 -- Decode interface operands
 	op1 <=	reg_pc		  	when (branch_t = '1'	         	) else
 	        (others=>'0') when (mov_i = '1' or mvn_i = '1') else
