@@ -525,8 +525,8 @@ begin
 
 -- decod regop opcode
 
-	and_i <= '1' when regop_t = '1' and if_ir(24 downto 21) = X"0" else '0';
-	eor_i <= '1' when (regop_t & if_ir(24 downto 21) = "10001")    else '0';
+  and_i <= '1' when regop_t = '1' and if_ir(24 downto 21) = X"0" else '0';
+  eor_i <= '1' when (regop_t & if_ir(24 downto 21) = "10001")    else '0';
   sub_i <= '1' when (regop_t & if_ir(24 downto 21) = "10010")    else '0';
   rsb_i <= '1' when (regop_t & if_ir(24 downto 21) = "10011")    else '0';
   add_i <= '1' when (regop_t & if_ir(24 downto 21) = "10100")    else '0';
@@ -549,9 +549,11 @@ begin
 -- mtrans instruction
 
 -- branch instruction
+-- Branch and link 
+bl_i <= '1' when (branch_t & if_ir(24)="11"); 
 
-	
 
+--blink <= '1' when (bl_i & (ecriture finis dans R14))
 -- Decode interface operands
 	op1 <=	reg_pc		  	when (branch_t = '1'	         	) else
 	        (others=>'0') when (mov_i = '1' or mvn_i = '1') else
@@ -796,6 +798,9 @@ begin
 									end if;
 
 		when LINK => next_state <= LINK;
+									 
+							
+								
 		
 		when MTRANS => next_state <= MTRANS;
 	end case;
