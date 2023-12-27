@@ -131,7 +131,7 @@ begin
                     R(15)   <= std_logic_vector(unsigned(wdata1) + 4);
                     R_v(15) <= '1';
                 else
-                    R(15)<= std_logic_vector(unsigned(R(15)) + 4);
+                    R(15)   <= std_logic_vector(unsigned(R(15)) + 4);
                 end if;
             end if;
         end if;

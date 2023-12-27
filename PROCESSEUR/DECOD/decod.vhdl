@@ -549,32 +549,35 @@ begin
 -- mtrans instruction
 
 -- branch instruction
--- Branch and link 
-bl_i <= '1' when (branch_t & if_ir(24)="11"); 
 
---blink <= '1' when (bl_i & (ecriture finis dans R14))
+-- Branch and link 
+  bl_i <= '1' when (branch_t = '1' and if_ir(24) = '1') else '0'; 
+  --blink <= '1' when (bl_i & (ecriture finis dans R14))
 
 -- Decode interface operands
-	op1 <=	reg_pc		  	when (branch_t = '1'	         	) else
+	op1 <=	reg_pc		  when (branch_t = '1'            ) else
 	        (others=>'0') when (mov_i = '1' or mvn_i = '1') else
 			exe_res       when (exe_dest = radr1)           else --bypass d'odre 1 exe à exe sur RN
 			mem_res		  when (mem_dest = radr1)			else --bypass d'odre 2 mem à exe sur RN
 			rdata1; --ajouter les bypass
 
-	offset32 <= X"00" & if_ir(23 downto 0);
+	offset32(23 downto  0) <= if_ir(23 downto 0);
+	offset32(31 downto 24) <= (others => if_ir(23));
 
 	op2i <= if_ir(25)      when regop_t  = '1' else
 					not(if_ir(25)) when trans_t  = '1' else 
 					'0'; 
 
-	op2	<=  offset32                       when          branch_t  = '1' else
+	op2	<=  offset32                       when          branch_t  = '1' and blink = '0' else
+			X"FFFFFFFF"                    when          blink     = '1' else
 		    X"000000" & if_ir( 7 downto 0) when (op2i and regop_t) = '1' else
 			X"00000"  & if_ir(11 downto 0) when (op2i and trans_t) = '1' else
 			exe_res                        when (exe_dest = radr2)       else --bypass d'odre 1 exe à exe sur RM
 			mem_res						   when (mem_dest = radr2)		 else --bypass d'odre 2 mem à exe sur RM
 			rdata2; --ajouter les bypass
 
-	alu_dest <=	X"F"                when branch_t = '1' else 
+	alu_dest <=	X"F"                when branch_t = '1' and blink = '0' else 
+	            X"E"                when blink    = '1' else
 	            if_ir(19 downto 16) when mult_t = '1'   else
 							if_ir(15 downto 12);
 
@@ -596,7 +599,8 @@ bl_i <= '1' when (branch_t & if_ir(24)="11");
 
 -- Reg Invalid
 
-	inval_exe_adr <= X"F"                when (branch_t = '1') else
+	inval_exe_adr <= X"F"                when (branch_t = '1' and blink = '0') else
+					 X"E"			     when (blink    = '1') else  
 		             if_ir(19 downto 16) when (mult_t   = '1') else
 					 if_ir(15 downto 12);
 
@@ -639,34 +643,34 @@ bl_i <= '1' when (branch_t & if_ir(24)="11");
 
 -- Shifter command
 
-	shift_lsl <= '1' when (op2i & if_ir(6 downto 5) = "000" or branch_t = '1')     else '0';
-	shift_lsr <= '1' when (op2i & if_ir(6 downto 5) = "001")                       else '0';
-	shift_asr <= '1' when (op2i & if_ir(6 downto 5) = "010")                       else '0';
-	shift_ror <= '1' when (op2i & if_ir(6 downto 5) = "011" or  op2i = '1')        else '0';
-	shift_rrx <= '1' when (op2i & if_ir(6 downto 5) = "011" and shift_val="00000") else '0';
+	shift_lsl <= '1' when (op2i & if_ir(6 downto 5) = "000" or branch_t = '1')                  else '0';
+	shift_lsr <= '1' when (op2i & if_ir(6 downto 5) = "001")                                    else '0';
+	shift_asr <= '1' when (op2i & if_ir(6 downto 5) = "010")                                    else '0';
+	shift_ror <= '1' when ((op2i & if_ir(6 downto 5) = "011" or op2i = '1') and branch_t = '0') else '0';
+	shift_rrx <= '1' when (op2i & if_ir(6 downto 5) = "011" and shift_val="00000")              else '0';
 
 	shift_val <= "00010"                when branch_t = '1'                else
-				 			 if_ir(11 downto 7)     when op2i = '0' and if_ir(4) = '0' else
-							 rdata3(4 downto 0)     when op2i = '0' and if_ir(4) = '1' else
-							 if_ir(11 downto 8)&'0' when op2i = '1' and regop_t  = '1' else
-			    		 (others => '0');
+				 if_ir(11 downto 7)     when op2i = '0' and if_ir(4) = '0' else
+				 rdata3(4 downto 0)     when op2i = '0' and if_ir(4) = '1' else
+				 if_ir(11 downto 8)&'0' when op2i = '1' and regop_t  = '1' else
+			     (others => '0');
 
 -- Alu operand selection
 	comp_op1 <= '1' when rsb_i = '1' or rsc_i = '1' else '0';
 	comp_op2 <= '1' when sub_i = '1' or sbc_i = '1' or cmp_i = '1' or
-						 					 bic_i = '1' or mvn_i = '1' or ((trans_t and not(if_ir(23))) = '1') else '0';
+						 bic_i = '1' or mvn_i = '1' or ((trans_t and not(if_ir(23))) = '1') else '0';
 
 	alu_cy   <= '1'	when sub_i = '1' or rsb_i = '1' or 
-	 					 					 cmp_i = '1' or ((trans_t and not(if_ir(23))) = '1') else
-							cry when adc_i = '1' or sbc_i = '1' or rsc_i = '1' else
-							'0' ;
+	 					 cmp_i = '1' or ((trans_t and not(if_ir(23))) = '1') else
+				cry when adc_i = '1' or sbc_i = '1' or rsc_i = '1' else
+				'0' ;
 
 -- Alu command
 
 	alu_cmd <=	"11" when eor_i = '1' or teq_i = '1'                else --XOR
-							"10" when orr_i = '1'                               else --OR
-							"01" when and_i = '1' or tst_i = '1' or bic_i = '1' else --AND
-							"00"; --operation arithmétique
+				"10" when orr_i = '1'                               else --OR
+				"01" when and_i = '1' or tst_i = '1' or bic_i = '1' else --AND
+				"00"; --operation arithmétique
 
 -- Mtrans reg list
 
@@ -738,8 +742,8 @@ inc_pc <= dec2if_push;
 
 --state machine process.
 process (cur_state, dec2if_full, cond, condv, operv, dec2exe_full, if2dec_empty, reg_pcv, bl_i,
-			branch_t, and_i, eor_i, sub_i, rsb_i, add_i, adc_i, sbc_i, rsc_i, orr_i, mov_i, bic_i,
-			mvn_i, ldr_i, ldrb_i, ldm_i, stm_i, if_ir, mtrans_rd, mtrans_mask_shift)
+		 branch_t, and_i, eor_i, sub_i, rsb_i, add_i, adc_i, sbc_i, rsc_i, orr_i, mov_i, bic_i,
+		 mvn_i, ldr_i, ldrb_i, ldm_i, stm_i, if_ir, mtrans_rd, mtrans_mask_shift)
 begin
 	case cur_state is
 
@@ -769,7 +773,7 @@ begin
 										if2dec_pop   <= '0';
 										dec2if_push  <= '0';
 									end if;
-							  elsif cond = '0' then --T2 prédicat faux
+							  	elsif cond = '0' then --T2 prédicat faux
 									dec2exe_push <= '0'; --On push pas les valeurs vers EXE
 									if2dec_pop   <= '1'; --On vide le registre FETCH
 									dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
@@ -777,11 +781,17 @@ begin
 									dec2exe_push <= '1'; --On push les valeur vers EXE
 									if2dec_pop 	 <= '1'; --On vide le registre FETCH
 									dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
-								elsif branch_t = '1' then --T5 précidat vrai on excute le branchement
+								elsif branch_t = '1' and bl_i = '0' then --T5 précidat vrai on excute le branchement
 									dec2exe_push <= '1'; --On envoie le calcul à EXEC
 									if2dec_pop   <= '1'; --On vide le registre FETCH
 									dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
 									next_state   <= BRANCH;
+								elsif branch_t = '1' and bl_i = '1' then
+									dec2exe_push <= '1'; --On envoie le calcul à EXEC ?????
+									if2dec_pop   <= '0'; --On vide pas le registre FETCH
+									dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
+									blink        <= '1';
+									next_state   <= LINK;
 								end if;
 
 		when BRANCH => next_state <= BRANCH;
@@ -792,16 +802,17 @@ begin
 									 	if2dec_pop   <= '1';
 										dec2if_push  <= '1'; --On push une nouvelle valeur de PC
 									 	next_state   <= RUN;
-									--  elsif branch_t = '1' then
-									-- 	if2dec_pop <= '1';
-									-- 	dec2if_push <= '1';
+									 elsif if2dec_empty = '0' and branch_t = '1' then
+										dec2exe_push <= '0'; 
+									 	if2dec_pop   <= '1';
+										dec2if_push  <= '0'; --On push pas une nouvelle valeur de PC
+									 	next_state   <= RUN;
 									end if;
 
-		when LINK => next_state <= LINK;
+		when LINK => next_state <= BRANCH;
+					 if2dec_pop <= '1';
+					 blink <= '0';
 									 
-							
-								
-		
 		when MTRANS => next_state <= MTRANS;
 	end case;
 end process;

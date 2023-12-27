@@ -12,18 +12,24 @@ _start:
 	    b	_bad   //PC = 4
 
 startup :
-    mov r0, #1       //PC = 8        
-	mov r1, #10      //PC = 12
-	add r2, r1, r0   //PC = 16
-	sub r3, r0, r1   //PC = 20
-	eor r4, r0, r1   //PC = 24
-	sbc r5, r1, r0   //PC = 28
-	b _good   //PC = 32
+	mov r2, #0  //PC = 16 initialisation de la sortie
+	mov r0, #5  //PC = 8
+	mov r1, #5  //PC = 12
 
-_bad :						
-	nop						 //PC = 36
-	nop						 //PC = 40
+_loop : 
+	add r2, r2, r1  //PC = 20 r2 <= r2 + r1
+	subs r0, r0, #1 //PC = 24 r0 <= r0 - 1   1er boucle Z = 0
+	bne _loop       //PC = 28 --> 28+8-4*4
+
+	mov r5, #0
+	add r2, r2, #0
+	mov r5, #0   
+ 	b _good         //PC = 32
+
+_bad :			   
+	nop				//PC = 36		
+	nop				//PC = 40	 
 _good :
-	nop						 //PC = 44
-	nop						 //PC = 48
+	nop			    //PC = 44
+	nop				//PC = 48
 AdrStack:  .word 0x80000000
