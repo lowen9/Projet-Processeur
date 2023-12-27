@@ -102,17 +102,17 @@ component reg
 		
 	-- Read Port 1 32 bits
 		reg_rd1		: out Std_Logic_Vector(31 downto 0);
-		radr1			: in Std_Logic_Vector(3 downto 0);
+		radr1		: in Std_Logic_Vector(3 downto 0);
 		reg_v1		: out Std_Logic;
 
 	-- Read Port 2 32 bits
 		reg_rd2		: out Std_Logic_Vector(31 downto 0);
-		radr2			: in Std_Logic_Vector(3 downto 0);
+		radr2		: in Std_Logic_Vector(3 downto 0);
 		reg_v2		: out Std_Logic;
 
 	-- Read Port 3 32 bits
 		reg_rd3		: out Std_Logic_Vector(31 downto 0);
-		radr3			: in Std_Logic_Vector(3 downto 0);
+		radr3		: in Std_Logic_Vector(3 downto 0);
 		reg_v3		: out Std_Logic;
 
 	-- read CSPR Port
@@ -550,12 +550,14 @@ begin
 
 -- branch instruction
 
+	
+
 -- Decode interface operands
 	op1 <=	reg_pc		  	when (branch_t = '1'	         	) else
 	        (others=>'0') when (mov_i = '1' or mvn_i = '1') else
-					exe_res       when (exe_dest = radr1)           else --bypass d'odre 1 exe à exe sur RN
-					mem_res				when (mem_dest = radr1)						else --bypass d'odre 2 mem à exe sur RN
-					rdata1; --ajouter les bypass
+			exe_res       when (exe_dest = radr1)           else --bypass d'odre 1 exe à exe sur RN
+			mem_res		  when (mem_dest = radr1)			else --bypass d'odre 2 mem à exe sur RN
+			rdata1; --ajouter les bypass
 
 	offset32 <= X"00" & if_ir(23 downto 0);
 
@@ -564,11 +566,11 @@ begin
 					'0'; 
 
 	op2	<=  offset32                       when          branch_t  = '1' else
-		    	X"000000" & if_ir( 7 downto 0) when (op2i and regop_t) = '1' else
-					X"00000"  & if_ir(11 downto 0) when (op2i and trans_t) = '1' else
-					exe_res                        when (exe_dest = radr2)       else --bypass d'odre 1 exe à exe sur RM
-					mem_res												 when (mem_dest = radr2)			 else --bypass d'odre 2 mem à exe sur RM
-					rdata2; --ajouter les bypass
+		    X"000000" & if_ir( 7 downto 0) when (op2i and regop_t) = '1' else
+			X"00000"  & if_ir(11 downto 0) when (op2i and trans_t) = '1' else
+			exe_res                        when (exe_dest = radr2)       else --bypass d'odre 1 exe à exe sur RM
+			mem_res						   when (mem_dest = radr2)		 else --bypass d'odre 2 mem à exe sur RM
+			rdata2; --ajouter les bypass
 
 	alu_dest <=	X"F"                when branch_t = '1' else 
 	            if_ir(19 downto 16) when mult_t = '1'   else
@@ -593,19 +595,19 @@ begin
 -- Reg Invalid
 
 	inval_exe_adr <= X"F"                when (branch_t = '1') else
-		             	 if_ir(19 downto 16) when (mult_t   = '1') else
-									 if_ir(15 downto 12);
+		             if_ir(19 downto 16) when (mult_t   = '1') else
+					 if_ir(15 downto 12);
 
 	inval_exe <= '0' when (branch_t                  = '1' or 
 	                      (regop_t and (not(tst_i) or not(teq_i) or 
-																			not(cmp_i) or not(cmn_i))) 
-										             									 = '1' or 
-						  					 mult_t                    = '1' or
-						  					 alu_wb                    = '1') else 
-				 			 '1';
+										not(cmp_i) or not(cmn_i))) 
+										             = '1' or 
+	    				   mult_t                    = '1' or
+						   alu_wb                    = '1') else 
+				 		   '1';
 
 	inval_mem_adr <= if_ir(19 downto 16) when (alu_wb = '1') else
-									 mtrans_rd;
+					 mtrans_rd;
 
 	inval_mem <= '0' when (trans_t = '1' or mtrans_t = '1') else
 							 '1';
@@ -782,13 +784,16 @@ begin
 
 		when BRANCH => next_state <= BRANCH;
 									 if if2dec_empty = '1' then
-									 	dec2if_push <= '1'; --On met une nouvelle valeur de PC dans dec2if
-									 elsif if2dec_empty = '0' then
+										dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if
+									 elsif if2dec_empty = '0' and branch_t = '0' then
 										dec2exe_push <= '0'; 
 									 	if2dec_pop   <= '1';
 										dec2if_push  <= '1'; --On push une nouvelle valeur de PC
 									 	next_state   <= RUN;
-									 end if;
+									--  elsif branch_t = '1' then
+									-- 	if2dec_pop <= '1';
+									-- 	dec2if_push <= '1';
+									end if;
 
 		when LINK => next_state <= LINK;
 		

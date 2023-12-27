@@ -127,8 +127,9 @@ begin
             end if;
         --incrementation de PC--
             if (inc_pc = '1') then
-                if(wadr1 = X"F") then
-                    R(15)<= std_logic_vector(unsigned(wdata1) + 4);
+                if(wadr1 = X"F" and R_v(15) = '0') then
+                    R(15)   <= std_logic_vector(unsigned(wdata1) + 4);
+                    R_v(15) <= '1';
                 else
                     R(15)<= std_logic_vector(unsigned(R(15)) + 4);
                 end if;

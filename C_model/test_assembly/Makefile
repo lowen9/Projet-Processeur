@@ -3,7 +3,7 @@ LD_ARM = arm-linux-gnueabi-ld
 CFLAGS = -march=armv2a -mno-thumb-interwork -Wall -O1
 LD_FLAGS = -Bstatic -fix-v4bx
 
-FILE_NAME = branch_test
+FILE_NAME = branch_test2
 
 all : ${FILE_NAME}
 
