@@ -5,8 +5,8 @@ use ieee.numeric_std.all;
 entity Decod is
 	port(
 	-- Exec  operands
-			dec_op1				: out Std_Logic_Vector(31 downto 0); -- first alu input
-			dec_op2				: out Std_Logic_Vector(31 downto 0); -- shifter input
+			dec_op1			: out Std_Logic_Vector(31 downto 0); -- first alu input
+			dec_op2			: out Std_Logic_Vector(31 downto 0); -- shifter input
 			dec_exe_dest	: out Std_Logic_Vector(3 downto 0); -- Rd destination
 			dec_exe_wb		: out Std_Logic; -- Rd destination write back
 			dec_flag_wb		: out Std_Logic; -- CSPR modifiy
@@ -14,7 +14,7 @@ entity Decod is
 	-- Decod to mem via exec
 			dec_mem_data	: out Std_Logic_Vector(31 downto 0); -- data to MEM
 			dec_mem_dest	: out Std_Logic_Vector(3 downto 0);  -- Registre d'écriture de Mem
-			dec_pre_index : out Std_logic;                     -- P = 1 calcul de l'adresse par exec sinon non 
+			dec_pre_index 	: out Std_logic;                     -- P = 1 calcul de l'adresse par exec sinon non 
 
 			dec_mem_lw		: out Std_Logic;
 			dec_mem_lb		: out Std_Logic;
@@ -28,7 +28,7 @@ entity Decod is
 			dec_shift_ror	: out Std_Logic;
 			dec_shift_rrx	: out Std_Logic;
 			dec_shift_val	: out Std_Logic_Vector(4 downto 0);
-			dec_cy				: out Std_Logic;
+			dec_cy			: out Std_Logic;
 
 	-- Alu operand selection
 			dec_comp_op1	: out Std_Logic;
@@ -37,44 +37,44 @@ entity Decod is
 
 	-- Exec Synchro
 			dec2exe_empty	: out Std_Logic;
-			exe_pop				: in Std_logic;
+			exe_pop			: in Std_logic;
 
 	-- Alu command
 			dec_alu_cmd		: out Std_Logic_Vector(1 downto 0);
 
 	-- Exe Write Back to reg
-			exe_res				: in Std_Logic_Vector(31 downto 0);
+			exe_res			: in Std_Logic_Vector(31 downto 0);
 
-			exe_c					: in Std_Logic;
-			exe_v					: in Std_Logic;
-			exe_n					: in Std_Logic;
-			exe_z					: in Std_Logic;
+			exe_c			: in Std_Logic;
+			exe_v			: in Std_Logic;
+			exe_n			: in Std_Logic;
+			exe_z			: in Std_Logic;
 
-			exe_dest			: in Std_Logic_Vector(3 downto 0); -- Rd destination
-			exe_wb				: in Std_Logic; -- Rd destination write back
+			exe_dest		: in Std_Logic_Vector(3 downto 0); -- Rd destination
+			exe_wb			: in Std_Logic; -- Rd destination write back
 			exe_flag_wb		: in Std_Logic; -- CSPR modifiy
 
 	-- Ifetch interface
-			dec_pc				: out Std_Logic_Vector(31 downto 0) ;
-			if_ir					: in Std_Logic_Vector(31 downto 0) ;
+			dec_pc			: out Std_Logic_Vector(31 downto 0) ;
+			if_ir			: in Std_Logic_Vector(31 downto 0) ;
 
 	-- Ifetch synchro
 			dec2if_empty	: out Std_Logic;
-			if_pop				: in Std_Logic;
+			if_pop			: in Std_Logic;
 
 			if2dec_empty	: in Std_Logic;
-			dec_pop				: out Std_Logic;
+			dec_pop			: out Std_Logic;
 
 	-- Mem Write back to reg
-			mem_res				: in Std_Logic_Vector(31 downto 0);
-			mem_dest			: in Std_Logic_Vector(3 downto 0);
-			mem_wb				: in Std_Logic;
+			mem_res			: in Std_Logic_Vector(31 downto 0);
+			mem_dest		: in Std_Logic_Vector(3 downto 0);
+			mem_wb			: in Std_Logic;
 			
 	-- global interface
-			ck						: in Std_Logic;
-			reset_n				: in Std_Logic;
-			vdd						: in bit;
-			vss						: in bit);
+			ck				: in Std_Logic;
+			reset_n			: in Std_Logic;
+			vdd				: in bit;
+			vss				: in bit);
 end Decod;
 
 ----------------------------------------------------------------------
@@ -85,19 +85,19 @@ component reg
 	port(
 	-- Write Port 1 prioritaire
 		wdata1		: in Std_Logic_Vector(31 downto 0);
-		wadr1			: in Std_Logic_Vector(3 downto 0);
-		wen1			: in Std_Logic;
+		wadr1		: in Std_Logic_Vector(3 downto 0);
+		wen1		: in Std_Logic;
 
 	-- Write Port 2 non prioritaire
 		wdata2		: in Std_Logic_Vector(31 downto 0);
-		wadr2			: in Std_Logic_Vector(3 downto 0);
-		wen2			: in Std_Logic;
+		wadr2		: in Std_Logic_Vector(3 downto 0);
+		wen2		: in Std_Logic;
 
 	-- Write CSPR Port
-		wcry			: in Std_Logic;
-		wzero			: in Std_Logic;
-		wneg			: in Std_Logic;
-		wovr			: in Std_Logic;
+		wcry		: in Std_Logic;
+		wzero		: in Std_Logic;
+		wneg		: in Std_Logic;
+		wovr		: in Std_Logic;
 		cspr_wb		: in Std_Logic;
 		
 	-- Read Port 1 32 bits
@@ -124,10 +124,10 @@ component reg
 		reg_vv		: out Std_Logic;
 		
 	-- Invalidate Port 
-		inval_adr1: in Std_Logic_Vector(3 downto 0);
+		inval_adr1	: in Std_Logic_Vector(3 downto 0);
 		inval1		: in Std_Logic;
 
-		inval_adr2: in Std_Logic_Vector(3 downto 0);
+		inval_adr2	: in Std_Logic_Vector(3 downto 0);
 		inval2		: in Std_Logic;
 
 		inval_czn	: in Std_Logic;
@@ -139,10 +139,10 @@ component reg
 		inc_pc		: in Std_Logic;
 	
 	-- global interface
-		ck				: in Std_Logic;
+		ck			: in Std_Logic;
 		reset_n		: in Std_Logic;
-		vdd				: in bit;
-		vss				: in bit);
+		vdd			: in bit;
+		vss			: in bit);
 end component;
 
 component fifo_127b
@@ -748,67 +748,94 @@ begin
 	case cur_state is
 
 		when FETCH => debug_state <= X"1";
-									if2dec_pop <= '0';
-									dec2exe_push <= '0';
-									blink <= '0';
-									mtrans_shift <= '0';
-									mtrans_loop_adr <= '0';
+					  if2dec_pop <= '0';
+					  dec2exe_push <= '0';
+					  blink <= '0';
+					  mtrans_shift <= '0';
+					  mtrans_loop_adr <= '0';
 
-									next_state <= FETCH;
-									if dec2if_full = '0' and reg_pcv = '1' then --T2
-										next_state <= RUN;
-										dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
-									elsif dec2if_full = '1' then --T1
-										dec2if_push <= '0';
-									end if;
+					  next_state <= FETCH;
+					  if dec2if_full = '0' and reg_pcv = '1' then --T2
+					  	next_state <= RUN;
+					  	dec2if_push <= '1'; -- On charge une valeur de PC dans dec2if
+					  elsif dec2if_full = '1' then --T1
+					  	dec2if_push <= '0';
+					  end if;
 
 		when RUN => next_state <= RUN;
-								if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0') then --T1 ???
-									if(dec2if_full = '0') then
-										dec2exe_push <= '0'; --On push pas les valeur vers EXE
-										if2dec_pop   <= '0'; --On freeze
-										dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if
-									else
-										dec2exe_push <= '0'; --On push pas les valeur vers EXE
-										if2dec_pop   <= '0';
-										dec2if_push  <= '0';
-									end if;
-							  	elsif cond = '0' then --T2 prédicat faux
-									dec2exe_push <= '0'; --On push pas les valeurs vers EXE
-									if2dec_pop   <= '1'; --On vide le registre FETCH
-									dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
-								elsif regop_t = '1' or trans_t = '1' then --T3 précidat vrai on excute l'instruction (regop_t ou trans_t)
-									dec2exe_push <= '1'; --On push les valeur vers EXE
-									if2dec_pop 	 <= '1'; --On vide le registre FETCH
-									dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
-								elsif branch_t = '1' and bl_i = '0' then --T5 précidat vrai on excute le branchement
-									dec2exe_push <= '1'; --On envoie le calcul à EXEC
-									if2dec_pop   <= '1'; --On vide le registre FETCH
-									dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
-									next_state   <= BRANCH;
-								elsif branch_t = '1' and bl_i = '1' then
-									dec2exe_push <= '1'; --On envoie le calcul à EXEC ?????
-									if2dec_pop   <= '0'; --On vide pas le registre FETCH
-									dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
-									blink        <= '1';
-									next_state   <= LINK;
-								end if;
+				--//T1 Au cas où\\--
+					if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0') then
+						dec2exe_push <= '0'; --On push pas les valeur vers EXE valeur vide dénué de sens
+						if2dec_pop   <= '0'; --Elle est vide XD
+						if(dec2if_full = '0') then
+							dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if
+						else
+							dec2if_push  <= '0';
+						end if;
+				--//T2 prédicat faux\\--
+					elsif cond = '0' then 
+						dec2exe_push <= '0'; --On push pas les valeurs vers EXE
+						if2dec_pop   <= '1'; --On vide le registre FETCH
+						dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
+				--//T3 précidat vrai on excute l'instruction (regop_t ou trans_t)\\--
+					elsif regop_t = '1' or trans_t = '1' then
+						dec2exe_push <= '1'; --On push les valeur vers EXE
+						if2dec_pop 	 <= '1'; --On vide le registre FETCH
+						dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
+				--//T4 Branch and Link\\--
+					elsif branch_t = '1' and bl_i = '1' then
+						dec2exe_push <= '1'; --On envoie le calcul à EXEC ?????
+						if2dec_pop   <= '0'; --On vide pas le registre FETCH
+						dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
+						blink        <= '1';
+						next_state   <= LINK;
+				--//T5 précidat vrai on excute le branchement\\--
+					elsif branch_t = '1' and bl_i = '0' then
+						dec2exe_push <= '1'; --On envoie le calcul à EXEC
+						if2dec_pop   <= '1'; --On vide le registre FETCH
+						dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
+						next_state   <= BRANCH;
+					end if;
 
-		when BRANCH => next_state <= BRANCH;
-									 if if2dec_empty = '1' then
-										dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if
-									 elsif if2dec_empty = '0' and branch_t = '0' then
-										dec2exe_push <= '0'; 
-									 	if2dec_pop   <= '1';
-										dec2if_push  <= '1'; --On push une nouvelle valeur de PC
-									 	next_state   <= RUN;
-									 elsif if2dec_empty = '0' and branch_t = '1' then
-										dec2exe_push <= '0'; 
-									 	if2dec_pop   <= '1';
-										dec2if_push  <= '0'; --On push pas une nouvelle valeur de PC
-									 	next_state   <= RUN;
-									end if;
-
+		when BRANCH  => next_state <= BRANCH;
+						--V2--
+						dec2exe_push <= '0'; --On calcule rien
+						dec2if_push  <= '1'; --On met la nouvelle valeur de PC calculer
+						if if2dec_empty = '1' then
+							if2dec_pop   <= '0'; --Elle est vide
+							if branch_t = '1' then
+								dec2if_push <= '0';
+							end if;
+							next_state   <= RUN; --On retourne calculer
+					    elsif if2dec_empty = '0' then
+							if2dec_pop   <= '1'; --On vide la fifo qui contient des trucs pas bien
+						end if;
+						--V1--
+					    -- if if2dec_empty = '1' then
+						-- 	dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if
+					    -- --opti
+					    -- elsif if2dec_empty = '0' then
+					   	-- 	dec2exe_push <= '0'; --On arrête l'étage exec
+					   	-- 	if2dec_pop   <= '1'; --On vide l'étage ifecth
+					   	-- 	if branch_t = '0' then
+					   	-- 		dec2if_push  <= '1'; --On push une nouvelle valeur de PC
+					    -- 	elsif branch_t = '1' then
+					   	-- 		dec2if_push  <= '0'; --On push pas une nouvelle valeur de PC
+					    -- 	end if;
+					   	-- 	next_state   <= RUN;
+					    -- end if;
+						-- --No opti
+					    --	elsif if2dec_empty = '0' and branch_t = '0' then
+					    --	dec2exe_push <= '0'; 
+					    --		if2dec_pop   <= '1';
+					    --	dec2if_push  <= '1'; --On push une nouvelle valeur de PC
+					    --		next_state   <= RUN;
+					    --	elsif if2dec_empty = '0' and branch_t = '1' then
+					    --	dec2exe_push <= '0'; 
+					    --		if2dec_pop   <= '1';
+					    --	dec2if_push  <= '0'; --On push pas une nouvelle valeur de PC
+					    --		next_state   <= RUN;
+					 
 		when LINK => next_state <= BRANCH;
 					 if2dec_pop <= '1';
 					 blink <= '0';
