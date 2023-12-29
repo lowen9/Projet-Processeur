@@ -511,17 +511,20 @@ begin
 
 -- decod instruction type
 
-	regop_t  <= '1' when	if_ir(27 downto 26) = "00" and
-								mult_t = '0' and swap_t = '0' else '0';
-	mult_t   <= '1' when	if_ir(27 downto 22) = "000000" and
-								if_ir(7 downto 4) = "1001" else '0';
-	swap_t   <= '1' when	if_ir(27 downto 23) = "00010" and
-								if_ir(11 downto 4) = "00001001" else '0';
-	trans_t  <= '1' when  if_ir(27 downto 26) = "01"  else '0';
+	regop_t  <= '1' when if_ir(27 downto 26) = "00"    and 
+	                     mult_t = '0' and swap_t = '0' else '0';
 
-	mtrans_t <= '1' when  if_ir(27 downto 25) = "100" else '0';
+	mult_t   <= '1' when if_ir(27 downto 22) = "000000" and 
+	                     if_ir( 7 downto  4) = "1001"   else '0';
 
-	branch_t <= '1' when  if_ir(27 downto 25) = "101" else '0';
+	swap_t   <= '1' when if_ir(27 downto 23) = "00010"    and 
+	                     if_ir(11 downto  4) = "00001001" else '0';
+
+	trans_t  <= '1' when if_ir(27 downto 26) = "01"  else '0';
+
+	mtrans_t <= '1' when if_ir(27 downto 25) = "100" else '0';
+
+	branch_t <= '1' when if_ir(27 downto 25) = "101" else '0';
 
 -- decod regop opcode
 
