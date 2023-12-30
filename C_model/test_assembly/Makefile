@@ -3,7 +3,7 @@ LD_ARM = arm-linux-gnueabi-ld
 CFLAGS = -march=armv2a -mno-thumb-interwork -Wall -O1
 LD_FLAGS = -Bstatic -fix-v4bx
 
-FILE_NAME = branch_link_test
+FILE_NAME = load_test
 
 all : ${FILE_NAME}
 

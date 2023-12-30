@@ -1,7 +1,7 @@
 LIBRARY ieee;
 use ieee.std_logic_1164.all;
 
-ENTITY fifo IS
+ENTITY fifo_72b IS
 	PORT(
 		din		: in std_logic_vector(71 downto 0);
 		dout		: out std_logic_vector(71 downto 0);
@@ -19,9 +19,9 @@ ENTITY fifo IS
 		vdd		: in bit;
 		vss		: in bit
 	);
-END fifo;
+END fifo_72b;
 
-architecture dataflow of fifo is
+architecture dataflow of fifo_72b is
 
 signal fifo_d	: std_logic_vector(71 downto 0);
 signal fifo_v	: std_logic;

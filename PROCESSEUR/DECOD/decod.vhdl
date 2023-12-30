@@ -634,10 +634,10 @@ begin
 	ld_dest   <= if_ir(15 downto 12);  
 	pre_index <= if_ir(24);
 
-	ldr_i  <= '1' when (    if_ir(20)  and not(if_ir(22))) = '1' else '0';
-	ldrb_i <= '1' when (    if_ir(20)  and     if_ir(22) ) = '1' else '0';
-	str_i  <= '1' when (not(if_ir(20)) and not(if_ir(22))) = '1' else '0';
-	strb_i <= '1' when (not(if_ir(20)) and     if_ir(22) ) = '1' else '0';
+	ldr_i  <= '1' when trans_t = '1' and (    if_ir(20)  and not(if_ir(22))) = '1' else '0';
+	ldrb_i <= '1' when trans_t = '1' and (    if_ir(20)  and     if_ir(22) ) = '1' else '0';
+	str_i  <= '1' when trans_t = '1' and (not(if_ir(20)) and not(if_ir(22))) = '1' else '0';
+	strb_i <= '1' when trans_t = '1' and (not(if_ir(20)) and     if_ir(22) ) = '1' else '0';
 
 	mem_lw <= ldr_i;
 	mem_lb <= ldrb_i;
@@ -685,21 +685,21 @@ begin
 	end process;
 
 	mtrans_mask_shift <= X"FFFE" when if_ir( 0) = '1' and mtrans_mask( 0) = '1' else
-											 X"FFFC" when if_ir( 1) = '1' and mtrans_mask( 1) = '1' else
-											 X"FFF8" when if_ir( 2) = '1' and mtrans_mask( 2) = '1' else
-											 X"FFF0" when if_ir( 3) = '1' and mtrans_mask( 3) = '1' else
-											 X"FFE0" when if_ir( 4) = '1' and mtrans_mask( 4) = '1' else
-											 X"FFC0" when if_ir( 5) = '1' and mtrans_mask( 5) = '1' else
-											 X"FF80" when if_ir( 6) = '1' and mtrans_mask( 6) = '1' else
-											 X"FF00" when if_ir( 7) = '1' and mtrans_mask( 7) = '1' else
-											 X"FE00" when if_ir( 8) = '1' and mtrans_mask( 8) = '1' else
-											 X"FC00" when if_ir( 9) = '1' and mtrans_mask( 9) = '1' else
-											 X"F800" when if_ir(10) = '1' and mtrans_mask(10) = '1' else
-											 X"F000" when if_ir(11) = '1' and mtrans_mask(11) = '1' else
-											 X"E000" when if_ir(12) = '1' and mtrans_mask(12) = '1' else
-											 X"C000" when if_ir(13) = '1' and mtrans_mask(13) = '1' else
-											 X"8000" when if_ir(14) = '1' and mtrans_mask(14) = '1' else
-											 X"0000";
+						 X"FFFC" when if_ir( 1) = '1' and mtrans_mask( 1) = '1' else
+						 X"FFF8" when if_ir( 2) = '1' and mtrans_mask( 2) = '1' else
+						 X"FFF0" when if_ir( 3) = '1' and mtrans_mask( 3) = '1' else
+						 X"FFE0" when if_ir( 4) = '1' and mtrans_mask( 4) = '1' else
+						 X"FFC0" when if_ir( 5) = '1' and mtrans_mask( 5) = '1' else
+						 X"FF80" when if_ir( 6) = '1' and mtrans_mask( 6) = '1' else
+						 X"FF00" when if_ir( 7) = '1' and mtrans_mask( 7) = '1' else
+						 X"FE00" when if_ir( 8) = '1' and mtrans_mask( 8) = '1' else
+						 X"FC00" when if_ir( 9) = '1' and mtrans_mask( 9) = '1' else
+						 X"F800" when if_ir(10) = '1' and mtrans_mask(10) = '1' else
+						 X"F000" when if_ir(11) = '1' and mtrans_mask(11) = '1' else
+						 X"E000" when if_ir(12) = '1' and mtrans_mask(12) = '1' else
+						 X"C000" when if_ir(13) = '1' and mtrans_mask(13) = '1' else
+						 X"8000" when if_ir(14) = '1' and mtrans_mask(14) = '1' else
+						 X"0000";
 
 	mtrans_list <= if_ir(15 downto 0) and mtrans_mask;
 
@@ -709,22 +709,22 @@ begin
 
 	mtrans_1un <= '1' when mtrans_nbr = "00001" else '0';
 
-	mtrans_rd <=	X"0" when mtrans_list( 0) = '1' else
-								X"1" when mtrans_list( 1) = '1' else
-								X"2" when mtrans_list( 2) = '1' else
-								X"3" when mtrans_list( 3) = '1' else
-								X"4" when mtrans_list( 4) = '1' else
-								X"5" when mtrans_list( 5) = '1' else
-								X"6" when mtrans_list( 6) = '1' else
-								X"7" when mtrans_list( 7) = '1' else
-								X"8" when mtrans_list( 8) = '1' else
-								X"9" when mtrans_list( 9) = '1' else
-								X"A" when mtrans_list(10) = '1' else
-								X"B" when mtrans_list(11) = '1' else
-								X"C" when mtrans_list(12) = '1' else
-								X"D" when mtrans_list(13) = '1' else
-								X"E" when mtrans_list(14) = '1' else
-								X"F";
+	mtrans_rd <= X"0" when mtrans_list( 0) = '1' else
+				 X"1" when mtrans_list( 1) = '1' else
+				 X"2" when mtrans_list( 2) = '1' else
+				 X"3" when mtrans_list( 3) = '1' else
+				 X"4" when mtrans_list( 4) = '1' else
+				 X"5" when mtrans_list( 5) = '1' else
+				 X"6" when mtrans_list( 6) = '1' else
+				 X"7" when mtrans_list( 7) = '1' else
+				 X"8" when mtrans_list( 8) = '1' else
+				 X"9" when mtrans_list( 9) = '1' else
+				 X"A" when mtrans_list(10) = '1' else
+				 X"B" when mtrans_list(11) = '1' else
+				 X"C" when mtrans_list(12) = '1' else
+				 X"D" when mtrans_list(13) = '1' else
+				 X"E" when mtrans_list(14) = '1' else
+				 X"F";
 
 -- FSM
 
@@ -766,7 +766,7 @@ begin
 					  end if;
 
 		when RUN => next_state <= RUN;
-				--//T1 Au cas où\\--
+				    --//T1 Au cas où\\--
 					if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0') then
 						dec2exe_push <= '0'; --On push pas les valeur vers EXE valeur vide dénué de sens
 						if2dec_pop   <= '0'; --Elle est vide XD
@@ -775,25 +775,25 @@ begin
 						else
 							dec2if_push  <= '0';
 						end if;
-				--//T2 prédicat faux\\--
+					--//T2 prédicat faux\\--
 					elsif cond = '0' then 
 						dec2exe_push <= '0'; --On push pas les valeurs vers EXE
 						if2dec_pop   <= '1'; --On vide le registre FETCH
 						dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
-				--//T3 précidat vrai on excute l'instruction (regop_t ou trans_t)\\--
-					elsif regop_t = '1' or trans_t = '1' then
+					--//T3 précidat vrai on excute l'instruction (regop_t ou trans_t)\\--
+					elsif (regop_t = '1' or trans_t = '1') and alu_dest /= X"F" then
 						dec2exe_push <= '1'; --On push les valeur vers EXE
 						if2dec_pop 	 <= '1'; --On vide le registre FETCH
 						dec2if_push  <= '1'; --On push une nouvelle valeur de PC dans dec2if
-				--//T4 Branch and Link\\--
+					--//T4 Branch and Link\\--
 					elsif branch_t = '1' and bl_i = '1' then
 						dec2exe_push <= '1'; --On envoie le calcul à EXEC ?????
 						if2dec_pop   <= '0'; --On vide pas le registre FETCH
 						dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass
 						blink        <= '1';
 						next_state   <= LINK;
-				--//T5 précidat vrai on excute le branchement\\--
-					elsif branch_t = '1' and bl_i = '0' then
+					--//T5 précidat vrai on excute le branchement\\--
+					elsif (branch_t = '1' and bl_i = '0') or (regop_t = '1' and alu_dest = X"F") then
 						dec2exe_push <= '1'; --On envoie le calcul à EXEC
 						if2dec_pop   <= '1'; --On vide le registre FETCH
 						dec2if_push  <= '0'; --On push la nouvelle valeur de PC calculer par EXE en bypass

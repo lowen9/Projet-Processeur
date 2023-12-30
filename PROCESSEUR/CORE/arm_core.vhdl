@@ -221,18 +221,18 @@ Component Mem
 
 	-- Mem WB
 			mem_res			: out Std_Logic_Vector(31 downto 0);
-			mem_dest			: out Std_Logic_Vector(3 downto 0);
+			mem_dest		: out Std_Logic_Vector(3 downto 0);
 			mem_wb			: out Std_Logic;
 			
 	-- Dcache interface
 			mem_adr			: out Std_Logic_Vector(31 downto 0);
 			mem_stw			: out Std_Logic;
 			mem_stb			: out Std_Logic;
-			mem_load			: out Std_Logic;
+			mem_load		: out Std_Logic;
 
-			mem_data			: out Std_Logic_Vector(31 downto 0);
+			mem_data		: out Std_Logic_Vector(31 downto 0);
 			dc_data			: in Std_Logic_Vector(31 downto 0);
-			dc_stall			: in Std_Logic;
+			dc_stall		: in Std_Logic;
 
 	-- global interface
 			vdd				: in bit;

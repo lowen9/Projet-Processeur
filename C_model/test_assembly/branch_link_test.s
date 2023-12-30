@@ -4,7 +4,7 @@
 	.text
 	.globl	_start 
 
-_start:               
+_start :               
 	    /* 0x00 Reset Interrupt vector address */
 	    b	startup //PC = 0
         
@@ -24,13 +24,12 @@ func :
     add r4, r3, r3   //PC = 36 (r1+r2)*2 = 22
     @ mov r15, r14   // on change PC
     bx  r14          //PC = 40
-	nop
-    add r4, r4, #1   //PC = 
+    add r4, r4, #1   //PC = 44
 
 _bad :						
-	nop				//PC = 
-	nop				//PC = 
+	nop				//PC = 48
+	nop				//PC = 52
 _good :
-	nop				//PC = 
+	nop				//PC = 56
 	nop				//PC = 
 AdrStack:  .word 0x80000000

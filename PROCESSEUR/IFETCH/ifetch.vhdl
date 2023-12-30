@@ -9,7 +9,7 @@ entity IFetch is
 			if_adr_valid	: out Std_Logic;
 
 			ic_inst			: in Std_Logic_Vector(31 downto 0) ;
-			ic_stall			: in Std_Logic;
+			ic_stall		: in Std_Logic;
 
 	-- Decode interface
 			dec2if_empty	: in Std_Logic;

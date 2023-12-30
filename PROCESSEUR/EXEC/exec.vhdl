@@ -69,7 +69,7 @@ entity EXEC is
 
 	-- global interface
 			ck				: in Std_logic;
-			reset_n		: in Std_logic;
+			reset_n			: in Std_logic;
 			vdd				: in bit;
 			vss				: in bit);
 end EXEC;
@@ -118,7 +118,7 @@ begin
 			 vdd       => vdd          ,
 			 vss       => vss          );
 
-	exec2mem : entity work.fifo(dataflow)
+	exec2mem : entity work.fifo_72b(dataflow)
 	port map (	din(71)	 => dec_mem_lw,
 				din(70)	 => dec_mem_lb,
 				din(69)	 => dec_mem_sw,
@@ -168,7 +168,7 @@ begin
 	--Implementation du multiplexeur du choix des cout (ALU ou shifter)
 	exe_c <= '0'      when reset_n = '0'      else 
 	         cout_alu when dec_alu_cmd = "00" else
-					 cout_shift;
+			 cout_shift;
 
 --Implementation du multiplexeur de pre/post indexation
 	mem_adr <= res_alu when dec_pre_index = '1' else dec_op1;
@@ -177,6 +177,6 @@ begin
 	exe_pop	<= '1' when ((not(dec2exe_empty) and not(exe2mem_full)) = '1') else '0'; 
 
 --Gestion de la fifo
-	exe_push <= '1' when (not(exe2mem_full) and (dec_mem_sb or dec_mem_sw or dec_mem_lb or dec_mem_lw)) ='1' else '0'; --ajout de condition
+	exe_push <= '1' when exe2mem_full = '0' and (dec_mem_sb or dec_mem_sw or dec_mem_lb or dec_mem_lw) ='1' else '0'; --ajout de condition
 
 end struct;
