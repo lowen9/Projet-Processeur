@@ -1,10 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-library work;
-use work.ram.all;
-use work.mem.all;
-
 entity arm_core is
 	port(
 
@@ -239,8 +235,6 @@ Component Mem
 			dc_stall		: in Std_Logic;
 
 	-- global interface
-			ck				: in Std_logic; --Ajout
-			reset_n			: in Std_logic; --Ajout
 			vdd				: in bit;
 			vss				: in bit);
 end Component;
@@ -474,7 +468,7 @@ begin
 	mem_i : mem
 	port map (
 	-- Exe interface
-					exe2mem_empty	=> exe2mem_empty,
+					exe2mem_empty	=> exe2mem_empty, 
 					mem_pop			=> mem_pop,
 					exe_mem_adr		=> exe_mem_adr,
 					exe_mem_data	=> exe_mem_data,
@@ -501,8 +495,6 @@ begin
 					dc_stall		=> dc_stall,
 
 	-- global interface
-					ck				=> ck     , --Ajout
-					reset_n			=> reset_n, --Ajout
 					vdd	 			=> vdd,
 					vss	 			=> vss);
 

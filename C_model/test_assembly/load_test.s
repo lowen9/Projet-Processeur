@@ -13,15 +13,7 @@ _start :
 
 startup :
     ldr r0, data0
-    nop
-    ldr r1, data1
     add  r2, r0, r0
-    nop
-    nop
-    nop
-    nop
-    nop
-    //bne _bad
     b _good
 
 _bad :  nop
