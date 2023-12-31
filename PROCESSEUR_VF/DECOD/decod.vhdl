@@ -568,8 +568,8 @@ begin
 	offset32(31 downto 24) <= (others => if_ir(23));
 
 	op2i <= if_ir(25)      when regop_t  = '1' else
-					not(if_ir(25)) when trans_t  = '1' else 
-					'0'; 
+			not(if_ir(25)) when trans_t  = '1' else 
+			'0'; 
 
 	op2	<=  offset32                       when          branch_t  = '1' and blink = '0' else
 			X"FFFFFFFF"                    when          blink     = '1' else
@@ -585,16 +585,16 @@ begin
 							if_ir(15 downto 12);
 
 	alu_wb	<= '1' when (regop_t  = '1' or
-											 mult_t   = '1' or
-											 branch_t = '1' or
-	                     (if_ir(21) = '1' and (trans_t = '1' or mtrans_t = '1'))) else
-			  		 '0';
+						 mult_t   = '1' or
+						 branch_t = '1' or
+	                    (if_ir(21) = '1' and (trans_t = '1' or mtrans_t = '1'))) else
+			   '0';
 
 	flag_wb	<= if_ir(20) when (regop_t = '1' or mult_t = '1') else '0'; --voir si S vaut '1' pour tst teq cmp cmn
 
 -- reg read
 	radr1 <= if_ir(15 downto 12) when (mult_t = '1') else --RN mutl
-			 		 if_ir(19 downto 16); --RN
+			 if_ir(19 downto 16); --RN
 				
 	radr2 <= if_ir(3 downto 0); --RM
 
@@ -628,8 +628,13 @@ begin
 -- operand validite
 
 	operv <=	'1' when (rvalid1 and rvalid2 and rvalid3) = '1' else
-						'0';
-
+				'0';
+	
+	-- operv <=  rvalid1                          when branch_t = '1' else
+	-- 	     (rvalid1 and rvalid2)             when ... else
+	--          (rvalid1 and rvalid2 and rvalid3) when ... else
+	-- 		 '1';
+	
 -- Decode to mem interface 
 	ld_dest   <= if_ir(15 downto 12);  
 	pre_index <= if_ir(24);
@@ -768,7 +773,7 @@ begin
 		when RUN => next_state <= RUN;
 				    --//T1 Au cas où\\--
 					if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0') then
-						dec2exe_push <= '0'; --On push pas les valeur vers EXE valeur vide dénué de sens
+						dec2exe_push <= '1'; --On push pas les valeur vers EXE valeur vide dénué de sens
 						if2dec_pop   <= '0'; --Elle est vide XD
 						if(dec2if_full = '0') then
 							dec2if_push  <= '1'; --On met une nouvelle valeur de PC dans dec2if

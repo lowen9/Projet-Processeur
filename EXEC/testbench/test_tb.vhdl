@@ -145,7 +145,7 @@ begin
 
     -- Alu operand selection
     dec_comp_op1 <= '0';
-    dec_comp_op2 <= '0', '1' after 21 ns;
+    dec_comp_op2 <= '0', '0' after 21 ns;
     dec_alu_cy   <= '0', '1' after 21 ns;
 
     -- Alu command

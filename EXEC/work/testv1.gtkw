@@ -1,16 +1,17 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Nov 19 20:57:32 2023
+[*] Sat Dec 30 23:23:25 2023
 [*]
-[dumpfile] "/home/lowen9/Desktop/VLSI/Projet/EXEC/work/test_tb.vcd"
-[dumpfile_mtime] "Sun Nov 19 20:56:44 2023"
-[dumpfile_size] 12425
-[savefile] "/home/lowen9/Desktop/VLSI/Projet/EXEC/work/testv1.gtkw"
-[timestart] 4860000
-[size] 1920 1020
+[dumpfile] "/home/lowen/VLSI/Projet/EXEC/work/test_tb.vcd"
+[dumpfile_mtime] "Sat Dec 30 23:21:03 2023"
+[dumpfile_size] 12164
+[savefile] "/home/lowen/VLSI/Projet/EXEC/work/testv1.gtkw"
+[timestart] 18147000
+[size] 1908 994
 [pos] -1 -1
-*-21.385601 21000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.402498 21709000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] test_tb.
+[treeopen] test_tb.exec.
 [sst_width] 227
 [signals_width] 186
 [sst_expanded] 1
@@ -20,7 +21,6 @@ test_tb.ck
 test_tb.reset_n
 test_tb.dec2exe_empty
 test_tb.exe_pop
-test_tb.dec_op2[31:0]
 @22
 test_tb.dec_shift_val[4:0]
 @28
@@ -29,17 +29,18 @@ test_tb.exec.dec_shift_lsr
 test_tb.exec.dec_shift_asr
 test_tb.exec.dec_shift_ror
 test_tb.exec.dec_shift_rrx
-@24
-test_tb.exec.dout_shift[31:0]
-@421
-test_tb.exec.dec_op1[31:0]
-@28
 test_tb.exec.dec_alu_cmd[1:0]
-@420
+test_tb.exec.dec_op1[31:0]
+test_tb.exec.dec_comp_op1
+test_tb.dec_op2[31:0]
+test_tb.exec.dout_shift[31:0]
+@29
+test_tb.exec.dec_comp_op2
+@28
+test_tb.exec.dec_alu_cy
 test_tb.exec.res_alu[31:0]
 test_tb.exec.mem_adr[31:0]
 test_tb.exec.dec_mem_data[31:0]
-@28
 test_tb.exec.dec_mem_lb
 test_tb.exec.dec_mem_lw
 test_tb.exec.dec_mem_sb

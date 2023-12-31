@@ -1,6 +1,6 @@
 # https://github.com/jimtremblay/ghdl-example/blob/master/Makefile
 # VHDL files
-FILES = src/*
+FILES = src/*.vhdl
 TOP_F = top/*
 
 # Test Bench files

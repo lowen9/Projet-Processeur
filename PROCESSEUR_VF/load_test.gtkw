@@ -1,22 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sat Dec 30 14:50:08 2023
+[*] Sun Dec 31 01:34:03 2023
 [*]
 [dumpfile] "/home/lowen/VLSI/Projet/PROCESSEUR_VF/test.vcd"
-[dumpfile_mtime] "Sat Dec 30 14:49:38 2023"
-[dumpfile_size] 95805
+[dumpfile_mtime] "Sun Dec 31 01:30:58 2023"
+[dumpfile_size] 42111
 [savefile] "/home/lowen/VLSI/Projet/PROCESSEUR_VF/load_test.gtkw"
 [timestart] 0
 [size] 1908 994
 [pos] -1 -1
-*-23.369875 72030000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.756227 11630000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] main_tb.
 [treeopen] main_tb.arm_core_i.
 [treeopen] main_tb.arm_core_i.decod_i.
 [treeopen] main_tb.arm_core_i.exec_i.
 [treeopen] main_tb.arm_core_i.ifetch_i.
 [sst_width] 214
-[signals_width] 166
+[signals_width] 174
 [sst_expanded] 1
 [sst_vpaned_height] 611
 @24
@@ -24,9 +24,10 @@ main_tb.arm_core_i.ifetch_i.ck
 main_tb.reset_n
 @28
 main_tb.arm_core_i.decod_i.if2dec_pop
-@24
+@22
 main_tb.arm_core_i.decod_i.reg_pc[31:0]
 main_tb.arm_core_i.ifetch_i.if_adr[31:0]
+@24
 main_tb.arm_core_i.ifetch_i.ic_inst[31:0]
 @c00024
 main_tb.arm_core_i.decod_i.if_ir[31:0]
@@ -65,6 +66,21 @@ main_tb.arm_core_i.decod_i.if_ir[31:0]
 (31)main_tb.arm_core_i.decod_i.if_ir[31:0]
 @1401200
 -group_end
+@28
+main_tb.arm_core_i.decod_i.rvalid1
+@22
+main_tb.arm_core_i.decod_i.radr1[3:0]
+@28
+main_tb.arm_core_i.decod_i.rvalid2
+@22
+main_tb.arm_core_i.decod_i.radr2[3:0]
+@28
+main_tb.arm_core_i.decod_i.rvalid3
+@22
+main_tb.arm_core_i.decod_i.radr3[3:0]
+@28
+main_tb.arm_core_i.decod_i.operv
+main_tb.arm_core_i.decod_i.reg_inst.r_v[15:0]
 @24
 main_tb.arm_core_i.decod_i.regop_t
 @28
@@ -72,6 +88,7 @@ main_tb.arm_core_i.decod_i.branch_t
 @24
 main_tb.arm_core_i.decod_i.op2i
 main_tb.arm_core_i.decod_i.radr2[3:0]
+@25
 main_tb.arm_core_i.decod_i.op2[31:0]
 @c00024
 main_tb.arm_core_i.decod_i.reg_inst.inval_adr1[3:0]
@@ -227,14 +244,15 @@ main_tb.arm_core_i.exec_i.alu.op1[31:0]
 main_tb.arm_core_i.exec_i.shifter.shift_val[4:0]
 @420
 main_tb.arm_core_i.exec_i.alu.op2[31:0]
-@24
+@22
 main_tb.arm_core_i.exec_i.exe_res[31:0]
+@24
 main_tb.arm_core_i.decod_i.reg_inst.wen1
-main_tb.arm_core_i.decod_i.reg_inst.wadr1[3:0]
-main_tb.arm_core_i.decod_i.reg_inst.wdata1[31:0]
-@c00023
+@28
+main_tb.arm_core_i.exec_i.exe_push
+@c00022
 main_tb.arm_core_i.decod_i.mem_res[31:0]
-@29
+@28
 (0)main_tb.arm_core_i.decod_i.mem_res[31:0]
 (1)main_tb.arm_core_i.decod_i.mem_res[31:0]
 (2)main_tb.arm_core_i.decod_i.mem_res[31:0]
@@ -267,7 +285,7 @@ main_tb.arm_core_i.decod_i.mem_res[31:0]
 (29)main_tb.arm_core_i.decod_i.mem_res[31:0]
 (30)main_tb.arm_core_i.decod_i.mem_res[31:0]
 (31)main_tb.arm_core_i.decod_i.mem_res[31:0]
-@1401201
+@1401200
 -group_end
 @c00022
 main_tb.arm_core_i.decod_i.mem_dest[3:0]

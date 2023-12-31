@@ -18,16 +18,18 @@ end Alu;
 
 architecture equ of Alu is
 SIGNAL temp : Std_Logic_Vector(32 downto 0);
+SIGNAL cin_32 : std_logic_vector(31 downto 0);
 SIGNAL cond_v : std_logic;
     BEGIN
-
-    temp <= std_logic_vector(('0'&unsigned(op1)) + ('0'&unsigned(op2))) when cin = '0' 
-            else std_logic_vector(('0'&unsigned(op1)) + ('0'&unsigned(op2)) + 1);
+    
+    cin_32 <= X"0000000" & "000" & cin;
+    
+    temp <= std_logic_vector(('0'&unsigned(op1)) + ('0'&unsigned(op2)) + ('0'&unsigned(cin_32)));
     
     res <= temp(31 downto 0) when cmd="00"
-    else op1 and op2 when cmd="01"
-    else op1 or  op2 when cmd="10"
-    else op1 xor op2 when cmd="11";
+           else op1 and op2  when cmd="01"
+           else op1 or  op2  when cmd="10"
+           else op1 xor op2  when cmd="11";
 
     cout <= temp(32);
     z <= '1' when temp(31 downto 0) = x"00000000" else '0';

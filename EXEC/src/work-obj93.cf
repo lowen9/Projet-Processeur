@@ -1,7 +1,0 @@
-v 4
-file . "ALU.vhdl" "b55461b2dd206596e3f4f22c105c4ddcbe616232" "20231228202235.471":
-  entity alu at 1( 0) + 0 on 11;
-  architecture equ of alu at 19( 525) + 0 on 12;
-file . "shifter.vhdl" "46d4be135b6f40f51f3c92e1fae5f72a894144b9" "20231228221525.951":
-  entity shifter at 1( 0) + 0 on 27;
-  architecture behavior of shifter at 21( 528) + 0 on 28;
