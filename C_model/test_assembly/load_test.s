@@ -6,17 +6,14 @@
 
 _start :
         /* 0x00 Reset Interrupt vector address */
+        ldr r0, data0
+        mov r1, r0
         b       startup
         nop
         /* 0x04 Undefined Instruction Interrupt vector address */
         b       _bad
 
 startup :
-    ldr r0, data0
-    ldr r1, data1
-    add  r2, r0, r0
-    nop
-    nop
     b _good
 
 _bad :  nop

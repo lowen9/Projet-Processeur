@@ -1,49 +1,49 @@
 v 4
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "CORE/arm_core.vhdl" "318a7864b2fb7477db115bbebb5f7ec918722bcf" "20231231135211.042":
-  entity arm_core at 1( 0) + 0 on 489;
-  architecture struct of arm_core at 33( 712) + 0 on 490;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "EXEC/exec.vhdl" "2e38d5bce7b596e19fb00eb100b4b50df988f199" "20231231135210.952":
-  entity exec at 1( 0) + 0 on 485;
-  architecture struct of exec at 79( 2467) + 0 on 486;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "EXEC/alu.vhdl" "f24d1104d2eefdbee427d0042d41a7e68394dfce" "20231231135210.860":
-  entity alu at 1( 0) + 0 on 481;
-  architecture equ of alu at 19( 525) + 0 on 482;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "DECOD/decod.vhdl" "db782342411b31cca185642c555f4929af0a94d0" "20231231135210.592":
-  entity decod at 1( 0) + 0 on 477;
-  architecture behavior of decod at 82( 2447) + 0 on 478;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_127b.vhdl" "04c30ccc0e64e6fc24a7facbefb7be0e777bfbcf" "20231231135210.495":
-  entity fifo_127b at 1( 0) + 0 on 473;
-  architecture dataflow of fifo_127b at 24( 389) + 0 on 474;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "IFETCH/ifetch.vhdl" "c351529e8e0d928fa72b8f534512a43ffaa068cd" "20231231135210.449":
-  entity ifetch at 1( 0) + 0 on 469;
-  architecture behavior of ifetch at 32( 755) + 0 on 470;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "main_tb.vhdl" "9950d3649aa514f39f60638b454261845e652db5" "20231231135210.393":
-  entity main_tb at 1( 0) + 0 on 465;
-  architecture behav of main_tb at 13( 179) + 0 on 466;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "icache.vhdl" "53fc6e0b62350859ac7d19685dbe92be29c3536e" "20231231135210.348":
-  entity icache at 1( 0) + 0 on 461;
-  architecture behavior of icache at 20( 416) + 0 on 462;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "ram.vhdl" "590c7c18afda585ad1a0caf256cf688264c8e28d" "20231231135210.302":
-  package ram at 1( 0) + 0 on 459 body;
-  package body ram at 26( 915) + 0 on 460;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "dcache.vhdl" "a7ae5579a19a1a3d69009837d4b9e910085906dc" "20231231135210.370":
-  entity dcache at 1( 0) + 0 on 463;
-  architecture behavior of dcache at 26( 553) + 0 on 464;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_generic.vhdl" "aeb7286cdf6aece882a37b4d3ea44bc7153be130" "20231231135210.424":
-  entity fifo at 1( 0) + 0 on 467;
-  architecture dataflow of fifo at 25( 414) + 0 on 468;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_32b.vhdl" "60a2a3b14fd94b96481759ad9f3a00d0058f3851" "20231231135210.472":
-  entity fifo_32b at 1( 0) + 0 on 471;
-  architecture dataflow of fifo_32b at 24( 389) + 0 on 472;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "DECOD/reg.vhdl" "8be9ff754914c094e9c55cc01dccee90729ac88b" "20231231135210.520":
-  entity reg at 1( 0) + 0 on 475;
-  architecture behavior of reg at 69( 1727) + 0 on 476;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_72b.vhdl" "a756d3adec475d4d19c35417affac5c166181412" "20231231135210.837":
-  entity fifo_72b at 1( 0) + 0 on 479;
-  architecture dataflow of fifo_72b at 24( 385) + 0 on 480;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "EXEC/shifter.vhdl" "7e9dba865e67662dff40918af070e8d238714283" "20231231135210.897":
-  entity shifter at 1( 0) + 0 on 483;
-  architecture behavior of shifter at 21( 528) + 0 on 484;
-file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "MEM/mem.vhdl" "855f45c348af17d88240af2bc566256ac43f5248" "20231231135210.999":
-  entity mem at 1( 0) + 0 on 487;
-  architecture behavior of mem at 41( 1035) + 0 on 488;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "MEM/mem.vhdl" "855f45c348af17d88240af2bc566256ac43f5248" "20240101013907.404":
+  entity mem at 1( 0) + 0 on 2545;
+  architecture behavior of mem at 41( 1035) + 0 on 2546;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "EXEC/shifter.vhdl" "7e9dba865e67662dff40918af070e8d238714283" "20240101013907.299":
+  entity shifter at 1( 0) + 0 on 2541;
+  architecture behavior of shifter at 21( 528) + 0 on 2542;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_72b.vhdl" "a756d3adec475d4d19c35417affac5c166181412" "20240101013907.235":
+  entity fifo_72b at 1( 0) + 0 on 2537;
+  architecture dataflow of fifo_72b at 24( 385) + 0 on 2538;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "DECOD/reg.vhdl" "8917e188ad438373103006cafcac046e73dfc040" "20240101013906.890":
+  entity reg at 1( 0) + 0 on 2533;
+  architecture behavior of reg at 69( 1727) + 0 on 2534;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_32b.vhdl" "60a2a3b14fd94b96481759ad9f3a00d0058f3851" "20240101013906.840":
+  entity fifo_32b at 1( 0) + 0 on 2529;
+  architecture dataflow of fifo_32b at 24( 389) + 0 on 2530;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_generic.vhdl" "aeb7286cdf6aece882a37b4d3ea44bc7153be130" "20240101013906.788":
+  entity fifo at 1( 0) + 0 on 2525;
+  architecture dataflow of fifo at 25( 414) + 0 on 2526;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "dcache.vhdl" "a7ae5579a19a1a3d69009837d4b9e910085906dc" "20240101013906.728":
+  entity dcache at 1( 0) + 0 on 2521;
+  architecture behavior of dcache at 26( 553) + 0 on 2522;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "ram.vhdl" "590c7c18afda585ad1a0caf256cf688264c8e28d" "20240101013906.656":
+  package ram at 1( 0) + 0 on 2517 body;
+  package body ram at 26( 915) + 0 on 2518;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "icache.vhdl" "53fc6e0b62350859ac7d19685dbe92be29c3536e" "20240101013906.704":
+  entity icache at 1( 0) + 0 on 2519;
+  architecture behavior of icache at 20( 416) + 0 on 2520;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "main_tb.vhdl" "9950d3649aa514f39f60638b454261845e652db5" "20240101013906.752":
+  entity main_tb at 1( 0) + 0 on 2523;
+  architecture behav of main_tb at 13( 179) + 0 on 2524;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "IFETCH/ifetch.vhdl" "c351529e8e0d928fa72b8f534512a43ffaa068cd" "20240101013906.815":
+  entity ifetch at 1( 0) + 0 on 2527;
+  architecture behavior of ifetch at 32( 755) + 0 on 2528;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "FIFO/fifo_127b.vhdl" "04c30ccc0e64e6fc24a7facbefb7be0e777bfbcf" "20240101013906.865":
+  entity fifo_127b at 1( 0) + 0 on 2531;
+  architecture dataflow of fifo_127b at 24( 389) + 0 on 2532;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "DECOD/decod.vhdl" "0895de3ce4dafe116ed88ed31e9537e32c07f27c" "20240101013906.978":
+  entity decod at 1( 0) + 0 on 2535;
+  architecture behavior of decod at 82( 2447) + 0 on 2536;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "EXEC/alu.vhdl" "f24d1104d2eefdbee427d0042d41a7e68394dfce" "20240101013907.260":
+  entity alu at 1( 0) + 0 on 2539;
+  architecture equ of alu at 19( 525) + 0 on 2540;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "EXEC/exec.vhdl" "2e38d5bce7b596e19fb00eb100b4b50df988f199" "20240101013907.355":
+  entity exec at 1( 0) + 0 on 2543;
+  architecture struct of exec at 79( 2467) + 0 on 2544;
+file "/home/lowen/VLSI/Projet/PROCESSEUR_VF/" "CORE/arm_core.vhdl" "318a7864b2fb7477db115bbebb5f7ec918722bcf" "20240101013907.449":
+  entity arm_core at 1( 0) + 0 on 2547;
+  architecture struct of arm_core at 33( 712) + 0 on 2548;

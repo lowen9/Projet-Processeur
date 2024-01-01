@@ -582,7 +582,7 @@ begin
 	alu_dest <=	X"F"                when branch_t = '1' and blink = '0' else 
 	            X"E"                when blink    = '1' else
 	            if_ir(19 downto 16) when mult_t = '1'   else
-							if_ir(15 downto 12);
+				if_ir(15 downto 12);
 
 	alu_wb	<= '1' when (regop_t  = '1' or
 						 mult_t   = '1' or
@@ -607,19 +607,19 @@ begin
 		             if_ir(19 downto 16) when (mult_t   = '1') else
 					 if_ir(15 downto 12);
 
-	inval_exe <= '0' when (branch_t                  = '1' or 
+	inval_exe <= '0' when (branch_t                        = '1' or 
 	                      (regop_t and (not(tst_i) or not(teq_i) or 
 										not(cmp_i) or not(cmn_i))) 
-										             = '1' or 
-	    				   mult_t                    = '1' or
-						   alu_wb                    = '1') else 
-				 		   '1';
+								                           = '1' or 
+	    				   mult_t                          = '1' or
+						   alu_wb                          = '1') and cond = '1' and dec2exe_push = '1' else 
+				 '1';
 
-	inval_mem_adr <= if_ir(19 downto 16) when (alu_wb = '1') else
+	inval_mem_adr <= if_ir(15 downto 12) when (trans_t = '1') else
 					 mtrans_rd;
 
-	inval_mem <= '0' when (trans_t = '1' or mtrans_t = '1') else
-							 '1';
+	inval_mem <= '0' when (trans_t = '1' or mtrans_t = '1') and cond = '1' and dec2exe_push = '1' else
+				 '1';
 
 	inval_czn <= '0' when ((flag_wb or   tst_i or teq_i or cmp_i or cmn_i)                              = '1') else '1';
 
@@ -627,13 +627,18 @@ begin
 
 -- operand validite
 
-	operv <=	'1' when (rvalid1 and rvalid2 and rvalid3) = '1' else
-				'0';
+	-- operv <=	'1' when (rvalid1 and rvalid2 and rvalid3) = '1' else
+	-- 			'0';
 	
-	-- operv <=  rvalid1                          when branch_t = '1' else
-	-- 	     (rvalid1 and rvalid2)             when ... else
-	--          (rvalid1 and rvalid2 and rvalid3) when ... else
-	-- 		 '1';
+	operv <= (rvalid1 and rvalid2 and rvalid3) when ((regop_t = '1' or trans_t = '1') and op2i = '0' and if_ir(4) = '1') or
+	                                                (                   mult_t = '1'  and if_ir(21) = '1'              ) else
+		     (rvalid2 and rvalid3)             when (mult_t = '1' and if_ir(21) = '0')                                   else
+			 (reg_pcv)                         when (branch_t = '1')                                                     else
+			 '1'                               when (mov_i = '1' and op2i = '1') or (exe_dest = radr1) or 
+			                                        (exe_dest = radr2) or (mem_dest = radr1) or (mem_dest = radr2)       else
+			  rvalid2                          when (mov_i = '1' and op2i = '0')                                         else
+			 (rvalid1 and rvalid2);
+	         
 	
 -- Decode to mem interface 
 	ld_dest   <= if_ir(15 downto 12);  
@@ -681,6 +686,7 @@ begin
 				"00"; --operation arithmétique
 
 -- Mtrans reg list
+	mtrans_mask <= (others => '0');
 
 	process (ck)
 	begin
@@ -772,7 +778,7 @@ begin
 
 		when RUN => next_state <= RUN;
 				    --//T1 Au cas où\\--
-					if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0') then
+					if (if2dec_empty = '1' or dec2exe_full = '1' or condv = '0' or operv = '0') then
 						dec2exe_push <= '1'; --On push pas les valeur vers EXE valeur vide dénué de sens
 						if2dec_pop   <= '0'; --Elle est vide XD
 						if(dec2if_full = '0') then

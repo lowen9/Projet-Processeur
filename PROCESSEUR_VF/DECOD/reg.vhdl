@@ -84,6 +84,23 @@ begin
             CSPR     <= (others => '0');
             CSPR_v   <= "11";
         elsif rising_edge(ck) then
+            --écriture dans le banc de registre
+            if(wen1 = '1') then       --On regarde si port 1 d'écriture est enable
+                if(R_v(to_integer(unsigned(wadr1))) = '0') then
+                    R(to_integer(unsigned(wadr1)))   <= wdata1;    
+                    R_v(to_integer(unsigned(wadr1))) <= '1';
+                end if;
+            end if;
+
+            if(wen2 = '1') then --On regarde si port 2 d'écriture est enable
+                if(wen1 = '1' and (unsigned(wadr1) /= unsigned(wadr2))) then
+                    if(R_v(to_integer(unsigned(wadr2))) = '0') then
+                        R(to_integer(unsigned(wadr2)))   <= wdata2;
+                        R_v(to_integer(unsigned(wadr2))) <= '1';
+                    end if;
+                end if;
+            end if;
+
             if(inval1 = '0') then
                 R_v(to_integer(unsigned(inval_adr1))) <= '0';
             end if;
@@ -96,22 +113,7 @@ begin
             if(inval_ovr = '0') then
                 CSPR_v(0) <= '0';
             end if;
-            --écriture dans le banc de registre
-            if(wen1 = '1') then       --On regarde si port 1 d'écriture est enable
-                if(R_v(to_integer(unsigned(wadr1))) = '0') then
-                    R(to_integer(unsigned(wadr1)))   <= wdata1;
-                    R_v(to_integer(unsigned(wadr1))) <= '1';
-                end if;
-            end if;
-
-            if(wen2 = '1') then --On regarde si port 2 d'écriture est enable
-                if(wen1 = '1' and to_integer(unsigned(wadr1)) /= to_integer(unsigned(wadr2))) then
-                    if(R_v(to_integer(unsigned(wadr2))) = '0') then
-                        R(to_integer(unsigned(wadr2)))   <= wdata2;
-                        R_v(to_integer(unsigned(wadr2))) <= '1';
-                    end if;
-                end if;
-            end if;
+            
             --écriture des flags
             if(cspr_wb = '1') then
                 if(CSPR_v(1) = '0') then
