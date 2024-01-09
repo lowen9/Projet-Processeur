@@ -1,7 +1,9 @@
 AS_ARM = arm-linux-gnueabi-as
 LD_ARM = arm-linux-gnueabi-ld
 DP_ARM = arm-linux-gnueabi-objdump
+
 CFLAGS = -march=armv2a -mno-thumb-interwork -Wall -O1
+
 LD_FLAGS = -Bstatic -fix-v4bx
 
 FILE_NAME = mult_add

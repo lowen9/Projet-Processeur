@@ -19,27 +19,12 @@ port( shift_lsl : in Std_Logic;
 end Shifter;
 
 architecture behavior of Shifter is
---signal flag : std_logic_vector(4 downto 0) := shift_lsl & shift_lsr & shift_asr & shift_ror & shift_rrx;
---signal zero, msb_asr : std_logic_vector(31 downto 0) := (others => '0');
---signal cond_lsl, cond_lsr, cond_asr, cond_ror, cond_rrx : boolean;
---signal one : std_logic_vector(31 downto 0) := X"FFFFFFFF";
 signal cout_lsl, cout_alrsr : std_logic;
 signal shift_i : integer;
 begin
 
---   zero <= (others =>  '0');
---   one  <= (others =>  '1');
-
   shift_i <= to_integer(unsigned(shift_val));
   
---   cond_lsl <= (shift_lsl and not(shift_lsr) and not(shift_asr) and not(shift_ror) and not(shift_rrx)) = '1';
---   cond_lsr <= (shift_lsr and not(shift_lsl) and not(shift_asr) and not(shift_ror) and not(shift_rrx)) = '1';
---   cond_asr <= (shift_asr and not(shift_lsl) and not(shift_lsr) and not(shift_ror) and not(shift_rrx)) = '1';
---   cond_ror <= (shift_ror and not(shift_lsl) and not(shift_lsr) and not(shift_asr) and not(shift_rrx)) = '1';
---   cond_rrx <= ((shift_rrx and not(shift_lsl) and not(shift_lsr) and not(shift_asr) and not(shift_ror)) = '1' and shift_val = "00000");
-
---   msb_asr <= zero when din(31) = '0' else one;
-
   dout <= std_logic_vector(shift_left  (unsigned(din), shift_i)) when shift_lsl = '1' else 
           std_logic_vector(shift_right (unsigned(din), shift_i)) when shift_lsr = '1' else
           std_logic_vector(shift_right (  signed(din), shift_i)) when shift_asr = '1' else
@@ -58,6 +43,3 @@ begin
           cin;
 
 end behavior;
-    
-
-
