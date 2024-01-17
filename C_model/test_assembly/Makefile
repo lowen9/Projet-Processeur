@@ -6,7 +6,7 @@ CFLAGS = -march=armv2a -mno-thumb-interwork -Wall -O1
 
 LD_FLAGS = -Bstatic -fix-v4bx
 
-FILE_NAME = mult_add
+FILE_NAME = add
 
 all : ${FILE_NAME}
 

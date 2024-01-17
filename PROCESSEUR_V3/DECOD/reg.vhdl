@@ -78,9 +78,9 @@ begin
     begin
         if reset_n = '0' then
             for i in 0 to 15 loop
-                R(i)   <= (others => '0');
-                R_v(i) <= '1';
+                R(i)   <= (others => '0'); 
             end loop;
+            R_v      <= (others => '1');
             CSPR     <= (others => '0');
             CSPR_v   <= "11";
         elsif rising_edge(ck) then
@@ -108,6 +108,7 @@ begin
             if(inval2 = '0') then
                 R_v(to_integer(unsigned(inval_adr2))) <= '0';
             end if;
+
             if(inval_czn = '0') then
                 CSPR_v(1) <= '0';
             end if;
@@ -128,6 +129,7 @@ begin
                     CSPR_v(0) <= '1';
                 end if;
             end if;
+
         --incrementation de PC--
             if (inc_pc = '1') then
                 if(wadr1 = X"F" and R_v(15) = '0') then
@@ -180,5 +182,6 @@ begin
     --lecture de pc (lecture rapide lors d'une d'écriture sur PC)
     reg_pcv<= '1'    when wadr1 = X"F" and R_v(15) = '0' else R_v(15);
     reg_pc <= wdata1 when wadr1 = X"F" and R_v(15) = '0' else R(15);
+    
 end Behavior;
 

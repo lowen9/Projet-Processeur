@@ -18,7 +18,7 @@ entity EXEC is
 	-- Decode to mem interface 
 			dec_mem_data	: in Std_Logic_Vector(31 downto 0); -- data to MEM W     
 			dec_mem_dest	: in Std_Logic_Vector(3 downto 0); -- Destination MEM R
-			dec_pre_index 	: in Std_logic;                                        --Calcul de l'index (si dec_pre_index = 1) (????????)
+			dec_pre_index 	: in Std_logic;                    --Calcul de l'index (si dec_pre_index = 1) (????????)
 
 			dec_mem_lw		: in Std_Logic;
 			dec_mem_lb		: in Std_Logic;

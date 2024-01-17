@@ -605,7 +605,8 @@ bl_i <= '1' when (branch_t = '1' and if_ir(24) = '1') else '0';
 				
 	radr2 <= if_ir(3 downto 0); --RM
 
-	radr3 <= if_ir(11 downto 8); --RS
+	radr3 <= if_ir(15 downto 12) when (trans_t = '1') else --Rd Str
+		     if_ir(11 downto 8); --RS
 
 -- Reg Invalid
 
