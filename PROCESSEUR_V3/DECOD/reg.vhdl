@@ -142,31 +142,27 @@ begin
         end if;
     end process;
 
-    reg_rd1 <= (others => '0') when reset_n = '0'                  else
-               wdata1          when (wadr1 = radr1) and wen1 = '1' else
+    reg_rd1 <= wdata1          when (wadr1 = radr1) and wen1 = '1' else
                wdata2          when (wadr2 = radr1) and wen2 = '1' else
                R(to_integer(unsigned(radr1)));
-    reg_rd2 <= (others => '0') when reset_n = '0' else 
-               wdata1          when (wadr1 = radr2) and wen1 = '1' else
+
+    reg_rd2 <= wdata1          when (wadr1 = radr2) and wen1 = '1' else
                wdata2          when (wadr2 = radr2) and wen2 = '1' else
                R(to_integer(unsigned(radr2)));
-    reg_rd3 <= (others => '0') when reset_n = '0' else
-               wdata1          when (wadr1 = radr3) and wen1 = '1' else
+
+    reg_rd3 <= wdata1          when (wadr1 = radr3) and wen1 = '1' else
                wdata2          when (wadr2 = radr3) and wen2 = '1' else
                R(to_integer(unsigned(radr3)));
 
     --Registre tous valide au début
-    reg_v1  <= '1' when (reset_n = '0' or 
-                         (wadr1 = radr1 and wen1 = '1') or 
-                         (wadr2 = radr1 and wen2 = '1')) else 
+    reg_v1  <= '1' when (wadr1 = radr1 and wen1 = '1') or 
+                        (wadr2 = radr1 and wen2 = '1') else 
                R_v(to_integer(unsigned(radr1)));
-    reg_v2  <= '1' when (reset_n = '0' or 
-                         (wadr1 = radr2 and wen1 = '1') or 
-                         (wadr2 = radr2 and wen2 = '1')) else 
+    reg_v2  <= '1' when (wadr1 = radr2 and wen1 = '1') or 
+                        (wadr2 = radr2 and wen2 = '1') else 
                R_v(to_integer(unsigned(radr2)));
-    reg_v3  <= '1' when (reset_n = '0' or 
-                         (wadr1 = radr3 and wen1 = '1') or 
-                         (wadr2 = radr3 and wen2 = '1')) else 
+    reg_v3  <= '1' when (wadr1 = radr3 and wen1 = '1') or 
+                        (wadr2 = radr3 and wen2 = '1') else 
                R_v(to_integer(unsigned(radr3)));
 
     --Lecture des flags (lecture rapide lors de l'utlisation des S à la suite)

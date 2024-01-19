@@ -6,7 +6,7 @@ GHDL_OP = -v --workdir=$(WORKDIR)
 
 C_MOD_DIR = ../C_model
 
-SIM_FILE = add
+SIM_FILE = pipeline
 
 all : main_tb run
 
@@ -62,10 +62,10 @@ main_tb : main_tb.o ram.o icache.o dcache.o arm_core.o ${C_MOD_DIR}/lib/arm_ghdl
 	${GHDL} -e ${GHDL_OP} -Wl,${C_MOD_DIR}/lib/mem.o -Wl,${C_MOD_DIR}/lib/arm_ghdl.o -Wl,${C_MOD_DIR}/ReadElf/lib/ElfObj.o main_tb
 
 run :
-	./main_tb ../C_model/test_assembly/${SIM_FILE} --vcd=test.vcd
+	./main_tb ../C_model/test_assembly/${SIM_FILE} --vcd=${SIM_FILE}.vcd
 
 view :
-	gtkwave test.vcd
+	gtkwave ${SIM_FILE}.vcd
 
 clean :
 	rm *.o main_tb ${WORKDIR}/work-obj93.cf *.vcd

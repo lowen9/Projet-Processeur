@@ -12,13 +12,10 @@ _start:
 	    b	_bad   //PC = 4
 
 startup :
-    mov r0, #1       //PC = 8        
-	mov r1, #10      //PC = 12
-	add r2, r1, r0   //PC = 16
-	sub r3, r0, r1   //PC = 20
-	eor r4, r0, r1   //PC = 24
-	sbc r5, r1, r0   //PC = 28
-	b _good   //PC = 32
+    mov  r0, #1       //PC = 8        
+	mov  r1, #1       //PC = 12
+	adds r2, r1, r0   //PC = 16
+	bne  _good        //PC = 20
 
 _bad :						
 	nop						 //PC = 36

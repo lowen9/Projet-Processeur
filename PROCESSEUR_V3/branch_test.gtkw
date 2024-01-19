@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Dec 31 15:47:30 2023
+[*] Thu Jan 18 23:28:25 2024
 [*]
-[dumpfile] "/home/lowen/VLSI/Projet/PROCESSEUR_VF/test.vcd"
-[dumpfile_mtime] "Sun Dec 31 15:46:28 2023"
-[dumpfile_size] 42652
-[savefile] "/home/lowen/VLSI/Projet/PROCESSEUR_VF/branch_test.gtkw"
+[dumpfile] "/home/lowen/VLSI/Projet/PROCESSEUR_V3/branch_test2.vcd"
+[dumpfile_mtime] "Thu Jan 18 23:22:09 2024"
+[dumpfile_size] 45240
+[savefile] "/home/lowen/VLSI/Projet/PROCESSEUR_V3/branch_test.gtkw"
 [timestart] 0
 [size] 1908 994
 [pos] -1 -1
-*-21.855303 5670000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.958754 610000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] main_tb.
 [treeopen] main_tb.arm_core_i.
 [treeopen] main_tb.arm_core_i.decod_i.
@@ -19,15 +19,17 @@
 [signals_width] 166
 [sst_expanded] 1
 [sst_vpaned_height] 611
-@24
+@25
+[color] 2
 main_tb.arm_core_i.ifetch_i.ck
+@24
 main_tb.reset_n
 @28
 main_tb.arm_core_i.decod_i.operv
 main_tb.arm_core_i.decod_i.reg_inst.r_v[15:0]
 @22
 main_tb.arm_core_i.decod_i.reg_inst.radr1[3:0]
-@29
+@28
 main_tb.arm_core_i.decod_i.reg_inst.reg_v1
 @22
 main_tb.arm_core_i.decod_i.reg_inst.radr2[3:0]

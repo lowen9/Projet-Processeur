@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Jan 15 23:26:56 2024
+[*] Thu Jan 18 23:34:29 2024
 [*]
-[dumpfile] "/home/lowen/VLSI/Projet/PROCESSEUR_V3/test.vcd"
-[dumpfile_mtime] "Mon Jan 15 22:15:13 2024"
-[dumpfile_size] 54149
+[dumpfile] "/home/lowen/VLSI/Projet/PROCESSEUR_V3/branch_test2.vcd"
+[dumpfile_mtime] "Thu Jan 18 23:29:47 2024"
+[dumpfile_size] 39780
 [savefile] "/home/lowen/VLSI/Projet/PROCESSEUR_V3/pipeline.gtkw"
 [timestart] 0
 [size] 1908 994
-[pos] -87 -19
-*-21.377716 700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 1396 -68
+*-21.756227 5630000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] main_tb.
 [treeopen] main_tb.arm_core_i.
 [treeopen] main_tb.arm_core_i.decod_i.
@@ -18,13 +18,13 @@
 [sst_width] 214
 [signals_width] 174
 [sst_expanded] 1
-[sst_vpaned_height] 584
+[sst_vpaned_height] 611
 @24
 [color] 1
 main_tb.reset_n
 main_tb.arm_core_i.ifetch_i.ck
-@200
--DEC_PC
+@201
+-REG_DECOD
 @22
 main_tb.arm_core_i.decod_i.reg_pc[31:0]
 @28
@@ -32,9 +32,8 @@ main_tb.arm_core_i.decod_i.reg_pc[31:0]
 main_tb.arm_core_i.decod_i.dec2if_push
 @200
 -FETCH
-@23
-main_tb.arm_core_i.ifetch_i.if_adr[31:0]
 @22
+main_tb.arm_core_i.ifetch_i.if_adr[31:0]
 main_tb.arm_core_i.ifetch_i.ic_inst[31:0]
 @28
 [color] 3
@@ -230,5 +229,7 @@ main_tb.arm_core_i.exec_i.exe_push
 main_tb.arm_core_i.exec_i.exec2mem.dout[71:0]
 @28
 main_tb.arm_core_i.decod_i.mem_wb
+@22
+main_tb.arm_core_i.mem_i.mem_res[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

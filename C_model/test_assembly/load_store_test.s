@@ -14,7 +14,7 @@ _start:
 startup :
     ldr  r0, data0
     ldr  r1, data1
-	add  r2, r0, r0   
+	add  r2, r0, r1   
     sub  r3, r1, r1
     str  r2, data2
     str  r3, data3
