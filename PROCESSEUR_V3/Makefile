@@ -6,7 +6,7 @@ GHDL_OP = -v --workdir=$(WORKDIR)
 
 C_MOD_DIR = ../C_model
 
-SIM_FILE = pipeline
+SIM_FILE = load_store_test
 
 all : main_tb run
 
